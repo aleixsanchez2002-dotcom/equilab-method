@@ -54,6 +54,8 @@ para correcciones y textos.
   `crear-repo-github.cmd`.
 - `.gitattributes` y `.editorconfig` para que Windows y macOS usen los
   mismos finales de línea.
+- Propuesta del área de cliente, mejoras de la web y plan por fases
+  (`docs/propuestas/area-cliente.md`), pendiente de aprobación.
 
 ### Cambiado
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,

@@ -3,6 +3,10 @@
 Estado a 2026-10-18. Cada fase se cierra cuando su criterio de terminado se
 cumple en producción. Las decisiones que surjan van a `DECISIONS.md`.
 
+> Propuesta detallada del área de cliente, mejoras de la web y orden de
+> trabajo: [`propuestas/area-cliente.md`](propuestas/area-cliente.md)
+> (pendiente de aprobación).
+
 | Fase | Contenido | Estado | Decisiones |
 | --- | --- | --- | --- |
 | 0 · Prototipo | Web, acceso, área cliente, panel, motor v1, esquema | Hecho (v0.1.0) | ADR-0001, 0005 a 0007 |
