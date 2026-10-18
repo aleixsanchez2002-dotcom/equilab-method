@@ -95,6 +95,10 @@ obligatorio a partir de ahora.
 | [0010](#adr-0010--animación-de-equilab-subida-de-la-palabra-entera) | Animación de «Equilab»: subida de la palabra entera | Aceptada | diseño |
 | [0011](#adr-0011--precios-75-y-150--al-mes-sin-permanencia) | Precios: 75 y 150 € al mes, sin permanencia | Aceptada | producto |
 | [0012](#adr-0012--pagos-con-stripe-checkout-y-portal-de-cliente) | Pagos con Stripe Checkout y portal de cliente | Propuesta | arquitectura |
+| [0013](#adr-0013--corrección-de-técnica-vídeo-de-respuesta-48-h-y-borrado-a-los-6-meses) | Corrección de técnica: vídeo de respuesta, 48 h y borrado a los 6 meses | Aceptada | producto |
+| [0014](#adr-0014--mensajería-dentro-de-la-web-con-avisos-al-equipo-en-slack) | Mensajería dentro de la web, con avisos al equipo en Slack | Aceptada | producto |
+| [0015](#adr-0015--agenda-propia-para-la-valoración-11) | Agenda propia para la valoración 1:1 | Aceptada | producto |
+| [0016](#adr-0016--el-plan-básico-ve-la-sección-técnica-en-modo-informativo) | El plan Básico ve la sección Técnica en modo informativo | Aceptada | producto |
 
 ---
 
@@ -350,6 +354,87 @@ código y más superficie de cumplimiento normativo.
 **Consecuencias si se acepta.** Aceptar la ADR desbloquea la fase de pagos
 del `ROADMAP.md`.
 
+### ADR-0013 · Corrección de técnica: vídeo de respuesta, 48 h y borrado a los 6 meses
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** producto
+
+**Contexto.** ADR-0004 fija que la corrección por vídeo es exclusiva de
+Premium, pero no cómo se responde ni cuánto se guarda.
+
+**Decisión.** El equipo responde con un **vídeo de hasta 2 minutos** en el
+que enseña la técnica, explica qué corregir y da trucos o consejos; puede
+añadir comentarios en momentos concretos del vídeo del jinete. Plazo de
+respuesta: **48 h laborables**. Los vídeos (del jinete y del equipo) se
+**borran a los 6 meses**. El cupo mensual queda **sin decidir**: el sistema
+lo hace configurable por plan y, mientras no se fije, no hay límite.
+
+**Consecuencias.** Los vídeos de respuesta también se alojan en Bunny
+(ADR-0003). Hace falta una tarea programada de borrado y un aviso al
+equipo antes de que venza el plazo (ADR-0014). Detalle en
+`docs/propuestas/area-cliente.md`.
+
+### ADR-0014 · Mensajería dentro de la web, con avisos al equipo en Slack
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** producto
+
+**Contexto.** Premium promete contacto directo y hoy solo hay un enlace a
+Instagram. El equipo trabaja en Slack (espacio First K).
+
+**Decisión.** Mensajería **dentro de la web** entre el jinete y el equipo.
+Los avisos para el equipo (mensaje nuevo, vídeo recibido, plazo a punto de
+vencer, videollamada reservada, revisión mensual) se publican en un canal
+nuevo **`#04-clientes`** mediante un *webhook* de Slack. Premium escribe
+sobre su entrenamiento (respuesta en 24 h laborables); Básico, solo sobre
+cuenta, plan o soporte (48 h), porque su plan no incluye contacto con el
+equipo.
+
+**Alternativas descartadas.**
+- WhatsApp o email del equipo: más rápido de montar, pero dispersa las
+  conversaciones y saca los datos de la web.
+
+**Consecuencias.** **En Slack no se copian datos de salud:** el aviso dice
+qué ha pasado y enlaza al panel (detalle propuesto por Claude, coherente
+con ADR-0002). La URL del webhook es un secreto (`SLACK_WEBHOOK_URL`, solo
+en el servidor). Si Slack falla, el aviso queda registrado en la web.
+
+### ADR-0015 · Agenda propia para la valoración 1:1
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** producto
+
+**Decisión.** La valoración 1:1 de Premium se reserva **en la propia web**:
+el equipo marca sus huecos en `/admin/agenda` y el jinete elige uno. Las
+reservas, los cambios y las cancelaciones se avisan en Slack
+(`#04-clientes`, ADR-0014).
+
+**Alternativas descartadas.** Enlace a una agenda externa (Calendly o
+Cal.com): más rápido de montar, pero saca al jinete de la web.
+
+**Consecuencias.** Hace falta decidir la herramienta de videollamada
+(cuestión abierta).
+
+### ADR-0016 · El plan Básico ve la sección Técnica en modo informativo
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Claude, por delegación de Aleix
+- **Ámbito:** producto
+
+**Decisión.** La pestaña Técnica aparece también en el Básico, con una
+explicación breve de cómo funciona y un botón para pasar a Premium. Sin
+avisos repetidos ni ventanas emergentes.
+
+**Consecuencias.** El Básico no puede enviar vídeos: lo impiden el
+servidor y la RLS, no solo la interfaz (ADR-0004).
+
 ---
 
 ## 3. Cuestiones abiertas
@@ -363,6 +448,10 @@ lista.
 | Redacción de la rutina Básica | La tabla de planes dice «Semi-personalizada y revisada por el equipo» y el paso 2 dice «Personalizada y revisada por el equipo». Unificar. | Aleix |
 | Cuenta de Instagram | ¿La startup tendrá cuenta propia o se usa @giovannidressage? | Giovanni |
 | Hosting de producción | Candidato: Vercel con región UE. Requiere ADR. | Aleix |
+| Cupo de vídeos de técnica | ¿Cuántos vídeos al mes en Premium? Configurable; de momento sin límite (ADR-0013). | Equipo |
+| Vídeo del jinete | Duración máxima del vídeo que sube el jinete (propuesta: 2 min). | Aleix |
+| Videollamada | Google Meet (si hay Google Workspace) o Jitsi (ADR-0015). | Aleix |
+| Proveedor de email | Candidato: Resend (UE). | Aleix |
 | Pruebas automáticas | Empezar por tests unitarios de `motor-rutinas.ts` (es una función pura). Herramienta por decidir. | Aleix |
 | Páginas legales | Aviso legal, privacidad, cookies y condiciones de contratación. | Equipo y abogado |
 | Vídeo de portada | Falta el clip original de Giovanni (`public/media/portada.mp4`). | Giovanni |

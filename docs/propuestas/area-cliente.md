@@ -1,7 +1,8 @@
 # Propuesta · Área de cliente y siguientes mejoras
 
-- **Estado:** Propuesta, pendiente de aprobación de Aleix
-- **Fecha:** 2026-10-18
+- **Estado:** Propuesta, pendiente de aprobación de Aleix. Decisiones de
+  producto tomadas el 2026-10-19 (sección 5 y ADR-0013 a ADR-0016).
+- **Fecha:** 2026-10-18 · actualizada 2026-10-19
 - **Relacionado:** ADR-0003 (Bunny Stream), ADR-0004 (vídeo solo en Premium),
   ADR-0005 (revisión humana), ADR-0011 (precios), ADR-0012 (Stripe),
   [`ROADMAP.md`](../ROADMAP.md)
@@ -66,6 +67,9 @@ escritorio.
 | **Progreso** | `/app/progreso` | Cargas, peso, constancia y revisiones mensuales |
 | **Cuenta** | `/app/cuenta` | Perfil, plan, contacto y privacidad |
 
+Además, un icono de **Mensajes** en la barra superior, con aviso de no
+leídos, lleva a `/app/mensajes` (sección 2.2).
+
 ### 2.2 Pantallas
 
 **Hoy**
@@ -93,14 +97,20 @@ escritorio.
 
 **Técnica** (Premium)
 - Botón «Enviar un vídeo»: eliges el ejercicio de tu rutina, grabas o
-  subes el vídeo (máx. 60 s), añades una nota opcional («me cuesta
+  subes el vídeo (máx. 2 min), añades una nota opcional («me cuesta
   mantener la rodilla») y envías.
 - Subida con barra de progreso que se reanuda si se corta la conexión.
 - Lista de envíos con estado: **Enviado → En revisión → Corregido**.
-- Corrección: comentario del entrenador, **comentarios en momentos
-  concretos del vídeo** (por ejemplo, «0:12 la cadera se adelanta») y, si
-  hace falta, un ejercicio correctivo añadido a la rutina.
-- Contador: «Te quedan 3 vídeos este mes».
+- Corrección: **vídeo de respuesta del entrenador de hasta 2 minutos**,
+  en el que enseña la técnica, explica qué corregir y da algún truco o
+  consejo. Puede ir acompañado de comentarios en momentos concretos del
+  vídeo del jinete (por ejemplo, «0:12 la cadera se adelanta») y, si hace
+  falta, de un ejercicio correctivo añadido a la rutina.
+- Plazo de respuesta visible: **48 h laborables**.
+- Los vídeos (del jinete y del entrenador) se borran a los **6 meses**.
+- Cupo mensual: **por decidir**. El sistema lo deja configurable por plan;
+  mientras no se fije, no hay límite y el equipo ve cuántos envía cada
+  jinete.
 - **En el plan Básico:** la pestaña aparece con una explicación breve y
   sobria de cómo funciona y un botón «Pasar a Premium». Sin presión ni
   avisos repetidos.
@@ -113,10 +123,25 @@ escritorio.
   (peso, perímetro de cintura, bienestar, molestias y fotos opcionales). El
   equipo responde con notas y aparece aquí (tabla `checkins`, ya creada).
 
+**Mensajes** (`/app/mensajes`)
+- Conversación con el equipo dentro de la web, con texto y, si hace
+  falta, una foto.
+- **Premium:** mensajes sobre su entrenamiento, con respuesta en menos de
+  24 h laborables.
+- **Básico:** el plan no incluye contacto con el equipo sobre el
+  entrenamiento, así que solo puede escribir sobre su cuenta, su plan o
+  problemas técnicos (respuesta en 48 h laborables).
+- Cada mensaje nuevo avisa al equipo en Slack (sección 2.7).
+
+**Agenda** (Premium, dentro de Cuenta o de Hoy)
+- El jinete reserva su **valoración 1:1** eligiendo un hueco libre de la
+  agenda del equipo, sin salir de la web.
+- Recibe la confirmación con la fecha y el enlace de la videollamada; el
+  equipo, un aviso en Slack.
+- Puede cambiarla o cancelarla hasta 24 h antes.
+
 **Cuenta**
-- Perfil, idioma, plan y suscripción (con Stripe cuando esté), contacto.
-- Premium: contacto directo con el equipo y enlace para reservar la
-  valoración 1:1 (ver decisiones).
+- Perfil, idioma, plan y suscripción (con Stripe cuando esté).
 - **Privacidad:** descargar mis datos y solicitar borrado de cuenta
   (derechos del RGPD).
 
@@ -129,8 +154,8 @@ escritorio.
 | Progreso: cargas, peso, constancia | ✓ | ✓ |
 | Técnica: enviar vídeos y recibir correcciones | Vista informativa | ✓ (límite mensual) |
 | Revisión mensual con notas del equipo | — | ✓ |
-| Valoración 1:1 | — | ✓ (al empezar) |
-| Contacto directo | Formulario (48 h) | Directo (24 h) |
+| Valoración 1:1, reservada en la web | — | ✓ (al empezar) |
+| Mensajes con el equipo | Solo cuenta y soporte (48 h) | Sobre su entrenamiento (24 h) |
 
 Las capacidades de cada plan se definirán **en un solo sitio**
 (`src/lib/planes.ts`) y también en la base de datos (RLS). Ocultar un
@@ -142,12 +167,16 @@ botón no basta (ADR-0004).
   nuevo, con reproductor, comentarios por segundo, comentario general y
   «Enviar corrección».
 - **`/admin/revisiones`:** revisiones mensuales pendientes de responder.
-- En la ficha del cliente: pestañas de técnica y revisiones.
+- **`/admin/mensajes`:** bandeja de conversaciones, con las no leídas
+  primero.
+- **`/admin/agenda`:** el equipo marca sus huecos disponibles y ve las
+  videollamadas reservadas.
+- En la ficha del cliente: pestañas de técnica, revisiones y mensajes.
 
 ### 2.5 Cómo funcionaría el vídeo por dentro
 
-1. El cliente pulsa «Enviar». El servidor comprueba que es Premium con
-   cupo disponible, crea el vídeo en **Bunny Stream** y devuelve una firma
+1. El cliente pulsa «Enviar». El servidor comprueba que es Premium (y el
+   cupo, si se fija), crea el vídeo en **Bunny Stream** y devuelve una firma
    temporal de subida. La clave de Bunny nunca llega al navegador.
 2. El navegador sube el archivo directamente a Bunny con TUS (subida
    reanudable), sin pasar por nuestro servidor.
@@ -161,17 +190,41 @@ botón no basta (ADR-0004).
    - tabla `technique_comments` (vídeo, segundo, texto, autor);
    - RLS: el cliente ve los suyos y el equipo ve todos. Solo se puede
      insertar con Premium vigente (función SQL `tiene_premium(uid)`).
-6. **Consentimiento específico** al enviar el primer vídeo (imagen y datos
-   de salud) y **borrado automático** pasado un plazo.
+6. El vídeo de respuesta del entrenador se sube igual, desde
+   `/admin/tecnica`.
+7. **Consentimiento específico** al enviar el primer vídeo (imagen y datos
+   de salud) y **borrado automático a los 6 meses**, en Bunny y en la base
+   de datos, con una tarea programada diaria.
 
 Los detalles de la API de Bunny (firma TUS, token de reproducción y
 webhook) se confirmarán con su documentación al implementar.
 
-### 2.6 Avisos por email
+### 2.6 Avisos al jinete (email)
 
-Rutina publicada, corrección lista, revisión mensual disponible y
-recordatorio de peso (opcional). Requiere elegir proveedor de email (ADR
-nueva; candidato: Resend, con servidor en la UE, o el SMTP de Supabase).
+Rutina publicada, corrección lista, mensaje nuevo del equipo, revisión
+mensual disponible, recordatorio de la videollamada y recordatorio de peso
+(opcional). Requiere elegir proveedor de email (ADR nueva; candidato:
+Resend, con servidor en la UE, o el SMTP de Supabase).
+
+### 2.7 Avisos al equipo (Slack)
+
+Un canal nuevo, **`#04-clientes`**, en el Slack del equipo (First K),
+siguiendo la numeración de los canales actuales. La web publica ahí:
+
+| Aviso | Ejemplo |
+| --- | --- |
+| Mensaje nuevo de un jinete | «Nuevo mensaje de Laura M. (Premium) · Abrir conversación» |
+| Vídeo de técnica recibido | «Vídeo nuevo: Hip thrust · Laura M. · responder antes del jueves 12:00» |
+| Plazo a punto de vencer | «Quedan 12 h para responder el vídeo de Laura M.» |
+| Videollamada reservada, cambiada o cancelada | «Valoración 1:1 con Laura M. · martes 21, 18:00 · enlace» |
+| Revisión mensual recibida | «Revisión de octubre de Laura M. lista para revisar» |
+
+- **Sin datos de salud en Slack:** el aviso dice qué ha pasado y enlaza al
+  panel, pero no copia el contenido del mensaje, del vídeo ni de la
+  revisión. El contenido se lee en la web (ADR-0002).
+- Técnicamente, un *webhook* de Slack (una URL secreta que solo vive en el
+  servidor) envía los avisos al canal. Si Slack falla, el aviso no se
+  pierde: queda registrado en la web.
 
 ---
 
@@ -215,26 +268,35 @@ apruebas. No se empieza la siguiente sin tu visto bueno.
 | **3 · Modo entreno y Hoy** | Sesión paso a paso, temporizador, registro móvil y pantalla Hoy | Aprobar el PR | Media |
 | **4 · Capacidades por plan** | `planes.ts`, función SQL `tiene_premium`, vista informativa de Técnica en Básico y contacto por plan | Decisiones 2 y 3 | Pequeña |
 | **5 · Revisión mensual** | Formulario mensual del cliente, cola en `/admin/revisiones` y vista en Progreso. Migración nueva y bucket privado de fotos. | Aprobar el PR | Media |
-| **6 · Corrección por vídeo** | Cuenta de Bunny, migración, subida TUS, webhook, reproducción firmada, cola en `/admin/tecnica` y comentarios por segundo | Decisión 1, cuenta de Bunny y claves (las pones tú en el hosting) | Grande |
-| **7 · Avisos por email** | Proveedor, plantillas y envíos | Elegir proveedor | Pequeña |
-| **8 · Pagos** | Stripe Checkout, portal de cliente y webhooks (ADR-0012) | Cuenta de Stripe | Grande |
+| **6 · Corrección por vídeo** | Cuenta de Bunny, migración, subida TUS, webhook, reproducción firmada, vídeo de respuesta del entrenador, cola en `/admin/tecnica`, borrado a los 6 meses | Cuenta de Bunny y claves (las pones tú en el hosting) | Grande |
+| **7 · Mensajes y avisos** | Mensajería en la web, bandeja `/admin/mensajes`, canal `#04-clientes` con *webhook* de Slack y emails al jinete | Crear el canal y el webhook en Slack (te guío) y elegir proveedor de email | Media |
+| **8 · Agenda 1:1** | Huecos del equipo en `/admin/agenda`, reserva del jinete, enlace de videollamada y avisos | Decidir la herramienta de videollamada | Media |
+| **9 · Pagos** | Stripe Checkout, portal de cliente y webhooks (ADR-0012) | Cuenta de Stripe | Grande |
 | **Lanzamiento** | Páginas legales, hosting y Supabase de producción | Abogado y dominio | — |
 
-Las fases 0 y 1 pueden empezar ya. Los pagos (8) pueden adelantarse si
+Las fases 0 y 1 pueden empezar ya. Los pagos (9) pueden adelantarse si
 queréis cobrar antes de tener la corrección por vídeo: no dependen entre
 sí, porque el plan ya se lee de `subscriptions`.
 
 ---
 
-## 5. Decisiones que necesito
+## 5. Decisiones
+
+### Tomadas el 2026-10-19
+
+| Tema | Decisión | ADR |
+| --- | --- | --- |
+| Vídeos de técnica | Corrección con vídeo del entrenador de hasta 2 min (técnica, qué corregir y consejos); respuesta en 48 h laborables; borrado a los 6 meses | ADR-0013 |
+| Contacto | Mensajería dentro de la web, con aviso al equipo en Slack (canal nuevo `#04-clientes`) | ADR-0014 |
+| Valoración 1:1 | Reserva en la propia web; las videollamadas y todo lo que afecta al equipo se avisa en Slack | ADR-0015 |
+| Técnica en el Básico | Pestaña visible e informativa, con opción de pasar a Premium, sin insistir | ADR-0016 |
+
+### Pendientes
 
 | # | Decisión | Mi propuesta |
 | --- | --- | --- |
-| 1 | Vídeos de técnica en Premium: cuántos al mes, duración máxima, plazo de respuesta y cuánto tiempo se guardan | 4 al mes, 60 s cada uno, respuesta en 72 h laborables, borrado a los 6 meses |
-| 2 | Contacto directo en Premium | Al principio, un botón de WhatsApp o email del equipo; mensajería dentro de la app más adelante si hace falta |
-| 3 | Valoración 1:1 | Enlace a una agenda externa (Cal.com o Calendly) |
-| 4 | ¿El Básico ve la pestaña Técnica (informativa, con opción de pasar a Premium)? | Sí, sobria y sin insistir |
-| 5 | Proveedor de email | Resend (UE) |
-| 6 | Analítica de la web | Sin cookies (Plausible o Vercel Analytics) |
-
-Cuando decidas, cada respuesta se convierte en una ADR en `DECISIONS.md`.
+| 1 | Cupo de vídeos de técnica al mes en Premium | Empezar sin límite y fijarlo cuando haya datos de uso (es configurable) |
+| 2 | Duración máxima del vídeo que sube el jinete | 2 minutos, igual que la respuesta |
+| 3 | Herramienta de videollamada | Google Meet si tenéis Google Workspace; si no, un enlace de Jitsi generado solo, sin cuentas |
+| 4 | Proveedor de email | Resend (UE) |
+| 5 | Analítica de la web | Sin cookies (Plausible o Vercel Analytics) |
