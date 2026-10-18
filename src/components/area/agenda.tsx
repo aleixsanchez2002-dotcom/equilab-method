@@ -38,7 +38,7 @@ export async function PantallaAgenda({ dias, diaElegido, horaElegida, duracion, 
                 <span className="text-[13px] font-semibold">{d.semana}</span>
                 <span className="font-display text-[1.75rem] leading-none">{d.numero}</span>
                 <span className={cn("text-[12px]", elegido ? "text-navy-soft" : "text-slate")}>
-                  {libres > 0 ? t("{0} libres", { "0": libres }) : t("completo")}
+                  {libres === 0 ? t("completo") : libres === 1 ? t("1 libre") : t("{0} libres", { "0": libres })}
                 </span>
               </Link>);
         })}
