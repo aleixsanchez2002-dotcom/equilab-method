@@ -66,6 +66,12 @@ para correcciones y textos.
 ### Eliminado
 - `VERSION.txt`: la versión se registra ahora en este archivo.
 
+### Corregido
+- `Reveal` ya no llama a `setState` directamente dentro del efecto: el
+  lint (`react-hooks/set-state-in-effect`) fallaba en la CI.
+- `crear-repo-github.cmd`: la ventana ya no se cierra sola si falta Git o
+  GitHub CLI.
+
 ## [0.2.0] - 2026-10-18
 
 Rediseño visual completo de la web pública sobre el código del prototipo,
