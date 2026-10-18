@@ -141,10 +141,10 @@ export const PROGRESO: ProgresoVista = {
         { semana: "S8", hechas: 1, previstas: 3 },
     ],
     cargas: [
-        { ejercicio: "Hip thrust", valores: [30, 32.5, 35, 35, 37.5, 40] },
-        { ejercicio: "Peso muerto rumano", valores: [25, 27.5, 27.5, 30, 32.5, 35] },
+        { ejercicio: "Hip thrust", valores: [30, 32.5, 35, 35, 37.5, 40], fechas: ["1 sep", "8 sep", "15 sep", "29 sep", "6 oct", "13 oct"] },
+        { ejercicio: "Peso muerto rumano", valores: [25, 27.5, 27.5, 30, 32.5, 35], fechas: ["1 sep", "8 sep", "15 sep", "29 sep", "6 oct", "13 oct"] },
     ],
-    peso: [61.2, 61, 60.8, 61.1, 60.6, 60.5, 60.4],
+    peso: { valores: [61.2, 61, 60.8, 61.1, 60.6, 60.5, 60.4], fechas: ["1 sep", "8 sep", "15 sep", "22 sep", "29 sep", "6 oct", "13 oct"] },
     revisiones: [
         { mes: "octubre", estado: "abierta", nota: null },
         { mes: "septiembre", estado: "respondida", nota: "Muy buen mes de constancia. Notamos menos molestias lumbares: seguimos con el bloque y subimos cargas en la cadera." },

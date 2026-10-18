@@ -102,9 +102,15 @@ export type RevisionMensual = {
     nota: string | null;
 };
 
+/** Valores de una serie en el tiempo, con una fecha corta por valor. */
+export type SerieTemporal = {
+    valores: number[];
+    fechas: string[];
+};
+
 export type ProgresoVista = {
     constancia: { semana: string; hechas: number; previstas: number }[];
-    cargas: { ejercicio: string; valores: number[] }[];
-    peso: number[];
+    cargas: ({ ejercicio: string } & SerieTemporal)[];
+    peso: SerieTemporal;
     revisiones: RevisionMensual[];
 };

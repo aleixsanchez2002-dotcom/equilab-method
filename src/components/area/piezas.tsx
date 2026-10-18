@@ -83,26 +83,3 @@ export function Cuadros({ hechas, total, tono = "noche", className, etiqueta, }:
                 : tono === "noche" ? "bg-linen-deep" : "bg-paper/25")}/>))}
     </div>);
 }
-
-/** Gráfica mínima de una serie de valores: línea y puntos. El valor actual
-    se escribe fuera, en grande, para que nunca tape la línea. */
-export function MiniGrafica({ valores, etiqueta, className, }: {
-    valores: number[];
-    etiqueta: string;
-    className?: string;
-}) {
-    const ancho = 300;
-    const alto = 80;
-    const min = Math.min(...valores);
-    const max = Math.max(...valores);
-    const rango = max - min || 1;
-    const puntos = valores.map((v, i) => {
-        const x = valores.length === 1 ? ancho / 2 : (i / (valores.length - 1)) * (ancho - 8) + 4;
-        const y = alto - 4 - ((v - min) / rango) * (alto - 8);
-        return [x, y] as const;
-    });
-    return (<svg viewBox={`0 0 ${ancho} ${alto}`} role="img" aria-label={etiqueta} className={cn("h-auto w-full overflow-visible", className)}>
-      <polyline points={puntos.map(([x, y]) => `${x},${y}`).join(" ")} fill="none" stroke="currentColor" strokeWidth="2"/>
-      {puntos.map(([x, y], i) => (<rect key={i} x={x - 3} y={y - 3} width="6" height="6" fill="currentColor"/>))}
-    </svg>);
-}

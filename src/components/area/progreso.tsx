@@ -2,7 +2,8 @@ import { getI18n } from "@/lib/i18n/server";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { IconoFlecha } from "./iconos";
-import { Boton, Loseta, MiniGrafica, Rotulo } from "./piezas";
+import { GraficaConstancia, GraficaTendencia } from "./graficas";
+import { Boton, Loseta, Rotulo } from "./piezas";
 import type { Plan, ProgresoVista } from "./tipos";
 
 const foco = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy";
@@ -22,41 +23,38 @@ export async function PantallaProgreso({ progreso, plan, pesoPendiente, hrefRevi
     const kg = (n: number) => `${n.toLocaleString(intlLocale)} kg`;
     const hechas = progreso.constancia.reduce((n, s) => n + s.hechas, 0);
     const previstas = progreso.constancia.reduce((n, s) => n + s.previstas, 0);
-    const maxPrevistas = Math.max(...progreso.constancia.map((s) => s.previstas));
     return (<div className="grid gap-2 lg:grid-cols-12">
       <Loseta className="pt-8 sm:pt-10 lg:col-span-12">
         <Rotulo className="text-slate">{t("Progreso")}</Rotulo>
         <h1 className="mt-2 font-display text-step-head">{t("Tu evolución")}</h1>
       </Loseta>
 
-      {/* Constancia: una columna por semana, un cuadro por sesión */}
-      <Loseta tono="noche" className="lg:col-span-5">
-        <Rotulo className="text-navy-soft">{t("Constancia · últimas {0} semanas", { "0": progreso.constancia.length })}</Rotulo>
-        <p className="mt-2 font-display text-step-lead">{t("{0} de {1} sesiones", { "0": hechas, "1": previstas })}</p>
-        <div role="img" aria-label={t("{0} de {1} sesiones en las últimas semanas", { "0": hechas, "1": previstas })} className="mt-6 grid items-end gap-1.5" style={{ gridTemplateColumns: `repeat(${progreso.constancia.length}, minmax(0, 1fr))` }}>
-          {progreso.constancia.map((s) => (<div key={s.semana} className="grid gap-1">
-              {Array.from({ length: maxPrevistas }, (_, i) => maxPrevistas - 1 - i).map((i) => (<span key={i} className={cn("h-5 sm:h-6", i >= s.previstas ? "bg-transparent" : i < s.hechas ? "bg-paper" : "bg-paper/20")}/>))}
-              <span className="mt-1 text-center text-[12px] font-semibold text-navy-soft">{s.semana}</span>
-            </div>))}
-        </div>
+      {/* Constancia: una columna por semana (previsto de fondo, hecho en marino) */}
+      <Loseta className="lg:col-span-5">
+        <Rotulo className="text-slate">{t("Constancia · últimas {0} semanas", { "0": progreso.constancia.length })}</Rotulo>
+        <p className="mt-2 flex items-baseline gap-2">
+          <span className="font-display text-step-head">{hechas}</span>
+          <span className="text-[16px] text-slate">{t("de {0} sesiones hechas", { "0": previstas })}</span>
+        </p>
+        <GraficaConstancia semanas={progreso.constancia} etiqueta={t("{0} de {1} sesiones en las últimas semanas", { "0": hechas, "1": previstas })} describir={(s) => t("{0}: {1} de {2} sesiones", { "0": s.semana, "1": s.hechas, "2": s.previstas })} className="mt-6"/>
       </Loseta>
 
       <section aria-labelledby="cargas" className="grid gap-2 sm:grid-cols-2 lg:col-span-7">
         <h2 id="cargas" className="sr-only">{t("Tus cargas")}</h2>
         {progreso.cargas.map((c) => (<Loseta key={c.ejercicio}>
             <Rotulo className="text-slate">{t(c.ejercicio)}</Rotulo>
-            <p className="mt-2 font-display text-step-lead tabular-nums">{kg(c.valores[c.valores.length - 1])}</p>
-            <p className="mt-1 text-step-small text-slate">
-              {t("+{0} desde el inicio del bloque", { "0": kg(c.valores[c.valores.length - 1] - c.valores[0]) })}
+            <p className="mt-2 flex items-baseline gap-2">
+              <span className="font-display text-step-lead">{kg(c.valores[c.valores.length - 1])}</span>
+              <span className="text-step-small text-slate">{t("+{0} desde el inicio del bloque", { "0": kg(c.valores[c.valores.length - 1] - c.valores[0]) })}</span>
             </p>
-            <MiniGrafica valores={c.valores} etiqueta={t("Evolución de la carga en {0}", { "0": t(c.ejercicio) })} className="mt-6 text-night"/>
+            <GraficaTendencia valores={c.valores} fechas={c.fechas} formato={kg} etiqueta={t("Evolución de la carga en {0}", { "0": t(c.ejercicio) })} className="mt-6"/>
           </Loseta>))}
       </section>
 
       <Loseta className="lg:col-span-5">
         <Rotulo className="text-slate">{t("Peso corporal · cada lunes")}</Rotulo>
-        <p className="mt-2 font-display text-step-lead tabular-nums">{kg(progreso.peso[progreso.peso.length - 1])}</p>
-        <MiniGrafica valores={progreso.peso} etiqueta={t("Evolución del peso corporal")} className="mt-6 text-night"/>
+        <p className="mt-2 font-display text-step-lead">{kg(progreso.peso.valores[progreso.peso.valores.length - 1])}</p>
+        <GraficaTendencia valores={progreso.peso.valores} fechas={progreso.peso.fechas} formato={kg} rangoMinimo={2} etiqueta={t("Evolución del peso corporal")} className="mt-6"/>
         {pesoPendiente && (<form className="mt-6 flex gap-2">
             <label className="sr-only" htmlFor="peso">{t("Tu peso de esta semana, en kg")}</label>
             <input id="peso" inputMode="decimal" placeholder={t("Peso de hoy (kg)")} className="h-14 min-w-0 flex-1 bg-paper px-4 text-[17px] font-semibold tabular-nums placeholder:font-normal placeholder:text-slate/70 focus:outline-2 focus:outline-navy"/>
