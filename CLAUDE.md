@@ -46,7 +46,7 @@ npm run start          # servir la compilación
 
 ```
 src/app/            Rutas (App Router). Públicas: /, /en, /acceso. Cliente: /app. Equipo: /admin
-src/components/     marketing/ (portada) · app/ (cliente) · admin/ (equipo) · ui/ · motion/ · i18n/
+src/components/     marketing/ (portada) · app/ (cliente) · area/ (área de cliente nueva) · admin/ (equipo) · ui/ · motion/ · i18n/
 src/lib/            motor-rutinas.ts (función pura) · i18n/ · supabase/ (client, server, config, types)
 src/proxy.ts        Sesión Supabase e idioma por petición (Next 16: sustituye a middleware)
 supabase/migrations Esquema SQL numerado 0001–0009 con RLS

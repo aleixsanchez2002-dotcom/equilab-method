@@ -48,6 +48,12 @@ para correcciones y textos.
   dirección pública se fija con `NEXT_PUBLIC_SITE_URL`.
 - CI: si falla el lint o la compilación, el final del registro aparece
   como anotación en el PR.
+- Maquetas del área de cliente (fase 1 de la propuesta): Hoy, Rutina,
+  modo entreno, Técnica (envío, estado y corrección), Progreso, Mensajes,
+  agenda 1:1 y Cuenta, en Premium y Básico, con datos de ejemplo. Se ven en
+  `/maquetas` **solo con `npm run dev`** (en producción no existe). Los
+  componentes viven en `src/components/area/` y se conectarán a Supabase
+  en la fase 2.
 - Estructura documental del repositorio: `docs/CONTEXT.md`,
   `docs/DECISIONS.md` (principios y ADR), `docs/DESIGN.md`,
   `docs/ROADMAP.md`, `CLAUDE.md` y este `CHANGELOG.md`.

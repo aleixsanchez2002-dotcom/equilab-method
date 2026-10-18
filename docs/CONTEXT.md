@@ -147,6 +147,9 @@ Panel del equipo (rol de equipo) · src/app/admin/
   /admin/rutinas/nueva, /admin/rutinas/[id]   Constructor y revisión de rutinas
 ```
 
+Maquetas del área de cliente nueva (fase 1, datos de ejemplo):
+`/maquetas`, solo en desarrollo; componentes en `src/components/area/`.
+
 `proxy.ts` refresca la sesión de Supabase en cada petición a rutas privadas
 y redirige a `/acceso` si no hay usuario. Sin Supabase configurado, la web
 pública funciona y las rutas privadas muestran un aviso.
