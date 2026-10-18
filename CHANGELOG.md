@@ -56,8 +56,9 @@ para correcciones y textos.
   mismos finales de línea.
 - Propuesta del área de cliente, mejoras de la web y plan por fases
   (`docs/propuestas/area-cliente.md`), pendiente de aprobación.
-- ADR-0013 a ADR-0016: corrección de técnica, mensajería con avisos en
-  Slack, agenda propia y sección Técnica en el plan Básico.
+- ADR-0013 a ADR-0017: corrección de técnica, mensajería con avisos en
+  Slack (canal `#04-clientes`), agenda propia, sección Técnica en el plan
+  Básico y Google Meet para las videollamadas.
 
 ### Cambiado
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,

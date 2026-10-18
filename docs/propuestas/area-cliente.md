@@ -208,8 +208,9 @@ Resend, con servidor en la UE, o el SMTP de Supabase).
 
 ### 2.7 Avisos al equipo (Slack)
 
-Un canal nuevo, **`#04-clientes`**, en el Slack del equipo (First K),
-siguiendo la numeración de los canales actuales. La web publica ahí:
+Canal **`#04-clientes`** en el Slack del equipo (First K), creado el
+2026-10-19 siguiendo la numeración de los canales actuales. La web publica
+ahí:
 
 | Aviso | Ejemplo |
 | --- | --- |
@@ -269,8 +270,8 @@ apruebas. No se empieza la siguiente sin tu visto bueno.
 | **4 · Capacidades por plan** | `planes.ts`, función SQL `tiene_premium`, vista informativa de Técnica en Básico y contacto por plan | Decisiones 2 y 3 | Pequeña |
 | **5 · Revisión mensual** | Formulario mensual del cliente, cola en `/admin/revisiones` y vista en Progreso. Migración nueva y bucket privado de fotos. | Aprobar el PR | Media |
 | **6 · Corrección por vídeo** | Cuenta de Bunny, migración, subida TUS, webhook, reproducción firmada, vídeo de respuesta del entrenador, cola en `/admin/tecnica`, borrado a los 6 meses | Cuenta de Bunny y claves (las pones tú en el hosting) | Grande |
-| **7 · Mensajes y avisos** | Mensajería en la web, bandeja `/admin/mensajes`, canal `#04-clientes` con *webhook* de Slack y emails al jinete | Crear el canal y el webhook en Slack (te guío) y elegir proveedor de email | Media |
-| **8 · Agenda 1:1** | Huecos del equipo en `/admin/agenda`, reserva del jinete, enlace de videollamada y avisos | Decidir la herramienta de videollamada | Media |
+| **7 · Mensajes y avisos** | Mensajería en la web, bandeja `/admin/mensajes`, canal `#04-clientes` con *webhook* de Slack y emails al jinete | Crear el webhook del canal `#04-clientes` (te guío) y elegir proveedor de email | Media |
+| **8 · Agenda 1:1** | Huecos del equipo en `/admin/agenda`, reserva del jinete, enlace de Google Meet y avisos | Los enlaces de Meet del equipo | Media |
 | **9 · Pagos** | Stripe Checkout, portal de cliente y webhooks (ADR-0012) | Cuenta de Stripe | Grande |
 | **Lanzamiento** | Páginas legales, hosting y Supabase de producción | Abogado y dominio | — |
 
@@ -289,6 +290,7 @@ sí, porque el plan ya se lee de `subscriptions`.
 | Vídeos de técnica | Corrección con vídeo del entrenador de hasta 2 min (técnica, qué corregir y consejos); respuesta en 48 h laborables; borrado a los 6 meses | ADR-0013 |
 | Contacto | Mensajería dentro de la web, con aviso al equipo en Slack (canal nuevo `#04-clientes`) | ADR-0014 |
 | Valoración 1:1 | Reserva en la propia web; las videollamadas y todo lo que afecta al equipo se avisa en Slack | ADR-0015 |
+| Videollamadas | Google Meet | ADR-0017 |
 | Técnica en el Básico | Pestaña visible e informativa, con opción de pasar a Premium, sin insistir | ADR-0016 |
 
 ### Pendientes
@@ -297,6 +299,5 @@ sí, porque el plan ya se lee de `subscriptions`.
 | --- | --- | --- |
 | 1 | Cupo de vídeos de técnica al mes en Premium | Empezar sin límite y fijarlo cuando haya datos de uso (es configurable) |
 | 2 | Duración máxima del vídeo que sube el jinete | 2 minutos, igual que la respuesta |
-| 3 | Herramienta de videollamada | Google Meet si tenéis Google Workspace; si no, un enlace de Jitsi generado solo, sin cuentas |
-| 4 | Proveedor de email | Resend (UE) |
-| 5 | Analítica de la web | Sin cookies (Plausible o Vercel Analytics) |
+| 3 | Proveedor de email | Resend (UE) |
+| 4 | Analítica de la web: contar visitas, de dónde llegan y cuántas acaban en registro | Una herramienta sin cookies (Plausible o Vercel Analytics), que no obliga a poner el banner de cookies |

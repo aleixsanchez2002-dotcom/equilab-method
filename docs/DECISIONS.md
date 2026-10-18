@@ -99,6 +99,7 @@ obligatorio a partir de ahora.
 | [0014](#adr-0014--mensajería-dentro-de-la-web-con-avisos-al-equipo-en-slack) | Mensajería dentro de la web, con avisos al equipo en Slack | Aceptada | producto |
 | [0015](#adr-0015--agenda-propia-para-la-valoración-11) | Agenda propia para la valoración 1:1 | Aceptada | producto |
 | [0016](#adr-0016--el-plan-básico-ve-la-sección-técnica-en-modo-informativo) | El plan Básico ve la sección Técnica en modo informativo | Aceptada | producto |
+| [0017](#adr-0017--google-meet-para-las-videollamadas) | Google Meet para las videollamadas | Aceptada | operaciones |
 
 ---
 
@@ -435,6 +436,22 @@ avisos repetidos ni ventanas emergentes.
 **Consecuencias.** El Básico no puede enviar vídeos: lo impiden el
 servidor y la RLS, no solo la interfaz (ADR-0004).
 
+### ADR-0017 · Google Meet para las videollamadas
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** operaciones
+
+**Decisión.** Las videollamadas (valoración 1:1, ADR-0015) se hacen por
+**Google Meet**. Al principio, cada reserva lleva un enlace de Meet que
+pone el equipo (por ejemplo, uno fijo por entrenador). Crear un enlace
+automático por reserva requiere conectar Google Calendar y se deja para
+más adelante.
+
+**Alternativas descartadas.** Jitsi: no necesita cuentas, pero el equipo
+prefiere Meet por sencillez.
+
 ---
 
 ## 3. Cuestiones abiertas
@@ -450,7 +467,6 @@ lista.
 | Hosting de producción | Candidato: Vercel con región UE. Requiere ADR. | Aleix |
 | Cupo de vídeos de técnica | ¿Cuántos vídeos al mes en Premium? Configurable; de momento sin límite (ADR-0013). | Equipo |
 | Vídeo del jinete | Duración máxima del vídeo que sube el jinete (propuesta: 2 min). | Aleix |
-| Videollamada | Google Meet (si hay Google Workspace) o Jitsi (ADR-0015). | Aleix |
 | Proveedor de email | Candidato: Resend (UE). | Aleix |
 | Pruebas automáticas | Empezar por tests unitarios de `motor-rutinas.ts` (es una función pura). Herramienta por decidir. | Aleix |
 | Páginas legales | Aviso legal, privacidad, cookies y condiciones de contratación. | Equipo y abogado |
