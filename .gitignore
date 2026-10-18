@@ -1,0 +1,104 @@
+# ─────────────────────────────────────────────────────────────
+# Equilab Method · .gitignore
+# Stack: Next.js 16 · Node · Supabase · Stripe (previsto) · Bunny Stream (previsto)
+# Regla de oro: en Git solo va código, documentación y medios de la web.
+# Nunca claves, datos de clientes ni vídeos en bruto.
+# ─────────────────────────────────────────────────────────────
+
+# ── Dependencias ─────────────────────────────────────────────
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ── Next.js y compilación ────────────────────────────────────
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Pruebas ──────────────────────────────────────────────────
+/coverage
+/playwright-report/
+/test-results/
+/blob-report/
+/playwright/.cache/
+
+# ── Secretos y variables de entorno ──────────────────────────
+# Todas las .env quedan fuera; solo se versiona la plantilla.
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+# Credenciales de servicios (por si alguien las descarga a la carpeta)
+service-account*.json
+*credentials*.json
+
+# ── Supabase CLI (estado local, nunca el esquema) ────────────
+/supabase/.branches
+/supabase/.temp
+/supabase/.env
+/supabase/seed.local.sql
+
+# ── Stripe CLI ───────────────────────────────────────────────
+.stripe/
+
+# ── Vercel / despliegue ──────────────────────────────────────
+.vercel
+
+# ── Datos de clientes y medios en bruto ──────────────────────
+# Los vídeos de clientes viven en Bunny Stream, no en el repositorio.
+# Los vídeos de la web (public/media/portada.mp4) sí se versionan:
+# deben estar ya comprimidos (ver docs/DESIGN.md).
+/exports/
+/dumps/
+*.dump
+*.sql.gz
+*.csv
+!/supabase/**/*.csv
+/media-original/
+*.mov
+*.MOV
+*.mkv
+*.avi
+*.heic
+*.HEIC
+
+# ── Archivos de trabajo locales ──────────────────────────────
+verificacion.log
+*.log
+*.patch
+*.zip
+/tmp/
+/scratch/
+
+# ── Asistentes de IA: ajustes personales ─────────────────────
+# .claude/settings.json y .claude/commands/ SÍ se versionan (son del equipo).
+.claude/settings.local.json
+CLAUDE.local.md
+
+# ── Editores y sistema operativo ─────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.swp
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ── Depuración de gestores de paquetes ───────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

@@ -1,0 +1,436 @@
+@import "tailwindcss";
+
+/* Equilab — fondo claro, azul marino y tonos sobrios.
+   Paleta inspirada en el material ecuestre de gama alta: papel, lino,
+   marino, vino y noche. Tipografía: Libre Franklin (títulos e interfaz)
+   y Source Serif 4 (lectura en la web pública). */
+
+@theme inline {
+  --font-sans: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+}
+
+@theme {
+  /* ————— Paleta con nombre (úsala en código nuevo) ————— */
+  --color-paper: #f3f1ec; /* fondo de página */
+  --color-linen: #e7e3da; /* superficie un paso más oscura */
+  --color-linen-deep: #dbd5c9; /* segundo paso, para alternar filas */
+  --color-night: #141b2b; /* tinta principal y fondo invertido */
+  --color-slate: #545b69; /* texto secundario */
+  --color-navy: #1d3461; /* color de marca: acción y campos de color */
+  --color-navy-deep: #152749; /* marino al pulsar */
+  --color-navy-soft: #c9d3e6; /* texto secundario sobre marino */
+  --color-wine: #6b2b33; /* segundo color de campo, con moderación */
+  --color-chalk: #fbfaf7; /* campos de formulario y fichas sobre lino */
+
+  /* ————— Tokens heredados —————
+     El área de clientes y el panel usan estos nombres desde el prototipo.
+     Se conservan para no tocar cada pantalla, con este significado:
+       ink-*    → fondos y superficies (950 = página)
+       sand-*   → textos (50 = el más intenso)
+       cognac-* → color de acento (ahora marino)
+       oxblood-*→ estados secundarios (ahora vino) */
+  --color-ink-950: #f3f1ec;
+  --color-ink-900: #ece7de;
+  --color-ink-800: #e4ded2;
+  --color-ink-700: #d6cebf;
+
+  --color-sand-50: #141b2b;
+  --color-sand-100: #1e2638;
+  --color-sand-300: #384050;
+  --color-sand-500: #545b69;
+  --color-sand-600: #5d6370;
+
+  --color-cognac-300: #2c4a80;
+  --color-cognac-400: #24406f;
+  --color-cognac-500: #1d3461;
+  --color-cognac-600: #152749;
+
+  --color-oxblood-400: #8a3a43;
+  --color-oxblood-500: #6b2b33;
+
+  --color-error: #9b2c2c;
+  --color-edge: rgba(20, 27, 43, 0.14);
+  --color-edge-strong: rgba(20, 27, 43, 0.3);
+
+  /* ————— Movimiento ————— */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-travel: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-settle: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* ————— Escala tipográfica de la web pública: cinco tamaños ————— */
+  --text-step-small: 0.875rem;
+  --text-step-small--line-height: 1.45;
+  --text-step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-step-body--line-height: 1.55;
+  --text-step-lead: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  --text-step-lead--line-height: 1.25;
+  --text-step-head: clamp(2.25rem, 1.2rem + 3.8vw, 4.5rem);
+  --text-step-head--line-height: 1;
+  --text-step-display: clamp(5rem, 11.5vw, 11.5rem);
+  --text-step-display--line-height: 0.86;
+}
+
+:root {
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+  /* Margen lateral único de la web pública */
+  --gutter: clamp(16px, 2.2vw, 32px);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-sand-100);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--color-navy);
+    color: var(--color-paper);
+  }
+
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Títulos: Libre Franklin en negrita, tracking ajustado. */
+  .font-display {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* ————— Animaciones heredadas por el área privada ————— */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.7s var(--ease-out-soft) both;
+}
+
+/* ————— Revelado al hacer scroll —————
+   El estado oculto solo existe con JavaScript (clase .js en <html>):
+   sin script, el contenido se ve siempre. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s var(--ease-out-soft),
+      transform 0.9s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js .reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ————— Respuesta al pulsar ————— */
+
+.press {
+  transition:
+    transform var(--t-press) var(--ease-out-soft),
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease,
+    border-color var(--t-hover) ease;
+}
+
+.press:active {
+  transform: scale(0.97);
+}
+
+/* Enlace de texto: el subrayado aparece al pasar el ratón */
+.link-quiet {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color var(--t-hover) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-quiet:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* ————— Accesibilidad: sin desplazamientos si el sistema lo pide ————— */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise {
+    animation: none;
+  }
+
+  .press:active {
+    transform: none;
+  }
+}
+
+/* ═════════════════════════ WEB PÚBLICA ═════════════════════════
+   Composición de informe impreso: un eje vertical al 42 %, campos de
+   color planos que ocupan secciones enteras y fotografía en blanco y
+   negro. Sin degradados, sin sombras en reposo, sin filetes finos. */
+
+.marketing {
+  background-color: var(--color-paper);
+  color: var(--color-night);
+}
+
+/* Eje común: los títulos y columnas de texto empiezan aquí */
+.marketing .axis-start {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+@media (min-width: 1024px) {
+  .marketing .axis {
+    margin-left: 42%;
+  }
+}
+
+/* Fotografía con un único tratamiento */
+.photo-mono {
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* ————— Portada en tablero ————— */
+
+.board {
+  display: grid;
+  gap: 8px;
+  padding: 0 8px 8px;
+}
+
+@media (min-width: 1024px) {
+  .board {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: calc(100svh - 76px);
+    min-height: 560px;
+    max-height: 1100px;
+  }
+}
+
+/* El nombre sube desde su propia línea base al cargar */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.mask-line > span {
+  display: block;
+}
+
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Gesto principal: la foto se abre como un obturador */
+@keyframes shutter-open {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes shutter-settle {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .mask-line > span {
+    transform: translateY(105%);
+    animation: line-up 900ms var(--ease-out-soft) 150ms forwards;
+  }
+
+  .js [data-rise] {
+    opacity: 0;
+    animation: rise-in var(--t-reveal) var(--ease-out-soft) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 250ms);
+  }
+
+  .js .shutter {
+    clip-path: inset(0 0 100% 0);
+    animation: shutter-open 1100ms var(--ease-travel) 200ms forwards;
+  }
+
+  .js .shutter img {
+    transform: scale(1.12);
+    animation: shutter-settle 1500ms var(--ease-settle) 200ms forwards;
+  }
+}
+
+/* ————— Selector de correcciones (funciona sin JavaScript) ————— */
+
+.corr-panel {
+  display: none;
+}
+
+.corr:has(input[data-i="0"]:checked) .corr-panel[data-i="0"],
+.corr:has(input[data-i="1"]:checked) .corr-panel[data-i="1"],
+.corr:has(input[data-i="2"]:checked) .corr-panel[data-i="2"],
+.corr:has(input[data-i="3"]:checked) .corr-panel[data-i="3"],
+.corr:has(input[data-i="4"]:checked) .corr-panel[data-i="4"] {
+  display: block;
+}
+
+@supports not selector(:has(*)) {
+  .corr-panel {
+    display: block;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .corr-panel > * {
+    animation: panel-in 420ms var(--ease-out-soft) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+
+/* ————— Diagrama «de muchos a uno» ————— */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal .diagram rect {
+    opacity: 0;
+    transform: translateY(8px);
+    transform-box: fill-box;
+    transition:
+      opacity 500ms var(--ease-out-soft),
+      transform 700ms var(--ease-out-soft);
+    transition-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .js .reveal.is-revealed .diagram rect {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ————— Llamada final: una palabra es el botón ————— */
+
+.giant-word {
+  /* «Entrena» en Libre Franklin 900 mide unas 3,5 em: ocupa el ancho útil */
+  font-size: calc((100vw - 2 * var(--gutter)) / 3.6);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+}
+
+/* ————— Pie que se descubre al final ————— */
+
+.marketing-main {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-paper);
+}
+
+.marketing-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* ————— Lema de la portada: siempre en una línea —————
+   El texto más largo (ES) mide unas 21,2 em en Libre Franklin negrita.
+   El tamaño se calcula sobre el ancho de su loseta (unidades de contenedor)
+   para que sea lo más grande posible sin partirse: unos 31 px a 1440 px de
+   pantalla y hasta 44 px en pantallas anchas. */
+
+.tagline {
+  font-size: min(2.75rem, calc((100vw - 48px) / 21.8));
+  font-size: min(2.75rem, calc(100cqi / 21.8));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* ————— Loseta de vídeo: acercamiento lento mientras no haya vídeo ————— */
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12) translateY(-2%);
+  }
+}
+
+.slow-zoom {
+  animation: slow-zoom 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slow-zoom {
+    animation: none;
+  }
+
+  /* Sin vídeo en movimiento: queda la imagen fija de debajo */
+  .hero-video {
+    display: none;
+  }
+}

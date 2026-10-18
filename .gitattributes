@@ -1,0 +1,25 @@
+# Finales de línea coherentes entre Windows y macOS/Linux.
+# El repositorio guarda LF; cada sistema los convierte al abrir si hace falta.
+* text=auto eol=lf
+
+# Los scripts de Windows necesitan CRLF para ejecutarse con doble clic.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binarios: nunca se tocan ni se comparan como texto.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.webm binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
+# El lockfile no se revisa línea a línea en los PR.
+package-lock.json -diff linguist-generated=true

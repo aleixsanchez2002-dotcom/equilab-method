@@ -1,0 +1,7 @@
+# Quién revisa cada parte. Sustituye los nombres por los usuarios de GitHub.
+*                                   @USUARIO-ALEIX
+/supabase/                          @USUARIO-ALEIX
+/src/lib/motor-rutinas.ts           @USUARIO-ALEIX @USUARIO-ALEX
+/supabase/migrations/0002_*         @USUARIO-ALEX
+/src/components/marketing/          @USUARIO-ALEIX @USUARIO-GIOVANNI
+/public/media/                      @USUARIO-GIOVANNI

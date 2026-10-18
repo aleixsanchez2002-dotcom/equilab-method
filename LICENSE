@@ -1,0 +1,43 @@
+LICENCIA PROPIETARIA — TODOS LOS DERECHOS RESERVADOS
+
+Copyright (c) 2026 Equilab Method
+Titulares: Giovanni Torrens, Alex Ricarte y Aleix Sánchez, socios fundadores
+de Equilab Method. [Sustituir por la razón social y el NIF cuando la
+sociedad esté constituida.]
+
+Este repositorio y todo su contenido son confidenciales y de propiedad
+exclusiva de los titulares. Esto incluye el código fuente, la documentación,
+los diseños, las fotografías, los vídeos, las rutinas, el catálogo de
+ejercicios, los cuestionarios y el motor de reglas.
+
+1. Uso permitido. Solo pueden acceder, copiar o modificar el contenido las
+   personas a las que los titulares hayan dado acceso por escrito, y solo
+   para trabajar en Equilab Method.
+
+2. Uso prohibido. Sin autorización previa y por escrito de los titulares,
+   queda prohibido:
+   a) copiar, distribuir, publicar, sublicenciar o vender cualquier parte
+      del contenido;
+   b) usarlo para crear productos o servicios propios o de terceros;
+   c) hacer público el repositorio o compartir fragmentos fuera del equipo;
+   d) usar el contenido para entrenar modelos de inteligencia artificial
+      ajenos al trabajo de Equilab Method.
+
+3. Componentes de terceros. Las dependencias de código abierto incluidas en
+   package.json se rigen por sus propias licencias. Esta licencia no las
+   modifica.
+
+4. Imágenes y marca. Las fotografías de Giovanni Torrens y los nombres
+   «Equilab» y «Equilab Method» no pueden usarse fuera de este proyecto sin
+   permiso.
+
+5. Fin del acceso. Quien deje de colaborar en el proyecto debe borrar
+   cualquier copia local del repositorio y de sus datos.
+
+6. Sin garantía. El contenido se proporciona «tal cual», sin garantías de
+   ningún tipo.
+
+Nota: este texto es una plantilla de trabajo y no constituye asesoramiento
+jurídico. Revisadlo con un abogado al constituir la sociedad, junto con el
+pacto de socios y los acuerdos de cesión de propiedad intelectual de cada
+colaborador.
