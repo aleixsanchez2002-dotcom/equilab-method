@@ -1,13 +1,13 @@
-import { Correcciones } from "@/components/marketing/correcciones";
-import { Faq } from "@/components/marketing/faq";
-import { FinalCta } from "@/components/marketing/final-cta";
-import { Footer } from "@/components/marketing/footer";
-import { Founders } from "@/components/marketing/founders";
-import { Hero } from "@/components/marketing/hero";
-import { Method } from "@/components/marketing/method";
-import { Nav } from "@/components/marketing/nav";
-import { Plans } from "@/components/marketing/plans";
-import { Steps } from "@/components/marketing/steps";
+import { CorreccionesPista } from "@/components/pista/correcciones";
+import { BandaPista } from "@/components/pista/banda";
+import { CtaPista, FooterPista } from "@/components/pista/cierre";
+import { EquipoPista } from "@/components/pista/equipo";
+import { FaqPista } from "@/components/pista/faq";
+import { HeroPista } from "@/components/pista/hero";
+import { MetodoPista } from "@/components/pista/metodo";
+import { NavPista } from "@/components/pista/nav";
+import { PasosPista } from "@/components/pista/pasos";
+import { PlanesPista } from "@/components/pista/planes";
 import { getI18n } from "@/lib/i18n/server";
 import { supabaseConfigurado } from "@/lib/supabase/config";
 import { createSupabaseServer } from "@/lib/supabase/server";
@@ -20,19 +20,22 @@ export default async function Home() {
         const { data: { user }, } = await supabase.auth.getUser();
         sesion = user !== null;
     }
-    return (<div className="marketing">
-      <Nav sesion={sesion}/>
-      <main className="marketing-main">
-        <Hero />
-        <Method />
-        <Correcciones />
-        <Steps />
-        <Founders />
-        <Plans />
-        <Faq />
-        <FinalCta />
+    // Variante «Pista» de la portada (docs/propuestas/diseno-pista.md). La
+    // portada actual sigue en src/components/marketing/ y en la rama main.
+    return (<div className="pista">
+      <NavPista sesion={sesion}/>
+      <main>
+        <HeroPista />
+        <MetodoPista />
+        <BandaPista />
+        <CorreccionesPista />
+        <PasosPista />
+        <EquipoPista />
+        <PlanesPista />
+        <FaqPista />
+        <CtaPista />
       </main>
-      <Footer />
+      <FooterPista />
     </div>);
 }
 export async function generateMetadata() {

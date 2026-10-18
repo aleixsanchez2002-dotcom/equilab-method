@@ -95,6 +95,7 @@ obligatorio a partir de ahora.
 | [0010](#adr-0010--animación-de-equilab-subida-de-la-palabra-entera) | Animación de «Equilab»: subida de la palabra entera | Aceptada | diseño |
 | [0011](#adr-0011--precios-75-y-150--al-mes-sin-permanencia) | Precios: 75 y 150 € al mes, sin permanencia | Aceptada | producto |
 | [0012](#adr-0012--pagos-con-stripe-checkout-y-portal-de-cliente) | Pagos con Stripe Checkout y portal de cliente | Propuesta | arquitectura |
+| [0018](#adr-0018--variante-pista-de-la-portada) | Variante «Pista» de la portada | Propuesta | diseño |
 
 ---
 
@@ -349,6 +350,26 @@ código y más superficie de cumplimiento normativo.
 
 **Consecuencias si se acepta.** Aceptar la ADR desbloquea la fase de pagos
 del `ROADMAP.md`.
+
+### ADR-0018 · Variante «Pista» de la portada
+
+- **Estado:** Propuesta
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez (pendiente de elegir entre las dos portadas)
+- **Ámbito:** diseño
+
+**Contexto.** Aleix pide explorar otro diseño de la web pública basado en
+una referencia (portada fotográfica a pantalla completa y animaciones de
+entrada), en una rama aparte y sin borrar la portada actual.
+
+**Decisión propuesta.** Portada fotográfica oscura con velo, secciones que
+alternan blanco, carbón y crema, botones de píldora en cuero, Plus Jakarta
+Sans y animaciones de entrada al hacer scroll. Detalle en
+`docs/propuestas/diseno-pista.md`.
+
+**Consecuencias si se acepta.** Sustituye a ADR-0008 en la web pública;
+`DESIGN.md` se reescribe para la portada y el área privada decide si sigue
+o no el mismo estilo.
 
 ---
 

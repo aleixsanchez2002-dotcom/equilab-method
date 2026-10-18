@@ -1,7 +1,7 @@
 import { getI18n } from "@/lib/i18n/server";
 import type { CSSProperties } from "react";
 import { Reveal } from "@/components/motion/reveal";
-const steps = [
+export const steps = [
     {
         title: "Cuéntanos",
         text: "Cuestionario de 10 minutos sobre tu postura, historial físico, material disponible y objetivos en la pista.",

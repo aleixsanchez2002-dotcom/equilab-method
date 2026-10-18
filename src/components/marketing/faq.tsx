@@ -2,7 +2,7 @@ import { getI18n } from "@/lib/i18n/server";
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/cn";
 /* PLACEHOLDER: preguntas y respuestas provisionales — validar con el equipo. */
-const faqs = [
+export const faqs = [
     {
         question: "¿Necesito experiencia en el gimnasio?",
         answer: "No. Con la información de tu cuestionario inicial, ajustamos cada ejercicio a tu punto de partida. Cada ejercicio incluye vídeo demostrativo con la técnica explicada paso a paso.",

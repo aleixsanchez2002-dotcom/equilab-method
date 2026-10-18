@@ -41,6 +41,9 @@ para correcciones y textos.
 ## [Sin publicar]
 
 ### Añadido
+- Variante «Pista» de la portada (rama `aleix/diseno-pista`, ADR-0018 en
+  propuesta): portada fotográfica oscura, botones de píldora, Plus Jakarta
+  Sans y animaciones de entrada inspiradas en la referencia de Aleix.
 - Estructura documental del repositorio: `docs/CONTEXT.md`,
   `docs/DECISIONS.md` (principios y ADR), `docs/DESIGN.md`,
   `docs/ROADMAP.md`, `CLAUDE.md` y este `CHANGELOG.md`.

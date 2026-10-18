@@ -3,7 +3,7 @@ import { ImageSlot } from "@/components/media/image-slot";
 import { Parallax } from "@/components/motion/parallax";
 import { Reveal } from "@/components/motion/reveal";
 /* PLACEHOLDER: las bios de Giovanni y Alex están pendientes de validar con cada socio. */
-const equipo = [
+export const equipo = [
     {
         name: "Giovanni Torrens",
         role: "Doma clásica",

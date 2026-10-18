@@ -1,6 +1,6 @@
 import { getI18n } from "@/lib/i18n/server";
 import Link from "next/link";
-const columns = [
+export const columns = [
     {
         title: "Método",
         links: [

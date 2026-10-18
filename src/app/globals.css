@@ -9,6 +9,8 @@
   --font-sans: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  /* Variante «Pista» de la portada */
+  --font-pista: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -23,6 +25,15 @@
   --color-navy-soft: #c9d3e6; /* texto secundario sobre marino */
   --color-wine: #6b2b33; /* segundo color de campo, con moderación */
   --color-chalk: #fbfaf7; /* campos de formulario y fichas sobre lino */
+
+  /* ————— Variante «Pista» de la portada (docs/propuestas/diseno-pista.md) ————— */
+  --color-carbon: #0e0e0f; /* negro de las secciones oscuras */
+  --color-grafito: #1b1b1d; /* tarjetas sobre carbón */
+  --color-crema: #fbf8f3; /* fondo cálido */
+  --color-arena: #f1ebe1; /* segundo fondo cálido */
+  --color-cuero: #c08a4e; /* acento: cuero de silla */
+  --color-cuero-claro: #d3a06a; /* cuero al pasar el ratón */
+  --color-humo: #5c5852; /* texto secundario sobre claro */
 
   /* ————— Tokens heredados —————
      El área de clientes y el panel usan estos nombres desde el prototipo.
@@ -433,4 +444,138 @@
   .hero-video {
     display: none;
   }
+}
+
+/* ═══════════════ VARIANTE «PISTA» DE LA PORTADA ═══════════════
+   Fotografía a sangre con velo oscuro, secciones que alternan blanco,
+   carbón y crema, botones de píldora y acento cuero. Movimiento: cada
+   bloque sube y aparece al entrar (1 s, curva «quart»), las imágenes se
+   asientan desde algo más grandes y la foto de portada se acerca despacio. */
+
+:root {
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.pista {
+  font-family: var(--font-pista);
+  background-color: #fff;
+  color: var(--color-carbon);
+}
+
+@keyframes pista-subir {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 48px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pista-acercar {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada de la portada al cargar */
+  .js .pista-entra {
+    opacity: 0;
+    animation: pista-subir 1000ms var(--ease-quart) forwards;
+    animation-delay: calc(var(--i, 0) * 150ms + 200ms);
+  }
+
+  .pista-acercar {
+    animation: pista-acercar 2600ms var(--ease-quart) forwards;
+  }
+
+  /* Bloques que aparecen al hacer scroll (componente <Aparecer>) */
+  .js .aparecer {
+    --distancia: 64px;
+    opacity: 0;
+    transition:
+      opacity 1000ms var(--ease-quart),
+      transform 1000ms var(--ease-quart);
+    transition-delay: var(--retraso, 0ms);
+  }
+
+  .js .aparecer[data-efecto="subir"] {
+    transform: translate3d(0, var(--distancia), 0);
+  }
+
+  .js .aparecer[data-efecto="izquierda"] {
+    transform: translate3d(calc(var(--distancia) * -1), 0, 0);
+  }
+
+  .js .aparecer[data-efecto="derecha"] {
+    transform: translate3d(var(--distancia), 0, 0);
+  }
+
+  /* Imágenes: el marco aparece y la foto se asienta desde más grande */
+  .js .aparecer[data-efecto="asentar"] img,
+  .js .aparecer[data-efecto="asentar"] video {
+    transform: scale(1.2);
+    transition: transform 1400ms var(--ease-quart);
+    transition-delay: var(--retraso, 0ms);
+  }
+
+  .js .aparecer.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .aparecer.visible[data-efecto="asentar"] img,
+  .js .aparecer.visible[data-efecto="asentar"] video {
+    transform: none;
+  }
+
+  /* Tarjetas: suben un poco y su foto se acerca al pasar el ratón */
+  .pista-tarjeta {
+    transition: transform 400ms var(--ease-quart);
+  }
+
+  .pista-tarjeta .pista-foto img {
+    transition: transform 700ms var(--ease-quart);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pista-tarjeta:hover {
+      transform: translateY(-6px);
+    }
+
+    .pista-tarjeta:hover .pista-foto img {
+      transform: scale(1.08);
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .js .aparecer {
+    --distancia: 32px;
+  }
+}
+
+/* Botón de píldora: la flecha avanza al pasar el ratón */
+.pista-boton svg {
+  transition: transform 300ms var(--ease-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pista-boton:hover svg {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* Preguntas: el signo + gira al abrir */
+.pista-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.pista-faq[open] .pista-faq-signo {
+  transform: rotate(45deg);
 }

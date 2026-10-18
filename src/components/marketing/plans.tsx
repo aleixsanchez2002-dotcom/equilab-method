@@ -7,12 +7,12 @@ type Plan = {
     price: string;
     cta: string;
 };
-const plans: Plan[] = [
+export const plans: Plan[] = [
     { name: "Básico", price: "75", cta: "Empezar con Básico" },
     { name: "Premium", price: "150", cta: "Solicitar plaza Premium" },
 ];
 /* Cada fila compara en palabras, nunca con marcas de verificación. */
-const rows: [string, string, string][] = [
+export const rows: [string, string, string][] = [
     ["Rutina", "Semi-personalizada y revisada por el equipo", "100 % personalizada, hecha a mano"],
     ["Cuestionario postural inicial", "Incluido", "Incluido"],
     ["Valoración inicial 1:1", "No incluida", "Con el equipo, por videollamada"],

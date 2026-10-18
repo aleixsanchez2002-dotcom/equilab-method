@@ -8,7 +8,7 @@ import { Reveal } from "@/components/motion/reveal";
  * de técnica del catálogo inicial (supabase/migrations/0002_datos_iniciales.sql).
  * Si el equipo cambia esas reglas, actualiza también esta lista.
  */
-const correcciones = [
+export const correcciones = [
     {
         defecto: "Manos inquietas",
         causa: "Unas manos que no se separan del tronco suelen venir de un core que no aguanta la rotación.",
@@ -52,7 +52,7 @@ const correcciones = [
     },
 ];
 /** Índice que aparece elegido al llegar (hombros adelantados, la más común). */
-const INICIAL = 1;
+export const INICIAL = 1;
 /**
  * Lo vivo de la página: el jinete elige lo que más le corrigen y ve por qué
  * ejercicios empezaría su rutina. Radios nativos y CSS (:has), así que

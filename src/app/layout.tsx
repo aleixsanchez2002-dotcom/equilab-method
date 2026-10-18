@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Libre_Franklin, Source_Serif_4 } from "next/font/google";
+import { Libre_Franklin, Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { getI18n } from "@/lib/i18n/server";
 import { I18nProvider } from "@/components/i18n/provider";
@@ -8,6 +8,12 @@ const franklin = Libre_Franklin({
     variable: "--font-franklin",
     subsets: ["latin"],
     style: ["normal", "italic"],
+    display: "swap",
+});
+// Tipografía de la variante «Pista» de la portada (docs/propuestas/diseno-pista.md)
+const jakarta = Plus_Jakarta_Sans({
+    variable: "--font-jakarta",
+    subsets: ["latin"],
     display: "swap",
 });
 const sourceSerif = Source_Serif_4({
@@ -30,7 +36,7 @@ export default async function RootLayout({ children, }: Readonly<{
     children: React.ReactNode;
 }>) {
     const { locale } = await getI18n();
-    return (<html lang={locale} className={`${franklin.variable} ${sourceSerif.variable} h-full antialiased`} suppressHydrationWarning>
+    return (<html lang={locale} className={`${franklin.variable} ${sourceSerif.variable} ${jakarta.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
         {/* Marca <html> con .js antes de pintar: las animaciones de entrada
             solo ocultan contenido cuando hay script para mostrarlo. */}

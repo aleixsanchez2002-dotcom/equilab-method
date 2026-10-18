@@ -1,7 +1,7 @@
 import { getI18n } from "@/lib/i18n/server";
 import { Reveal } from "@/components/motion/reveal";
 /* Cifras del servicio: salen del cuestionario, del equipo y de los planes. */
-const facts: {
+export const facts: {
     value: string;
     label?: string;
     text: string;
