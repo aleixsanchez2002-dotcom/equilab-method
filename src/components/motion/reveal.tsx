@@ -21,8 +21,10 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
         if (!el || visible)
             return;
         if (!("IntersectionObserver" in window)) {
-            setVisible(true);
-            return;
+            // Navegador sin IntersectionObserver: se muestra en el siguiente fotograma
+            // (setState en un callback, no directamente en el cuerpo del efecto).
+            const frame = requestAnimationFrame(() => setVisible(true));
+            return () => cancelAnimationFrame(frame);
         }
         const observer = new IntersectionObserver((entries) => {
             if (entries.some((entry) => entry.isIntersecting)) {
