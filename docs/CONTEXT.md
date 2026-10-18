@@ -199,6 +199,7 @@ Variables de entorno (plantilla en `.env.example`):
 | --- | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Sí | URL del proyecto Supabase |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Sí | Clave pública (anon); RLS protege los datos |
+| `NEXT_PUBLIC_SITE_URL` | Sí | Dirección pública de la web (imagen para compartir, sitemap). Vacía en local |
 | *(futuras)* `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `BUNNY_*` | No | Solo en el hosting, nunca en Git |
 
 ## 6. Instalación y despliegue rápido

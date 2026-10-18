@@ -96,6 +96,15 @@ Reglas:
   diseño en cada fotograma.
 - Una sola animación protagonista por pantalla. Si dudas, no animes.
 
+## Icono e imagen para compartir
+
+- Icono: el bocado (`BitMark`) en papel sobre un cuadrado `night`, igual
+  que la loseta del logo en la barra. Archivos: `src/app/icon.svg`,
+  `apple-icon.png` (180 px) y `favicon.ico` (16, 32 y 48 px).
+- Imagen para compartir: `src/app/opengraph-image.jpg` (1200×630), con el
+  tablero de la portada (lema, «Equilab» y foto de Giovanni). Si cambia el
+  lema o la foto, hay que regenerarla.
+
 ## Componentes base
 
 `src/components/ui/`: `button`, `card`, `checkbox`, `divider`, `field`,

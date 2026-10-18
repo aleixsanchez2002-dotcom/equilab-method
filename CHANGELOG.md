@@ -41,6 +41,13 @@ para correcciones y textos.
 ## [Sin publicar]
 
 ### Añadido
+- Icono de Equilab en la pestaña del navegador y en el móvil (sustituye
+  al de Next.js), imagen para compartir el enlace (Open Graph) y página
+  404 «Fuera de pista».
+- `sitemap.xml` y `robots.txt` (las áreas privadas no se indexan). La
+  dirección pública se fija con `NEXT_PUBLIC_SITE_URL`.
+- CI: si falla el lint o la compilación, el final del registro aparece
+  como anotación en el PR.
 - Estructura documental del repositorio: `docs/CONTEXT.md`,
   `docs/DECISIONS.md` (principios y ADR), `docs/DESIGN.md`,
   `docs/ROADMAP.md`, `CLAUDE.md` y este `CHANGELOG.md`.
@@ -65,6 +72,7 @@ para correcciones y textos.
 
 ### Eliminado
 - `VERSION.txt`: la versión se registra ahora en este archivo.
+- SVG de ejemplo de Next.js que quedaban en `public/`.
 
 ### Corregido
 - `Reveal` ya no llama a `setState` directamente dentro del efecto: el

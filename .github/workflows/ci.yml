@@ -25,6 +25,18 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - run: npm run lint
-      - run: npm run build
+      - name: Lint
+        run: npm run lint 2>&1 | tee lint.log
+      - name: Build
         # La compilación no necesita claves: la web pública funciona sin Supabase.
+        run: npm run build 2>&1 | tee build.log
+      - name: Resumen del error
+        # Si algo falla, copia el final del registro en una anotación del PR
+        # (visible en «Checks» y legible desde la API sin descargar los logs).
+        if: failure()
+        run: |
+          for f in lint.log build.log; do
+            [ -s "$f" ] || continue
+            msg=$(tail -n 60 "$f" | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
+            echo "::error title=${f}::${msg}"
+          done
