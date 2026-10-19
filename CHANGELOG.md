@@ -65,6 +65,12 @@ para correcciones y textos.
   del pie, debajo del logo.
 - Pista: el botón «Empezar» de la cabecera pasa a «Registrarse»
   («Sign up» en inglés).
+- Acceso separado en dos páginas: `/acceso` para iniciar sesión (clientes
+  con cuenta) y `/acceso/registro` para crear cuenta. Los botones de
+  «Empezar» y de los planes llevan al registro (ADR-0020).
+- Pista: todos los botones de alta llevan a `/acceso/registro` e «Iniciar
+  sesión» a `/acceso`. Se quita de la portada el párrafo «El juez mira al
+  caballo…», que ya aparece en la sección «Método».
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a

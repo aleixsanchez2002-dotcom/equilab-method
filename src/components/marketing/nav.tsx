@@ -45,7 +45,7 @@ export function Nav({ sesion = false }: {
     }, [open]);
     const accion = sesion
         ? { href: "/app", label: t("Tu entrenamiento") }
-        : { href: "/acceso", label: t("Empezar") };
+        : { href: "/acceso/registro", label: t("Empezar") };
     const secundaria = sesion
         ? { href: "/app/cuenta", label: t("Tu cuenta") }
         : { href: "/acceso", label: t("Iniciar sesión") };

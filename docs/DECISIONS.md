@@ -96,6 +96,7 @@ obligatorio a partir de ahora.
 | [0011](#adr-0011--precios-75-y-150--al-mes-sin-permanencia) | Precios: 75 y 150 € al mes, sin permanencia | Aceptada | producto |
 | [0012](#adr-0012--pagos-con-stripe-checkout-y-portal-de-cliente) | Pagos con Stripe Checkout y portal de cliente | Propuesta | arquitectura |
 | [0018](#adr-0018--variante-pista-de-la-portada) | Variante «Pista» de la portada | Propuesta | diseño |
+| [0020](#adr-0020--páginas-separadas-para-iniciar-sesión-y-crear-cuenta) | Páginas separadas para iniciar sesión y crear cuenta | Aceptada | producto |
 
 ---
 
@@ -370,6 +371,28 @@ Sans y animaciones de entrada al hacer scroll. Detalle en
 **Consecuencias si se acepta.** Sustituye a ADR-0008 en la web pública;
 `DESIGN.md` se reescribe para la portada y el área privada decide si sigue
 o no el mismo estilo.
+### ADR-0020 · Páginas separadas para iniciar sesión y crear cuenta
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** producto
+
+**Contexto.** «Empezar» e «Iniciar sesión» llevaban a la misma página
+`/acceso`, que se abría en «Iniciar sesión» con una pestaña para crear
+cuenta. Quien pulsaba «Empezar» caía en el formulario equivocado.
+
+**Decisión.** `/acceso` es solo para clientes con cuenta; `/acceso/registro`
+es solo para crear cuenta. Todos los botones de alta («Empezar»,
+«Registrarse», planes) llevan al registro y cada página enlaza a la otra.
+Los resúmenes de planes solo aparecen en el registro. Las acciones de
+Supabase Auth no cambian.
+
+**Alternativas descartadas.**
+- Una sola página con pestañas abierta según un parámetro de la URL.
+
+**Consecuencias.** Las redirecciones por falta de sesión siguen yendo a
+`/acceso`.
 
 ---
 

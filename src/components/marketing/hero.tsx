@@ -17,7 +17,7 @@ const existe = (rel: string) => fs.existsSync(path.join(process.cwd(), "public",
 async function LosetaVideo() {
     const { t } = await getI18n();
     const hayVideo = existe(VIDEO);
-    return (<Link href="/acceso" aria-label={t("Empezar mi entrenamiento")} className="press group relative block aspect-[4/3] overflow-hidden bg-night focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy lg:aspect-auto">
+    return (<Link href="/acceso/registro" aria-label={t("Empezar mi entrenamiento")} className="press group relative block aspect-[4/3] overflow-hidden bg-night focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy lg:aspect-auto">
       {hayVideo ? (<>
           {/* Imagen fija debajo: es lo que se ve si el sistema pide menos movimiento */}
           <ImageSlot src={existe(POSTER) ? POSTER : "/media/giovanni.jpg"} alt="" spec="" sizes="(min-width: 1024px) 50vw, 100vw" imgClassName="photo-mono"/>

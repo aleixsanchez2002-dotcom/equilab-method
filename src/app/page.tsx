@@ -13,7 +13,8 @@ import { supabaseConfigurado } from "@/lib/supabase/config";
 import { createSupabaseServer } from "@/lib/supabase/server";
 export default async function Home() {
     // La portada reconoce a quien ya ha entrado y le ofrece su área.
-    // (El resto de CTAs apuntan a /acceso, que redirige solo si hay sesión.)
+    // (Los CTA de alta apuntan a /acceso/registro y «Iniciar sesión» a
+    // /acceso; ambas redirigen a /app si ya hay sesión.)
     let sesion = false;
     if (supabaseConfigurado) {
         const supabase = await createSupabaseServer();

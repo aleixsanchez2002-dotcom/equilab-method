@@ -57,7 +57,7 @@ export async function Plans() {
             <tr>
               <td />
               {plans.map((plan, i) => (<td key={plan.name} className={cn("px-8 pt-8 pb-8", i === 1 && "bg-navy")}>
-                  <Link href="/acceso" className={cn("press flex h-14 items-center justify-center px-6 text-[16px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2", i === 1
+                  <Link href="/acceso/registro" className={cn("press flex h-14 items-center justify-center px-6 text-[16px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2", i === 1
                 ? "bg-paper text-night hover:bg-linen focus-visible:outline-paper"
                 : "bg-navy text-paper hover:bg-navy-deep focus-visible:outline-navy")}>
                     {t(plan.cta)}
@@ -86,7 +86,7 @@ export async function Plans() {
                       <dd className="mt-1 font-serif text-[17px] leading-snug">{t(i === 1 ? premium : basico)}</dd>
                     </div>))}
                 </dl>
-                <Link href="/acceso" className={cn("press mt-8 flex h-14 items-center justify-center px-6 text-[16px] font-semibold", i === 1 ? "bg-paper text-night" : "bg-navy text-paper")}>
+                <Link href="/acceso/registro" className={cn("press mt-8 flex h-14 items-center justify-center px-6 text-[16px] font-semibold", i === 1 ? "bg-paper text-night" : "bg-navy text-paper")}>
                   {t(plan.cta)}
                 </Link>
               </article>

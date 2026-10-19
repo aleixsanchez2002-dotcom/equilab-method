@@ -22,7 +22,7 @@ export async function CtaPista() {
           </p>
         </Aparecer>
         <Aparecer retraso={300}>
-          <BotonPista href="/acceso" className="mt-10">{t("Crear mi cuenta")}</BotonPista>
+          <BotonPista href="/acceso/registro" className="mt-10">{t("Crear mi cuenta")}</BotonPista>
         </Aparecer>
       </Contenedor>
     </section>);

@@ -34,7 +34,7 @@ export async function PlanesPista() {
                       <dd className="text-[16px]">{t(premium ? prem : basico)}</dd>
                     </div>))}
                 </dl>
-                <BotonPista href="/acceso" tono={premium ? "carbon" : "cuero"} className="mt-10 w-full">{t(plan.cta)}</BotonPista>
+                <BotonPista href="/acceso/registro" tono={premium ? "carbon" : "cuero"} className="mt-10 w-full">{t(plan.cta)}</BotonPista>
               </Aparecer>);
         })}
         </div>

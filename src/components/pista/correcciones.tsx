@@ -51,7 +51,7 @@ export async function CorreccionesPista() {
                   </li>))}
               </ol>
               <div style={{ "--i": 2 } as CSSProperties} className="mt-9 flex">
-                <BotonPista href="/acceso">{t("Hacer el cuestionario")}</BotonPista>
+                <BotonPista href="/acceso/registro">{t("Hacer el cuestionario")}</BotonPista>
               </div>
             </div>))}
         </div>

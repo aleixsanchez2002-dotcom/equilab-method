@@ -24,7 +24,7 @@ export async function MetodoPista() {
             </p>
           </Aparecer>
           <Aparecer retraso={300}>
-            <BotonPista href="/acceso" tono="carbon" className="mt-9">{t("Hacer el cuestionario")}</BotonPista>
+            <BotonPista href="/acceso/registro" tono="carbon" className="mt-9">{t("Hacer el cuestionario")}</BotonPista>
           </Aparecer>
         </div>
       </Contenedor>

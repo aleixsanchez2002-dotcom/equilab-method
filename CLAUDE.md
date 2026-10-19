@@ -45,7 +45,7 @@ npm run start          # servir la compilación
 ## 3. Arquitectura en 30 segundos
 
 ```
-src/app/            Rutas (App Router). Públicas: /, /en, /acceso. Cliente: /app. Equipo: /admin
+src/app/            Rutas (App Router). Públicas: /, /en, /acceso, /acceso/registro. Cliente: /app. Equipo: /admin
 src/components/     marketing/ (portada) · app/ (cliente) · admin/ (equipo) · ui/ · motion/ · i18n/
 src/lib/            motor-rutinas.ts (función pura) · i18n/ · supabase/ (client, server, config, types)
 src/proxy.ts        Sesión Supabase e idioma por petición (Next 16: sustituye a middleware)

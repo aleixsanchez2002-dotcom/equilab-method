@@ -14,7 +14,7 @@ export async function FaqPista() {
             <TituloPista id="faq-titulo" className="mt-5">{t("Preguntas frecuentes")}</TituloPista>
           </Aparecer>
           <Aparecer retraso={200}>
-            <BotonPista href="/acceso" tono="contorno-oscuro" className="mt-9">{t("Empezar")}</BotonPista>
+            <BotonPista href="/acceso/registro" tono="contorno-oscuro" className="mt-9">{t("Empezar")}</BotonPista>
           </Aparecer>
         </div>
         <div className="grid content-start gap-3 lg:col-span-8">

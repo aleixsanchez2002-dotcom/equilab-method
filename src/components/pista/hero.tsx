@@ -30,23 +30,20 @@ export async function HeroPista() {
         <h1 id="portada" style={{ "--i": 0 } as CSSProperties} className="pista-entra text-[clamp(2.5rem,6.4vw,5.25rem)] leading-[1.04] font-bold tracking-[-0.025em] text-balance">
           {t("Preparación física para jinetes profesionales")}
         </h1>
-        <p style={{ "--i": 1 } as CSSProperties} className="pista-entra mt-6 max-w-[58ch] text-[clamp(1rem,1.3vw,1.125rem)] leading-relaxed text-white/90">
-          {t("El juez mira al caballo, pero lo que ve empieza en ti: un asiento estable, unas manos independientes y una cadera que acompaña. Ese trabajo se hace fuera de la silla.")}
-        </p>
-        <div style={{ "--i": 2 } as CSSProperties} className="pista-entra mt-10 flex flex-wrap justify-center gap-4">
-          <BotonPista href="/acceso">{t("Empezar mi entrenamiento")}</BotonPista>
+        <div style={{ "--i": 1 } as CSSProperties} className="pista-entra mt-10 flex flex-wrap justify-center gap-4">
+          <BotonPista href="/acceso/registro">{t("Empezar mi entrenamiento")}</BotonPista>
           <BotonPista href="#metodo" tono="contorno" flecha={false}>{t("Ver el método")}</BotonPista>
         </div>
       </div>
 
       {/* Instagram en vertical, abajo a la izquierda, como en la referencia */}
-      <a href="https://instagram.com/giovannidressage" target="_blank" rel="noopener noreferrer" style={{ "--i": 3 } as CSSProperties} className="pista-entra absolute bottom-10 left-5 hidden items-center gap-3 text-[13px] font-semibold tracking-[0.18em] text-white/70 uppercase transition-colors hover:text-white sm:left-8 md:flex md:flex-col">
+      <a href="https://instagram.com/giovannidressage" target="_blank" rel="noopener noreferrer" style={{ "--i": 2 } as CSSProperties} className="pista-entra absolute bottom-10 left-5 hidden items-center gap-3 text-[13px] font-semibold tracking-[0.18em] text-white/70 uppercase transition-colors hover:text-white sm:left-8 md:flex md:flex-col">
         <span className="[writing-mode:vertical-rl] rotate-180">Instagram</span>
         <span aria-hidden="true" className="h-10 w-px bg-white/50"/>
       </a>
 
       <div aria-hidden="true" className="absolute inset-x-0 bottom-10 hidden justify-center md:flex">
-        <span style={{ "--i": 3 } as CSSProperties} className="pista-entra text-[13px] font-semibold tracking-[0.18em] text-white/60 uppercase">
+        <span style={{ "--i": 2 } as CSSProperties} className="pista-entra text-[13px] font-semibold tracking-[0.18em] text-white/60 uppercase">
           {t("Desliza")}
         </span>
       </div>
