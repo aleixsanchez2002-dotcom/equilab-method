@@ -77,6 +77,8 @@ para correcciones y textos.
   montas.».
 - Pista: las cuatro cifras de «El método» se reparten a lo ancho con más
   espacio entre columnas y «3 entrenadores» ya no se parte en dos líneas.
+  «Básico–Premium» y «Sin permanencia.» quedan con el mismo interlineado que
+  el resto de textos de las cifras.
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a

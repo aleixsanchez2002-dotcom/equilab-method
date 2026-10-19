@@ -36,8 +36,9 @@ export async function MetodoPista() {
         <dl className="grid grid-cols-1 gap-x-16 gap-y-14 border-t border-carbon/10 pt-16 min-[460px]:grid-cols-2 xl:grid-cols-[repeat(4,auto)] xl:justify-between">
           {facts.map(({ value, label, text }, i) => (<Aparecer key={value} retraso={i * 120}>
               <dt className="text-[clamp(1.9rem,2.6vw,2.25rem)] leading-none font-semibold tracking-[-0.03em] whitespace-nowrap">{t(value)}</dt>
-              {label && <dd className="mt-3 text-[15px] font-semibold text-cuero">{t(label)}</dd>}
-              <dd className={label ? "mt-1 max-w-[26ch] text-[15px] text-humo" : "mt-3 max-w-[26ch] text-[15px] text-humo"}>{t(text)}</dd>
+              {label && <dd className="mt-3 text-[15px] leading-relaxed font-semibold text-cuero">{t(label)}</dd>}
+              {/* Tras la etiqueta, sin margen: mismo interlineado que un texto de dos líneas */}
+              <dd className={label ? "max-w-[26ch] text-[15px] leading-relaxed text-humo" : "mt-3 max-w-[26ch] text-[15px] leading-relaxed text-humo"}>{t(text)}</dd>
             </Aparecer>))}
         </dl>
       </Contenedor>
