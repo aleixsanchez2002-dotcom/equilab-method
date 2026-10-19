@@ -30,8 +30,8 @@ export async function MetodoPista() {
       </Contenedor>
 
       {/* Cifras: número grande, etiqueta y una línea, como los contadores de la referencia */}
-      <Contenedor className="mt-20 sm:mt-28">
-        <dl className="grid grid-cols-1 gap-x-8 gap-y-12 min-[460px]:grid-cols-2 border-t border-carbon/10 pt-12 lg:grid-cols-4">
+      <Contenedor className="mt-28 sm:mt-40">
+        <dl className="grid grid-cols-1 gap-x-12 gap-y-14 min-[460px]:grid-cols-2 border-t border-carbon/10 pt-16 lg:grid-cols-4 lg:gap-x-16">
           {facts.map(({ value, label, text }, i) => (<Aparecer key={value} retraso={i * 120}>
               <dt className="text-[clamp(1.9rem,2.6vw,2.25rem)] leading-none font-semibold tracking-[-0.03em]">{t(value)}</dt>
               {label && <dd className="mt-3 text-[15px] font-semibold text-cuero">{t(label)}</dd>}

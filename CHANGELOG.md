@@ -71,6 +71,9 @@ para correcciones y textos.
 - Pista: todos los botones de alta llevan a `/acceso/registro` e «Iniciar
   sesión» a `/acceso`. Se quita de la portada el párrafo «El juez mira al
   caballo…», que ya aparece en la sección «Método».
+- Pista: más espacio en las cifras de «El método» (más separación del bloque
+  de arriba y entre columnas). En inglés, «10 min» pasa a decir
+  «Questionnaire on how you ride.».
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a
