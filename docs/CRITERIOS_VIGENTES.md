@@ -79,6 +79,8 @@ No versionar `.env.local`, claves, credenciales, sesiones, datos reales de clien
 
 ## Cómo cambiar esta base
 
+El repositorio principal del equipo es `https://github.com/JonyQuin/equilab-method`, bajo la cuenta de Giovanni. Las copias anteriores no reciben automáticamente sus cambios.
+
 1. Partir de `main` vigente y leer este documento y `AGENTS.md`.
 2. Hacer un cambio concreto, conservando las funciones aprobadas y los datos existentes.
 3. Actualizar traducciones y migraciones cuando corresponda.

@@ -9,7 +9,7 @@ Web de preparación física para jinetes. Esta es la versión vigente aprobada p
 Requisitos: Node.js 20.9 o posterior y npm.
 
 ```bash
-git clone https://github.com/aleixsanchez2002-dotcom/equilab-method.git
+git clone https://github.com/JonyQuin/equilab-method.git
 cd equilab-method
 npm ci
 cp .env.example .env.local
