@@ -36,8 +36,11 @@ export async function FooterPista() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Link href={home} className="inline-flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-              <BitMark className="w-10"/>
-              <span className="text-[26px] font-light">Equilab</span>
+              <BitMark className="w-12 shrink-0 text-cuero"/>
+              <span className="flex flex-col leading-none">
+                <span className="font-display text-[26px] font-semibold tracking-[0.04em] text-crema">EQUILAB</span>
+                <span className="mt-2 font-display text-[9px] font-semibold tracking-[0.62em] text-cuero">METHOD</span>
+              </span>
             </Link>
             <p className="mt-5 max-w-[32ch] text-[15px] leading-relaxed text-white/60">{t("Preparación física para jinetes profesionales")}</p>
           </div>

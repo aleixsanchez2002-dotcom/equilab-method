@@ -54,8 +54,11 @@ export function NavPista({ sesion = false }: { sesion?: boolean }) {
     return (<header className={cn("fixed inset-x-0 top-0 z-50 text-white transition-colors duration-500", solida || abierto ? "bg-carbon/95" : "bg-transparent")}>
       <nav aria-label={t("Principal")} className={cn("mx-auto flex max-w-[1240px] items-center gap-6 px-5 transition-[height] duration-500 sm:px-8", solida ? "h-[72px]" : "h-[88px]")}>
         <Link href={home} aria-label={t("Equilab Method — inicio")} className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white" onClick={() => setAbierto(false)}>
-          <BitMark className="w-9 shrink-0"/>
-          <span className="text-[22px] font-light tracking-[-0.01em]">Equilab</span>
+          <BitMark className="w-10 shrink-0 text-cuero"/>
+          <span className="flex flex-col leading-none">
+            <span className="font-display text-[21px] font-semibold tracking-[0.04em] text-crema">EQUILAB</span>
+            <span className="mt-1.5 font-display text-[7.5px] font-semibold tracking-[0.62em] text-cuero">METHOD</span>
+          </span>
         </Link>
 
         <ul className="ml-auto hidden items-center gap-9 lg:flex">
