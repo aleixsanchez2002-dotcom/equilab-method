@@ -6,7 +6,7 @@ export const facts: {
     label?: string;
     text: string;
 }[] = [
-    { value: "10 min", text: "Lo que tarda el cuestionario inicial sobre cómo montas." },
+    { value: "10 min", text: "Cuestionario sobre cómo montas." },
     { value: "2–4 días", text: "Tiempo de dedicación semanal." },
     { value: "3 entrenadores", text: "Tres expertos a tu disposición, cada uno especializado en un campo." },
     { value: "75–150 €", label: "Básico–Premium", text: "Sin permanencia." },
