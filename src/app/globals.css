@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* Equilab — grafito, blanco roto y lima. Los nombres de tokens originales
+   se conservan para aplicar la identidad también al área de clientes. */
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo-black), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  /* Grafito — fondo y superficies */
+  --color-ink-950: #141719;
+  --color-ink-900: #1b1f22;
+  --color-ink-800: #252b2e;
+  --color-ink-700: #343c40;
+
+  /* Blanco roto y grises legibles */
+  --color-sand-50: #f4f5ef;
+  --color-sand-100: #e8ebe5;
+  --color-sand-300: #c8cfca;
+  --color-sand-500: #a6b0aa;
+  --color-sand-600: #929d96;
+
+  /* Lima — acento de marca */
+  --color-cognac-300: #d9f89a;
+  --color-cognac-400: #c9ef75;
+  --color-cognac-500: #b9e85b;
+  --color-cognac-600: #a4d044;
+
+  /* Estados secundarios */
+  --color-oxblood-400: #f1a68e;
+  --color-oxblood-500: #b77361;
+
+  /* Semánticos */
+  --color-error: #f5a395;
+  --color-edge: rgba(232, 235, 229, 0.12);
+  --color-edge-strong: rgba(232, 235, 229, 0.25);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-sand-100);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01" on;
+  }
+
+  ::selection {
+    background-color: var(--color-cognac-500);
+    color: var(--color-ink-950);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Grano fotográfico sutil para superficies grandes (sustituto elegante
+   de la fotografía de marca hasta que exista) */
+@utility texture-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ————— Sistema de revelado al hacer scroll ————— */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ————— Cinta editorial (marquee) ————— */
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
+
+/* ————— Acordeón FAQ (animación de altura vía grid) ————— */
+
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-body[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.faq-body > div {
+  overflow: hidden;
+}
+
+/* ————— Accesibilidad: sin movimiento si el sistema lo pide ————— */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .faq-body {
+    transition: none;
+  }
+
+  .animate-rise {
+    animation: none;
+  }
+}
+
+/* Identidad deportiva; sin cursivas de la anterior dirección editorial. */
+@layer base {
+  h1, h2 { text-wrap: balance; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+}
+.font-display { letter-spacing: -0.035em; }
+.font-display em, em.font-display { font-style: normal; }
+.marketing .font-display.italic { font-style: normal; }
+.marketing .light-section {
+  --color-ink-950: #f4f5ef;
+  --color-ink-900: #e9ede5;
+  --color-ink-800: #e0e6dc;
+  --color-sand-50: #141719;
+  --color-sand-100: #202725;
+  --color-sand-300: #344039;
+  --color-sand-500: #536159;
+  --color-sand-600: #5c695f;
+  --color-cognac-300: #496221;
+  --color-cognac-400: #496221;
+  --color-cognac-500: #55742a;
+  --color-edge: rgba(20, 23, 25, 0.15);
+  --color-edge-strong: rgba(20, 23, 25, 0.3);
+  color: var(--color-sand-100);
+  color-scheme: light;
+}
+.marketing .section-heading { font-size: clamp(2.1rem, 5.2vw, 4.75rem); line-height: 1.02; }
+.hero-photo { position: relative; }
+.hero-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(20,23,25,.75), transparent 55%); }
+.hero-photo img { object-position: 60% 50%; }
+.hero-rule { width: 68px; height: 5px; background: var(--color-cognac-500); transform: skewX(-25deg); }
