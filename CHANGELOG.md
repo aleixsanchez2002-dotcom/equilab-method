@@ -75,6 +75,8 @@ para correcciones y textos.
   de arriba y entre columnas). En inglés, «10 min» pasa a decir
   «Questionnaire on how you ride.» y en español «Cuestionario sobre cómo
   montas.».
+- Pista: las cuatro cifras de «El método» se reparten a lo ancho con más
+  espacio entre columnas y «3 entrenadores» ya no se parte en dos líneas.
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a

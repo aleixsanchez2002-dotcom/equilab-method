@@ -31,11 +31,13 @@ export async function MetodoPista() {
 
       {/* Cifras: número grande, etiqueta y una línea, como los contadores de la referencia */}
       <Contenedor className="mt-28 sm:mt-40">
-        <dl className="grid grid-cols-1 gap-x-12 gap-y-14 min-[460px]:grid-cols-2 border-t border-carbon/10 pt-16 lg:grid-cols-4 lg:gap-x-16">
+        {/* En pantallas anchas cada columna mide lo que su contenido y el espacio
+            sobrante se reparte entre ellas: así «3 entrenadores» no se parte. */}
+        <dl className="grid grid-cols-1 gap-x-16 gap-y-14 border-t border-carbon/10 pt-16 min-[460px]:grid-cols-2 xl:grid-cols-[repeat(4,auto)] xl:justify-between">
           {facts.map(({ value, label, text }, i) => (<Aparecer key={value} retraso={i * 120}>
-              <dt className="text-[clamp(1.9rem,2.6vw,2.25rem)] leading-none font-semibold tracking-[-0.03em]">{t(value)}</dt>
+              <dt className="text-[clamp(1.9rem,2.6vw,2.25rem)] leading-none font-semibold tracking-[-0.03em] whitespace-nowrap">{t(value)}</dt>
               {label && <dd className="mt-3 text-[15px] font-semibold text-cuero">{t(label)}</dd>}
-              <dd className={label ? "mt-1 text-[15px] text-humo" : "mt-3 text-[15px] text-humo"}>{t(text)}</dd>
+              <dd className={label ? "mt-1 max-w-[26ch] text-[15px] text-humo" : "mt-3 max-w-[26ch] text-[15px] text-humo"}>{t(text)}</dd>
             </Aparecer>))}
         </dl>
       </Contenedor>
