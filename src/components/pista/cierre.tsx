@@ -42,7 +42,6 @@ export async function FooterPista() {
                 <span className="mt-2 font-display text-[9px] font-semibold tracking-[0.62em] text-cuero">METHOD</span>
               </span>
             </Link>
-            <p className="mt-5 max-w-[32ch] text-[15px] leading-relaxed text-white/60">{t("Preparación física para jinetes profesionales")}</p>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
             {columns.map(({ title, links }) => (<nav key={title} aria-label={t(title)}>
