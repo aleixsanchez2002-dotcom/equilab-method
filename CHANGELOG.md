@@ -79,6 +79,8 @@ para correcciones y textos.
   espacio entre columnas y «3 entrenadores» ya no se parte en dos líneas.
   «Básico–Premium» y «Sin permanencia.» quedan con el mismo interlineado que
   el resto de textos de las cifras.
+- Pista: se quita el párrafo «Lo que ves en la pista lo corrige…» de la
+  sección del equipo.
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a

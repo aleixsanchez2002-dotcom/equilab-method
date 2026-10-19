@@ -21,18 +21,10 @@ export async function EquipoPista() {
     const { t } = await getI18n();
     return (<section id="entrenadores" aria-labelledby="equipo-titulo" className="scroll-mt-20 bg-white py-24 sm:py-32">
       <Contenedor>
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
-          <div>
-            <Aparecer><Antetitulo>{t("El equipo")}</Antetitulo></Aparecer>
-            <Aparecer retraso={100}>
-              <TituloPista id="equipo-titulo" className="mt-5">{t("Tres miradas, un objetivo")}</TituloPista>
-            </Aparecer>
-          </div>
-          <Aparecer retraso={200}>
-            <p className="max-w-[52ch] text-[17px] leading-relaxed text-humo">
-              {t("Lo que ves en la pista lo corrige quien entiende la pista. Lo que entrenas en el gimnasio lo programa quien vive el gimnasio.")}{" "}
-              {t("Y lo que progresas lo analiza quien entiende los datos.")}
-            </p>
+        <div>
+          <Aparecer><Antetitulo>{t("El equipo")}</Antetitulo></Aparecer>
+          <Aparecer retraso={100}>
+            <TituloPista id="equipo-titulo" className="mt-5">{t("Tres miradas, un objetivo")}</TituloPista>
           </Aparecer>
         </div>
 
