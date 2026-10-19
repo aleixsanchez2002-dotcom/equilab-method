@@ -7,33 +7,35 @@ type LogoProps = {
   className?: string;
 };
 
-/** Marca gráfica: filete (bocado) minimalista — dos anillas y embocadura articulada. */
+/**
+ * Marca gráfica: bocado de anillas — dos anillas, embocadura articulada y
+ * anilla central (ADR-0019). Trazo grueso para que se lea a 32 px.
+ */
 export function BitMark({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 56 24"
+      viewBox="0 0 64 28"
       fill="none"
       aria-hidden="true"
       className={className}
     >
-      <circle cx="10" cy="12" r="8" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="46" cy="12" r="8" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="11" cy="14" r="8.5" stroke="currentColor" strokeWidth="3.2" />
+      <circle cx="53" cy="14" r="8.5" stroke="currentColor" strokeWidth="3.2" />
       <path
-        d="M18 12 L28 9.5 L38 12"
+        d="M19.5 14 L29 11.2 M35 11.2 L44.5 14"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="3.2"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      <circle cx="28" cy="9.5" r="1.4" fill="currentColor" />
+      <circle cx="32" cy="11" r="3" stroke="currentColor" strokeWidth="2.4" />
     </svg>
   );
 }
 
 const sizeMap = {
-  sm: { mark: "w-8", name: "text-xl", sub: "text-[7px] tracking-[0.42em]" },
-  md: { mark: "w-10", name: "text-lg", sub: "text-[9px] tracking-[0.5em]" },
-  lg: { mark: "w-12", name: "text-2xl", sub: "text-[10px] tracking-[0.56em]" },
+  sm: { mark: "w-9", name: "text-xl", sub: "text-[7px]" },
+  md: { mark: "w-10", name: "text-lg", sub: "text-[8px]" },
+  lg: { mark: "w-12", name: "text-2xl", sub: "text-[9px]" },
 } as const;
 
 export function Logo({ size = "md", tone = "dark", className }: LogoProps) {
@@ -44,7 +46,7 @@ export function Logo({ size = "md", tone = "dark", className }: LogoProps) {
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-display tracking-[-0.03em]",
+            "font-display font-semibold tracking-[0.04em]",
             tone === "light" ? "text-paper" : "text-sand-50",
             s.name,
           )}
@@ -53,7 +55,7 @@ export function Logo({ size = "md", tone = "dark", className }: LogoProps) {
         </span>
         <span
           className={cn(
-            "mt-1 font-sans font-semibold uppercase",
+            "mt-1.5 font-sans font-semibold tracking-[0.62em] uppercase",
             tone === "light" ? "text-navy-soft" : "text-cognac-500",
             s.sub,
           )}

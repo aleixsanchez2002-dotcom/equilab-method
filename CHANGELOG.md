@@ -56,6 +56,8 @@ para correcciones y textos.
   mismos finales de línea.
 
 ### Cambiado
+- Logo nuevo: bocado de anillas con trazo más grueso y logotipo
+  «EQUILAB / METHOD» más espaciado (ADR-0019).
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a

@@ -95,6 +95,7 @@ obligatorio a partir de ahora.
 | [0010](#adr-0010--animación-de-equilab-subida-de-la-palabra-entera) | Animación de «Equilab»: subida de la palabra entera | Aceptada | diseño |
 | [0011](#adr-0011--precios-75-y-150--al-mes-sin-permanencia) | Precios: 75 y 150 € al mes, sin permanencia | Aceptada | producto |
 | [0012](#adr-0012--pagos-con-stripe-checkout-y-portal-de-cliente) | Pagos con Stripe Checkout y portal de cliente | Propuesta | arquitectura |
+| [0019](#adr-0019--logo-bocado-de-anillas-con-trazo-grueso) | Logo: bocado de anillas con trazo grueso | Aceptada | diseño |
 
 ---
 
@@ -349,6 +350,33 @@ código y más superficie de cumplimiento normativo.
 
 **Consecuencias si se acepta.** Aceptar la ADR desbloquea la fase de pagos
 del `ROADMAP.md`.
+
+### ADR-0019 · Logo: bocado de anillas con trazo grueso
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** diseño
+
+**Contexto.** El símbolo del bocado venía del prototipo y nunca se había
+decidido de forma explícita. Con trazo fino se perdía en tamaños pequeños.
+Se exploraron cuatro direcciones de logo en un lienzo de diseño.
+
+**Decisión.** Se adopta la dirección «01 · Bocado»: dos anillas,
+embocadura articulada y una anilla pequeña en el centro, con trazo grueso
+(`viewBox 0 0 64 28`). Logotipo «EQUILAB» en Libre Franklin seminegrita con
+espaciado `0.04em` y «METHOD» debajo con espaciado `0.62em`. Sobre fondo
+claro: símbolo y «METHOD» en marino, nombre en noche. Sobre fondo oscuro:
+símbolo y «METHOD» en cuero, nombre en crema.
+
+**Alternativas descartadas** (lienzo del 19-10-2026):
+- «02 · Marcador E»: la letra E de la pista de doma en un cartel.
+- «03 · Línea de asiento»: jinete con hombro, cadera y talón alineados.
+- «04 · Eje»: solo el nombre, con la «I» alargada como eje central.
+
+**Consecuencias.** `BitMark` y `Logo` (`src/components/brand/logo.tsx`)
+cambian en toda la web. El favicon y los iconos de app se actualizan
+aparte.
 
 ---
 
