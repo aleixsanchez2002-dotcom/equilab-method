@@ -48,7 +48,7 @@ export function NavPista({ sesion = false }: { sesion?: boolean }) {
         };
     }, [abierto]);
 
-    const accion = sesion ? { href: "/app", label: t("Tu entrenamiento") } : { href: "/acceso", label: t("Empezar") };
+    const accion = sesion ? { href: "/app", label: t("Tu entrenamiento") } : { href: "/acceso", label: t("Registrarse") };
     const secundaria = sesion ? { href: "/app/cuenta", label: t("Tu cuenta") } : { href: "/acceso", label: t("Iniciar sesión") };
 
     return (<header className={cn("fixed inset-x-0 top-0 z-50 text-white transition-colors duration-500", solida || abierto ? "bg-carbon/95" : "bg-transparent")}>

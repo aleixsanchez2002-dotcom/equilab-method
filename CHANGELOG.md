@@ -63,6 +63,8 @@ para correcciones y textos.
   y el pie de la variante «Pista», con el símbolo en cuero (ADR-0019).
 - Pista: se quita la frase «Preparación física para jinetes profesionales»
   del pie, debajo del logo.
+- Pista: el botón «Empezar» de la cabecera pasa a «Registrarse»
+  («Sign up» en inglés).
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a
