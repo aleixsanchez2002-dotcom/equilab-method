@@ -718,5 +718,10 @@
   "No se pudo activar el cuestionario. Revisa la versión o los permisos del equipo.": "The questionnaire could not be activated. Check the version or team permissions.",
   "Ver cuestionario inicial": "View initial questionnaire",
   "años": "years",
-  "Otras respuestas": "Other answers"
+  "Otras respuestas": "Other answers",
+  "Cargando sección…": "Loading section…",
+  "Cargando tu espacio…": "Loading your space…",
+  "No hemos podido cargar esta sección.": "We could not load this section.",
+  "Comprueba tu conexión e inténtalo de nuevo. Tus datos guardados siguen intactos.": "Check your connection and try again. Your saved data is still safe.",
+  "Volver a intentar": "Try again"
 }

@@ -66,6 +66,8 @@ El motor Básico solo prepara borradores. Respetar disponibilidad y material y s
 
 ## Datos y permisos
 
+- Navegación de cliente: cargar solo los datos necesarios por sección y ejecutar lecturas independientes en paralelo. Mantener estados de carga y recuperación de errores sin compartir cachés de datos privados entre clientes. Vercel se ejecuta en Irlanda (`dub1`), junto a la base Supabase actual.
+
 Mantener Supabase Auth, autorización en el servidor y políticas RLS. No exponer datos de salud o contacto por ocultación visual únicamente. No guardar cuestionarios en almacenamiento local persistente ni registrar sus respuestas en logs.
 
 No versionar `.env.local`, claves, credenciales, sesiones, datos reales de clientes, copias de bases de datos ni artefactos de depuración. Las imágenes públicas aprobadas de marca sí forman parte del proyecto.

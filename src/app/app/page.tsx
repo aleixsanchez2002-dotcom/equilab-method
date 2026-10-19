@@ -98,7 +98,7 @@ export default async function AppPage({ searchParams, }: {
     const { data: { user }, } = await supabase.auth.getUser();
     if (!user)
         redirect("/acceso");
-    const [{ data: perfil }, { data: suscripcion }, { data: respuesta }] = await Promise.all([
+    const [perfilResult, suscripcionResult, respuestaResult] = await Promise.all([
         supabase
             .from("profiles")
             .select("id, full_name, role")
@@ -113,21 +113,28 @@ export default async function AppPage({ searchParams, }: {
             .from("questionnaire_responses")
             .select("id")
             .eq("user_id", user.id)
+            .order("created_at", { ascending: false })
+            .limit(1)
             .maybeSingle<{
             id: string;
         }>(),
     ]);
+    if (perfilResult.error || suscripcionResult.error || respuestaResult.error) {
+        throw new Error("No se pudo cargar tu espacio de entrenamiento.");
+    }
+    const perfil = perfilResult.data;
+    const suscripcion = suscripcionResult.data;
+    const respuesta = respuestaResult.data;
     const { cuestionario, contrasena, vista } = await searchParams;
     const seccion = vista === "rutina" || vista === "progreso" ? vista : "inicio";
     const nombre = perfil?.full_name?.split(" ")[0] || "jinete";
     const esEquipo = perfil?.role === "coach" || perfil?.role === "admin";
     const accesoVigente = tieneAccesoVigente(suscripcion ?? null);
-    // La rutina publicada más reciente (la RLS ya exige acceso vigente,
-    // pero comprobamos también aquí para elegir qué pantalla enseñar).
-    let rutina: Rutina | null = null;
-    let dias: DiaRutina[] = [];
-    if (accesoVigente) {
-        const { data: r } = await supabase
+    // Cada sección lee solo lo que muestra. Las lecturas independientes se
+    // ejecutan juntas para no acumular viajes de ida y vuelta a Supabase.
+    const cargarRutina = async (): Promise<{ rutina: Rutina | null; dias: DiaRutina[] }> => {
+        if (!accesoVigente) return { rutina: null, dias: [] };
+        const { data: r, error } = await supabase
             .from("routines")
             .select("id, title, weeks, type, explanation, started_on")
             .eq("user_id", user.id)
@@ -135,56 +142,46 @@ export default async function AppPage({ searchParams, }: {
             .order("created_at", { ascending: false })
             .limit(1)
             .maybeSingle<Rutina>();
-        rutina = r ?? null;
-        if (rutina) {
-            const { data: d } = await supabase
-                .from("routine_days")
-                .select("id, week, position, focus, duration_note, routine_exercises(id, position, exercise_id, technique_note, series, exercises(name, category, video_url))")
-                .eq("routine_id", rutina.id)
-                .returns<DiaRutina[]>();
-            dias = (d ?? [])
-                .slice()
-                .sort((a, b) => a.week - b.week || a.position - b.position)
-                .map((dia) => ({
-                ...dia,
-                routine_exercises: dia.routine_exercises
-                    .slice()
-                    .sort((a, b) => a.position - b.position),
-            }));
-        }
-    }
-    // Última sesión registrada de cada ejercicio, para el «última: 100 × 3».
+        if (error) throw new Error("No se pudo cargar la rutina.");
+        if (!r || seccion === "progreso") return { rutina: r ?? null, dias: [] };
+        type DiaLeido = Omit<DiaRutina, "routine_exercises"> & { routine_exercises?: DiaRutina["routine_exercises"] };
+        const { data: d, error: diasError } = await supabase.from("routine_days")
+            .select(seccion === "rutina"
+                ? "id, week, position, focus, duration_note, routine_exercises(id, position, exercise_id, technique_note, series, exercises(name, category, video_url))"
+                : "id, week, position, focus, duration_note")
+            .eq("routine_id", r.id).returns<DiaLeido[]>();
+        if (diasError) throw new Error("No se pudieron cargar los días de entrenamiento.");
+        const dias = (d ?? []).map(dia => ({
+            ...dia,
+            routine_exercises: (dia.routine_exercises ?? [])
+                .slice().sort((a, b) => a.position - b.position),
+        })).sort((a, b) => a.week - b.week || a.position - b.position);
+        return { rutina: r, dias };
+    };
+    const [{ rutina, dias }, seriesProgreso, puntosPeso, sesionesHistorial] = await Promise.all([
+        cargarRutina(),
+        accesoVigente && seccion !== "rutina" ? seriesDeProgreso(supabase, user.id) : Promise.resolve([]),
+        accesoVigente && seccion === "progreso" ? pesosSemanales(supabase, user.id) : Promise.resolve([]),
+        accesoVigente && seccion !== "rutina" ? historialDeSesiones(supabase, user.id) : Promise.resolve([]),
+    ]);
+    // Las últimas series solo se usan en el registro de la rutina.
     const ultimaPorEjercicio = new Map<string, SerieRegistrada[]>();
-    if (rutina && dias.length > 0) {
-        const ids = dias.flatMap((d) => d.routine_exercises.map((e) => e.id));
-        const { data: logs } = await supabase
+    const ids = dias.flatMap(d => d.routine_exercises.map(e => e.id));
+    if (seccion === "rutina" && ids.length > 0) {
+        const { data: logs, error } = await supabase
             .from("workout_logs")
             .select("routine_exercise_id, series, performed_on")
             .eq("user_id", user.id)
             .in("routine_exercise_id", ids)
             .order("performed_on", { ascending: false })
-            .returns<{
-            routine_exercise_id: string;
-            series: SerieRegistrada[];
-        }[]>();
+            .returns<{ routine_exercise_id: string; series: SerieRegistrada[] }[]>();
+        if (error) throw new Error("No se pudieron cargar los registros de entrenamiento.");
         for (const log of logs ?? []) {
-            if (!ultimaPorEjercicio.has(log.routine_exercise_id)) {
-                ultimaPorEjercicio.set(log.routine_exercise_id, log.series);
-            }
+            if (!ultimaPorEjercicio.has(log.routine_exercise_id)) ultimaPorEjercicio.set(log.routine_exercise_id, log.series);
         }
     }
-    // Progresión de fuerza (módulo compartido con el panel del equipo)
-    const seriesProgreso = accesoVigente
-        ? await seriesDeProgreso(supabase, user.id)
-        : [];
-    // Peso corporal semanal (se pide cada lunes)
     const lunesActual = lunesDeLaSemana(new Date());
-    const puntosPeso = accesoVigente ? await pesosSemanales(supabase, user.id) : [];
-    const pesoEstaSemana = puntosPeso.find((p) => p.fecha === lunesActual)?.kg ?? null;
-    // Historial de sesiones anteriores (solo lectura, módulo compartido)
-    const sesionesHistorial = accesoVigente
-        ? await historialDeSesiones(supabase, user.id)
-        : [];
+    const pesoEstaSemana = puntosPeso.find(p => p.fecha === lunesActual)?.kg ?? null;
     // Forma que consume el componente de registro, agrupada por semanas.
     // Se descartan las series prescritas vacías (rutinas antiguas) y los
     // ejercicios que se quedan sin ninguna.
