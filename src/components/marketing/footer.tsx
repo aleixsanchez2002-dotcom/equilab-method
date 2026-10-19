@@ -14,7 +14,7 @@ const columns = [
         title: "Cuenta",
         links: [
             { label: "Iniciar sesión", href: "/acceso" },
-            { label: "Crear cuenta", href: "/acceso" },
+            { label: "Crear cuenta", href: "/acceso/registro" },
         ],
     },
     {

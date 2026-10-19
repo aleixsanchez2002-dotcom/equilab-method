@@ -95,6 +95,7 @@ obligatorio a partir de ahora.
 | [0010](#adr-0010--animación-de-equilab-subida-de-la-palabra-entera) | Animación de «Equilab»: subida de la palabra entera | Aceptada | diseño |
 | [0011](#adr-0011--precios-75-y-150--al-mes-sin-permanencia) | Precios: 75 y 150 € al mes, sin permanencia | Aceptada | producto |
 | [0012](#adr-0012--pagos-con-stripe-checkout-y-portal-de-cliente) | Pagos con Stripe Checkout y portal de cliente | Propuesta | arquitectura |
+| [0020](#adr-0020--páginas-separadas-para-iniciar-sesión-y-crear-cuenta) | Páginas separadas para iniciar sesión y crear cuenta | Aceptada | producto |
 
 ---
 
@@ -349,6 +350,29 @@ código y más superficie de cumplimiento normativo.
 
 **Consecuencias si se acepta.** Aceptar la ADR desbloquea la fase de pagos
 del `ROADMAP.md`.
+
+### ADR-0020 · Páginas separadas para iniciar sesión y crear cuenta
+
+- **Estado:** Aceptada
+- **Fecha:** 2026-10-19
+- **Decide:** Aleix Sánchez
+- **Ámbito:** producto
+
+**Contexto.** «Empezar» e «Iniciar sesión» llevaban a la misma página
+`/acceso`, que se abría en «Iniciar sesión» con una pestaña para crear
+cuenta. Quien pulsaba «Empezar» caía en el formulario equivocado.
+
+**Decisión.** `/acceso` es solo para clientes con cuenta; `/acceso/registro`
+es solo para crear cuenta. Todos los botones de alta («Empezar»,
+«Registrarse», planes) llevan al registro y cada página enlaza a la otra.
+Los resúmenes de planes solo aparecen en el registro. Las acciones de
+Supabase Auth no cambian.
+
+**Alternativas descartadas.**
+- Una sola página con pestañas abierta según un parámetro de la URL.
+
+**Consecuencias.** Las redirecciones por falta de sesión siguen yendo a
+`/acceso`.
 
 ---
 

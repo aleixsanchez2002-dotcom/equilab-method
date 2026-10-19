@@ -102,7 +102,7 @@ export async function Correcciones() {
                   </li>))}
               </ol>
               <div style={{ "--i": 2 } as CSSProperties} className="mt-10 flex">
-                <Link href="/acceso" className="press inline-flex h-14 shrink-0 items-center justify-center bg-paper px-7 text-[16px] font-semibold text-night hover:bg-linen focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper">
+                <Link href="/acceso/registro" className="press inline-flex h-14 shrink-0 items-center justify-center bg-paper px-7 text-[16px] font-semibold text-night hover:bg-linen focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper">
                   {t("Hacer el cuestionario")}
                 </Link>
               </div>

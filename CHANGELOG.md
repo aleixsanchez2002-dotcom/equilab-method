@@ -56,6 +56,9 @@ para correcciones y textos.
   mismos finales de línea.
 
 ### Cambiado
+- Acceso separado en dos páginas: `/acceso` para iniciar sesión (clientes
+  con cuenta) y `/acceso/registro` para crear cuenta. Los botones de
+  «Empezar» y de los planes llevan al registro (ADR-0020).
 - `.gitignore` ampliado: Supabase CLI, Stripe CLI, vídeos en bruto,
   exportaciones de datos, ajustes personales de IA y archivos de Windows.
 - La guía del equipo pasa de `README.md` a

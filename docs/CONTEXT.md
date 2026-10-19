@@ -130,7 +130,8 @@ fisioterapia o tratamiento de lesiones.
 Web pública (sin sesión)
   /                 Portada en español
   /en               Portada en inglés
-  /acceso           Iniciar sesión y crear cuenta
+  /acceso           Iniciar sesión (clientes con cuenta)
+  /acceso/registro  Crear cuenta (todos los botones de «Empezar»)
   /acceso/recuperar, /acceso/nueva-contrasena
   /auth/confirm     Confirmación de email (route handler)
   /language         Cambio de idioma (route handler)

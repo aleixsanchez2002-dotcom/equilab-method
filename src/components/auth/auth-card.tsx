@@ -8,20 +8,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Divider } from "@/components/ui/divider";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/cn";
-type Mode = "login" | "register";
-const tabs: {
-    mode: Mode;
-    label: string;
-}[] = [
-    { mode: "login", label: "Iniciar sesión" },
-    { mode: "register", label: "Crear cuenta" },
-];
+export type Mode = "login" | "register";
 const estadoInicial: AuthState = {};
-/** Tarjeta de autenticación conectada a Supabase Auth (fase 2). */
-export function AuthCard() {
+/**
+ * Tarjeta de autenticación conectada a Supabase Auth (fase 2). Cada modo
+ * vive en su propia página: /acceso para clientes con cuenta y
+ * /acceso/registro para cuentas nuevas.
+ */
+export function AuthCard({ mode }: {
+    mode: Mode;
+}) {
     const { t } = useI18n();
-    const [mode, setMode] = useState<Mode>("login");
     const uid = useId();
     // Controlados a propósito: si el envío falla, lo escrito no se borra
     // (React vacía los formularios no controlados tras cada acción).
@@ -33,18 +30,11 @@ export function AuthCard() {
     const state = mode === "login" ? loginState : registerState;
     const pending = mode === "login" ? loginPending : registerPending;
     return (<div className="w-full max-w-sm">
-      {/* Selector iniciar sesión / crear cuenta */}
-      <div role="tablist" aria-label={t("Acceso")} className="mb-10 flex border-b border-edge">
-        {tabs.map(({ mode: tabMode, label }) => {
-            const selected = mode === tabMode;
-            return (<button key={tabMode} role="tab" aria-selected={selected} onClick={() => setMode(tabMode)} className={cn("relative -mb-px flex-1 cursor-pointer pb-4 font-sans text-xs font-semibold", "transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cognac-400", selected ? "text-sand-100" : "text-sand-600 hover:text-sand-300")}>
-              {t(label)}
-              <span aria-hidden="true" className={cn("absolute inset-x-0 bottom-0 h-px origin-left bg-cognac-400 transition-transform duration-300 ease-out", selected ? "scale-x-100" : "scale-x-0")}/>
-            </button>);
-        })}
-      </div>
+      <h2 className="mb-8 font-display text-2xl leading-tight font-medium text-sand-50">
+        {mode === "login" ? t("Inicia sesión") : t("Crea tu cuenta")}
+      </h2>
 
-      <form key={mode} action={mode === "login" ? loginAction : registerAction} className="animate-rise flex flex-col gap-6">
+      <form action={mode === "login" ? loginAction : registerAction} className="animate-rise flex flex-col gap-6">
         {mode === "register" && (<Field label={t("Nombre")} htmlFor={`${uid}-name`}>
             <Input id={`${uid}-name`} name="name" autoComplete="name" placeholder={t("Tu nombre y apellidos")} value={nombre} onChange={(e) => setNombre(e.target.value)} required/>
           </Field>)}
@@ -75,6 +65,15 @@ export function AuthCard() {
           </p>)}
       </form>
 
+      <p className="mt-8 text-center text-[14px] text-sand-500">
+        {mode === "login" ? t("¿Aún no tienes cuenta?") : t("¿Ya tienes cuenta?")}{" "}
+        <Link href={mode === "login" ? "/acceso/registro" : "/acceso"} className="font-semibold text-cognac-400 underline-offset-2 hover:underline">
+          {mode === "login" ? t("Regístrate") : t("Inicia sesión")}
+        </Link>
+      </p>
+
+      {/* Los planes solo interesan a quien todavía no tiene cuenta */}
+      {mode === "register" && (<>
       <Divider label={t("Planes")} className="mt-12 mb-6"/>
 
       <div className="flex gap-3">
@@ -88,5 +87,6 @@ export function AuthCard() {
             <span className="font-display text-[15px] text-sand-300">{t(plan.price)}</span>
           </div>))}
       </div>
+      </>)}
     </div>);
 }
