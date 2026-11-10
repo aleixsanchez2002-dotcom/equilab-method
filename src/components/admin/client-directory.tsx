@@ -118,11 +118,11 @@ function Fila({ cliente }: {
 
       <div className="ml-auto flex flex-wrap gap-2">
         {cliente.borrador && (<Link href={`/admin/rutinas/${cliente.borrador.id}`}>
-            <Button size="sm" tabIndex={-1}>{t("Revisar")}</Button>
+            <Button size="sm" as="span">{t("Revisar")}</Button>
           </Link>)}
         {cliente.rutina && !cliente.borrador && <Link href={`/admin/rutinas/${cliente.rutina.id}`} className="inline-flex min-h-9 items-center rounded-lg border border-edge-strong px-4 text-xs font-semibold uppercase text-sand-100">{t("Editar rutina")}</Link>}
         {cliente.estado === "crear" && (<Link href={`/admin/rutinas/nueva?cliente=${cliente.id}`}>
-            <Button size="sm" tabIndex={-1}>{t("Crear rutina")}</Button>
+            <Button size="sm" as="span">{t("Crear rutina")}</Button>
           </Link>)}
         {cliente.estado === "sin-acceso" && (<>
             <form action={concederAcceso}>
@@ -137,7 +137,7 @@ function Fila({ cliente }: {
             </form>
           </>)}
         <Link href={`/admin/clientes/${cliente.id}`}>
-          <Button variant="ghost" size="sm" tabIndex={-1}>{t("Ficha")}</Button>
+          <Button variant="ghost" size="sm" as="span">{t("Ficha")}</Button>
         </Link>
       </div>
     </article>);

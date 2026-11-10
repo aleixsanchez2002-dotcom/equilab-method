@@ -1,8 +1,9 @@
 "use client";
 import { useI18n } from "@/components/i18n/provider";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Logo } from "@/components/brand/logo";
+import { LanguageLinks } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 const links = [
@@ -46,19 +47,20 @@ export function Nav({ sesion = false }: {
         </ul>
 
         <div className="flex items-center gap-3">
+          <Suspense fallback={null}><LanguageLinks className="hidden lg:inline-flex" /></Suspense>
           {sesion ? (<>
               <Link href="/app/cuenta" className="hidden lg:block">
-                <Button variant="outline" size="sm" tabIndex={-1}>{t("Tu cuenta")}</Button>
+                <Button variant="outline" size="sm" as="span">{t("Tu cuenta")}</Button>
               </Link>
               <Link href="/app" className="hidden sm:block">
-                <Button size="sm" tabIndex={-1}>{t("Tu entrenamiento")}</Button>
+                <Button size="sm" as="span">{t("Tu entrenamiento")}</Button>
               </Link>
             </>) : (<>
               <Link href="/acceso" className="hidden lg:block">
-                <Button variant="outline" size="sm" tabIndex={-1}>{t("Iniciar sesi\u00F3n")}</Button>
+                <Button variant="outline" size="sm" as="span">{t("Iniciar sesi\u00F3n")}</Button>
               </Link>
               <Link href="/acceso?modo=registro" className="hidden sm:block">
-                <Button size="sm" tabIndex={-1}>{t("Empezar")}</Button>
+                <Button size="sm" as="span">{t("Empezar")}</Button>
               </Link>
             </>)}
 
@@ -83,19 +85,20 @@ export function Nav({ sesion = false }: {
             </li>))}
         </ul>
         <div className="flex flex-col gap-3 px-8 pb-12">
+          {open && <Suspense fallback={null}><LanguageLinks className="mb-2 self-start" /></Suspense>}
           {sesion ? (<>
               <Link href="/app" onClick={() => setOpen(false)}>
-                <Button fullWidth size="lg" tabIndex={-1}>{t("Tu entrenamiento")}</Button>
+                <Button fullWidth size="lg" as="span">{t("Tu entrenamiento")}</Button>
               </Link>
               <Link href="/app/cuenta" onClick={() => setOpen(false)}>
-                <Button fullWidth variant="outline" size="lg" tabIndex={-1}>{t("Tu cuenta")}</Button>
+                <Button fullWidth variant="outline" size="lg" as="span">{t("Tu cuenta")}</Button>
               </Link>
             </>) : (<>
               <Link href="/acceso?modo=registro" onClick={() => setOpen(false)}>
-                <Button fullWidth size="lg" tabIndex={-1}>{t("Empezar ahora")}</Button>
+                <Button fullWidth size="lg" as="span">{t("Empezar ahora")}</Button>
               </Link>
               <Link href="/acceso" onClick={() => setOpen(false)}>
-                <Button fullWidth variant="outline" size="lg" tabIndex={-1}>{t("Iniciar sesi\u00F3n")}</Button>
+                <Button fullWidth variant="outline" size="lg" as="span">{t("Iniciar sesi\u00F3n")}</Button>
               </Link>
             </>)}
         </div>

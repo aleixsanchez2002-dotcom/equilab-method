@@ -232,7 +232,7 @@ export default async function AppPage({ searchParams, }: {
           </Link>
           <div className="flex shrink-0 items-center gap-1">
             {esEquipo && (<Link href="/admin">
-                <Button variant="outline" size="sm" tabIndex={-1}>{t("Equipo")}</Button>
+                <Button variant="outline" size="sm" as="span">{t("Equipo")}</Button>
               </Link>)}
             <form action={cerrarSesion}>
               <Button variant="ghost" size="sm" type="submit">{t("Salir")}</Button>
@@ -288,7 +288,7 @@ export default async function AppPage({ searchParams, }: {
             <p className="mt-4 text-sm leading-relaxed text-sand-500">{t("Un cuestionario por pasos sobre tu experiencia, tu técnica, tu preparación física y tus objetivos. Con eso construimos tu rutina.")}</p>
             <div className="mt-6">
               <Link href="/app/cuestionario">
-                <Button size="lg" tabIndex={-1}>{t("Empezar cuestionario")}</Button>
+                <Button size="lg" as="span">{t("Empezar cuestionario")}</Button>
               </Link>
             </div>
           </Card>)}

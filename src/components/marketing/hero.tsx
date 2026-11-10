@@ -17,9 +17,9 @@ export async function Hero() {
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-sand-500 sm:mt-7 sm:text-lg">{t("Fuerza, movilidad y control corporal para tu vida en la pista. Un entrenamiento que empieza en ti y se siente en cada tranco.")}</p>
             <div className="mt-7 flex flex-wrap gap-3 sm:mt-9">
-              <Link href="/acceso?modo=registro" className="w-full sm:w-auto"><Button size="lg" tabIndex={-1} className="w-full sm:w-auto">{t("Empezar mi entrenamiento ")}<span aria-hidden="true">↗</span></Button></Link>
+              <Link href="/acceso?modo=registro" className="w-full sm:w-auto"><Button size="lg" as="span" className="w-full sm:w-auto">{t("Empezar mi entrenamiento ")}<span aria-hidden="true">↗</span></Button></Link>
               {/* En móvil la sección del método es justo la siguiente: basta el scroll. */}
-              <a href="#metodo" className="hidden sm:block"><Button variant="outline" size="lg" tabIndex={-1}>{t("El m\u00E9todo")}</Button></a>
+              <a href="#metodo" className="hidden sm:block"><Button variant="outline" size="lg" as="span">{t("El m\u00E9todo")}</Button></a>
             </div>
             <p className="mt-5 text-sm text-sand-500 sm:mt-6">{t("Desde {0} €/mes ", { "0": PLAN_PRICES.basico / 100 })}<span aria-hidden="true" className="mx-2 text-cognac-400">/</span>{t(" Sin permanencia")}</p>
           </div>

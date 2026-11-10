@@ -20,7 +20,7 @@ export default async function RecuperarPage() {
             <Logo size="sm"/>
           </Link>
           <Link href="/acceso">
-            <Button variant="ghost" size="sm" tabIndex={-1}>{t("\u2190 Volver")}</Button>
+            <Button variant="ghost" size="sm" as="span">{t("\u2190 Volver")}</Button>
           </Link>
         </div>
       </header>

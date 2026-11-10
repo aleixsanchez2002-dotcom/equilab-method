@@ -16,7 +16,7 @@ const founders = [
         name: "Alex Ricarte",
         instagram: "alex_ricarte.fit",
         role: "Fuerza",
-        bio: "Ex culturista natural. Construye la base de fuerza que sostiene un asiento estable.",
+        bio: "Exculturista natural. Construye la base de fuerza que sostiene un asiento estable.",
         photo: "/media/alex.jpg",
         spec: "FOTO ALEX — retrato o entrenando. Vertical 4:5, mínimo 1200×1500 px.",
     },

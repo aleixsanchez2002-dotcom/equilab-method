@@ -10,7 +10,7 @@ const steps = [
     {
         index: "02",
         title: "Recibe tu rutina",
-        text: "Semi-personalizada en el plan Básico; construida a mano por el equipo, con valoración 1:1, en el Premium.",
+        text: "Semipersonalizada en el plan Básico; construida a mano por el equipo, con valoración 1:1, en el Premium.",
     },
     {
         index: "03",
@@ -28,15 +28,15 @@ export async function Steps() {
         </Reveal>
 
         <ol className="mt-16 grid gap-12 sm:grid-cols-3 sm:gap-8">
-          {steps.map(({ index, title, text }, i) => (<Reveal key={index} delay={i * 70}>
-              <li className="relative border-t border-edge pt-7 text-left">
+          {steps.map(({ index, title, text }, i) => (<li key={index}>
+              <Reveal delay={i * 70} className="relative border-t border-edge pt-7 text-left">
                 <span className="font-display text-5xl text-cognac-500">
                   {index}
                 </span>
                 <h3 className="mt-5 text-sm font-semibold uppercase tracking-[0.14em] text-sand-100">{t(title)}</h3>
                 <p className="mx-auto mt-3 max-w-[32ch] text-base leading-relaxed text-sand-500 sm:mx-0">{t(text)}</p>
-              </li>
-            </Reveal>))}
+              </Reveal>
+            </li>))}
         </ol>
       </div>
     </section>);

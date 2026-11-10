@@ -42,7 +42,7 @@ export default async function BloquePage() {
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-6">
           <Logo size="sm"/>
           <Link href="/app">
-            <Button variant="ghost" size="sm" tabIndex={-1}>{t("\u2190 Tu entrenamiento")}</Button>
+            <Button variant="ghost" size="sm" as="span">{t("\u2190 Tu entrenamiento")}</Button>
           </Link>
         </div>
       </header>
@@ -63,7 +63,7 @@ export default async function BloquePage() {
 
         <div className="mt-12">
           <Link href="/app">
-            <Button variant="outline" tabIndex={-1}>{t("Volver a tu rutina")}</Button>
+            <Button variant="outline" as="span">{t("Volver a tu rutina")}</Button>
           </Link>
         </div>
       </main>

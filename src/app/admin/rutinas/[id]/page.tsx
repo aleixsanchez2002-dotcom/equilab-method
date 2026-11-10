@@ -133,7 +133,7 @@ export default async function RevisarRutinaPage({
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
           <Logo size="sm" />
           <Link href="/admin">
-            <Button variant="ghost" size="sm" tabIndex={-1}>
+            <Button variant="ghost" size="sm" as="span">
               ← Volver al panel
             </Button>
           </Link>

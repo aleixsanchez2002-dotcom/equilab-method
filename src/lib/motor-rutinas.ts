@@ -2,7 +2,7 @@
  * Motor de reglas v1 (plan Básico).
  *
  * Función pura: respuestas del cuestionario + biblioteca de ejercicios →
- * propuesta de rutina semi-personalizada (siempre en borrador; el equipo
+ * propuesta de rutina semipersonalizada (siempre en borrador; el equipo
  * la revisa, ajusta cargas y publica). Determinista y sin dependencias:
  * fácil de testear y de afinar regla a regla.
  */

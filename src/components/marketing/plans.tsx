@@ -17,7 +17,7 @@ type Plan = {
 };
 // Comparativa de la versión de Aleix, adaptada a la identidad grafito/lima.
 const comparison = [
-    { label: "Diseño de la rutina", basic: "Semi-personalizada y revisada por el equipo", premium: "100 % personalizada, hecha a mano" },
+    { label: "Diseño de la rutina", basic: "Semipersonalizada y revisada por el equipo", premium: "100 % personalizada, hecha a mano" },
     { label: "Cuestionario postural inicial", basic: "Incluido", premium: "Incluido" },
     { label: "Valoración inicial 1:1", basic: "No incluida", premium: "Con el equipo, por videollamada" },
     { label: "Biblioteca de ejercicios en vídeo", basic: "Incluida", premium: "Incluida" },
@@ -34,7 +34,7 @@ const plans: Plan[] = [
         tagline: "Tu rutina, construida a partir de cómo montas.",
         features: [
             "Cuestionario postural inicial",
-            "Rutina semi-personalizada",
+            "Rutina semipersonalizada",
             "Biblioteca de ejercicios en vídeo",
             "Progresiones de rutina periódicas",
             "Acceso desde el móvil en el gimnasio",
@@ -95,6 +95,7 @@ export async function Plans() {
                   </span>
                   <span className="text-sm text-sand-500">{t("\u20AC / mes")}</span>
                 </div>
+                <p className="mt-1 text-xs text-sand-600">{t("IVA incluido")}</p>
 
                 <p className="mt-4 font-sans text-lg leading-snug text-cognac-300">{t(plan.tagline)}</p>
                 <p className="mt-4 text-sm leading-relaxed text-sand-500">{t(plan.highlighted ? "Para quien busca un trabajo individual y un seguimiento más cercano." : "Para quien quiere una estructura clara y entrenar con autonomía.")}</p>
@@ -109,7 +110,7 @@ export async function Plans() {
                 <div className="mt-10 flex-1"/>
 
                 <Link href="/acceso?modo=registro">
-                  <Button fullWidth size="lg" variant={plan.highlighted ? "primary" : "outline"} tabIndex={-1}>
+                  <Button fullWidth size="lg" variant={plan.highlighted ? "primary" : "outline"} as="span">
                     {t(plan.cta)}
                   </Button>
                 </Link>

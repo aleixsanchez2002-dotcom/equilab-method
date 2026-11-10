@@ -1,6 +1,8 @@
 import { getI18n } from "@/lib/i18n/server";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Logo } from "@/components/brand/logo";
+import { LanguageLinks } from "@/components/i18n/language-switcher";
 const columns = [
     {
         title: "Método",
@@ -61,6 +63,7 @@ export async function Footer() {
           <p className="text-xs text-sand-600">
             Giovanni Torrens · Alex Ricarte · Aleix Sánchez
           </p>
+          <Suspense fallback={null}><LanguageLinks className="self-start sm:self-auto" /></Suspense>
         </div>
       </div>
     </footer>);
