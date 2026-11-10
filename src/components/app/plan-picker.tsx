@@ -64,41 +64,41 @@ export async function PlanPicker({ planActual, titulo, entradilla, }: Props) {
     const { t, intlLocale } = await getI18n();
     return (<section className="mt-8">
       <Overline accent>{t("Planes")}</Overline>
-      <h2 className="mt-3 max-w-xl font-display text-3xl leading-[1.15] font-medium text-sand-50">
+      <h2 className="mt-3 max-w-xl font-display text-3xl leading-[1.15] text-sand-50">
         {t(titulo)}
       </h2>
-      <p className="mt-4 max-w-md text-[15px] leading-relaxed text-sand-500">
+      <p className="mt-4 max-w-md text-base leading-relaxed text-sand-500">
         {t(entradilla)}
       </p>
 
       <div className="mt-8 grid max-w-3xl gap-5 lg:grid-cols-2">
         {PLANES.map((plan) => {
             const esActual = planActual === plan.code;
-            return (<article key={plan.code} className={cn("relative flex flex-col rounded-sm border p-6 transition-colors duration-200 sm:p-7", plan.destacado
+            return (<article key={plan.code} className={cn("relative flex flex-col rounded-2xl border p-6 transition-colors duration-150 sm:p-7", plan.destacado
                     ? "border-cognac-500/50 bg-ink-900 shadow-[0_24px_50px_-30px_rgba(185,232,91,0.35)]"
                     : "border-edge bg-ink-900/60")}>
-              {plan.insignia && !esActual && (<span className="absolute -top-2.5 right-6 rounded-xs bg-cognac-500 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-ink-950">
+              {plan.insignia && !esActual && (<span className="absolute -top-2.5 right-6 rounded-full bg-cognac-500 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-ink-950">
                   {t(plan.insignia)}
                 </span>)}
-              {esActual && (<span className="absolute -top-2.5 right-6 rounded-xs border border-edge-strong bg-ink-800 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-sand-300">{t("Tu plan actual")}</span>)}
+              {esActual && (<span className="absolute -top-2.5 right-6 rounded-full border border-edge-strong bg-ink-800 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-sand-300">{t("Tu plan actual")}</span>)}
 
-              <h3 className="text-[12px] font-semibold uppercase tracking-[0.22em] text-sand-300">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-sand-300">
                 {t(plan.name)}
               </h3>
 
               <p className="mt-4 flex items-baseline gap-2">
-                <span className="font-display text-5xl font-light text-sand-50">
+                <span className="font-display text-5xl text-sand-50">
                   {(plan.priceCents / 100).toLocaleString(intlLocale)}
                 </span>
-                <span className="text-[13px] text-sand-500">{t("\u20AC / mes")}</span>
+                <span className="text-sm text-sand-500">{t("\u20AC / mes")}</span>
               </p>
 
-              <p className="mt-3 font-display text-[15px] leading-snug italic text-cognac-300">
+              <p className="mt-3 font-display text-base leading-snug text-cognac-300">
                 {t(plan.tagline)}
               </p>
 
               <ul className="mt-6 flex flex-1 flex-col gap-2.5 border-t border-edge pt-6">
-                {plan.incluye.map((linea) => (<li key={t(linea)} className="flex gap-2.5 text-[13.5px] leading-relaxed text-sand-300">
+                {plan.incluye.map((linea) => (<li key={t(linea)} className="flex gap-2.5 text-sm leading-relaxed text-sand-300">
                     <CheckIcon />
                     {t(linea)}
                   </li>))}
@@ -115,7 +115,7 @@ export async function PlanPicker({ planActual, titulo, entradilla, }: Props) {
         })}
       </div>
 
-      <p className="mt-6 max-w-2xl text-[12.5px] leading-relaxed text-sand-600">
-        <b className="font-semibold text-sand-500">{t("La diferencia en una l\u00EDnea:")}</b>{" "}{t("en el B\u00E1sico tu rutina se genera a partir de tu cuestionario y el equipo la revisa; en el Premium te valoramos en persona, la construimos a mano y seguimos tu evoluci\u00F3n cada mes.")}{" "}{t("El pago con tarjeta se activar\u00E1 pronto: por ahora escr\u00EDbenos y activamos tu plan en menos de 24 h laborables. Sin permanencia.")}</p>
+      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-sand-600">
+        <b className="font-semibold text-sand-500">{t("La diferencia en una l\u00EDnea:")}</b>{" "}{t("en el B\u00E1sico tu rutina se genera a partir de tu cuestionario y el equipo la revisa; en el Premium te valoramos por videollamada, la construimos a mano y seguimos tu evoluci\u00F3n cada mes.")}{" "}{t("El pago con tarjeta se activar\u00E1 pronto: por ahora escr\u00EDbenos y activamos tu plan en menos de 24 h laborables. Sin permanencia.")}</p>
     </section>);
 }

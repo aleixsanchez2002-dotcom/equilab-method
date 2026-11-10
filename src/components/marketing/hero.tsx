@@ -17,7 +17,7 @@ export async function Hero() {
             </h1>
             <p className="mt-7 max-w-md text-base leading-relaxed text-sand-500 sm:text-lg">{t("Fuerza, movilidad y control corporal para tu vida en la pista. Un entrenamiento que empieza en ti y se siente en cada tranco.")}</p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/acceso"><Button size="lg" tabIndex={-1}>{t("Empezar mi entrenamiento ")}<span aria-hidden="true">↗</span></Button></Link>
+              <Link href="/acceso?modo=registro"><Button size="lg" tabIndex={-1}>{t("Empezar mi entrenamiento ")}<span aria-hidden="true">↗</span></Button></Link>
               <a href="#metodo"><Button variant="outline" size="lg" tabIndex={-1}>{t("El m\u00E9todo")}</Button></a>
             </div>
             <p className="mt-6 text-sm text-sand-500">{t("Desde {0} €/mes ", { "0": PLAN_PRICES.basico / 100 })}<span aria-hidden="true" className="mx-2 text-cognac-400">/</span>{t(" Sin permanencia")}</p>

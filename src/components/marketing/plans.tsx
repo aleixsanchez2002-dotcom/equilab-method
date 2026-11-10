@@ -107,7 +107,7 @@ export async function Plans() {
 
                 <div className="mt-10 flex-1"/>
 
-                <Link href="/acceso">
+                <Link href="/acceso?modo=registro">
                   <Button fullWidth size="lg" variant={plan.highlighted ? "primary" : "outline"} tabIndex={-1}>
                     {t(plan.cta)}
                   </Button>

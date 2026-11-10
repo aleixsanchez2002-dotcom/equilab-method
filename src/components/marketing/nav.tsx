@@ -57,7 +57,7 @@ export function Nav({ sesion = false }: {
               <Link href="/acceso" className="hidden lg:block">
                 <Button variant="outline" size="sm" tabIndex={-1}>{t("Iniciar sesi\u00F3n")}</Button>
               </Link>
-              <Link href="/acceso" className="hidden sm:block">
+              <Link href="/acceso?modo=registro" className="hidden sm:block">
                 <Button size="sm" tabIndex={-1}>{t("Empezar")}</Button>
               </Link>
             </>)}
@@ -91,7 +91,7 @@ export function Nav({ sesion = false }: {
                 <Button fullWidth variant="outline" size="lg" tabIndex={-1}>{t("Tu cuenta")}</Button>
               </Link>
             </>) : (<>
-              <Link href="/acceso" onClick={() => setOpen(false)}>
+              <Link href="/acceso?modo=registro" onClick={() => setOpen(false)}>
                 <Button fullWidth size="lg" tabIndex={-1}>{t("Empezar ahora")}</Button>
               </Link>
               <Link href="/acceso" onClick={() => setOpen(false)}>
