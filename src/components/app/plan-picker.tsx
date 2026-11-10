@@ -24,7 +24,7 @@ const PLANES: Plan[] = [
         tagline: "Tu rutina, construida a partir de cómo montas.",
         incluye: [
             "Cuestionario postural inicial",
-            "Rutina semi-personalizada, revisada por el equipo",
+            "Rutina semipersonalizada, revisada por el equipo",
             "Biblioteca de ejercicios con vídeo de ejecución",
             "Registro de series y gráficos de progreso",
             "Progresiones periódicas de tu bloque",
@@ -92,6 +92,7 @@ export async function PlanPicker({ planActual, titulo, entradilla, }: Props) {
                 </span>
                 <span className="text-sm text-sand-500">{t("\u20AC / mes")}</span>
               </p>
+              <p className="mt-1 text-xs text-sand-600">{t("IVA incluido")}</p>
 
               <p className="mt-3 font-display text-base leading-snug text-cognac-300">
                 {t(plan.tagline)}
@@ -106,7 +107,7 @@ export async function PlanPicker({ planActual, titulo, entradilla, }: Props) {
 
               <div className="mt-7">
                 {esActual ? (<Button variant="outline" fullWidth disabled>{t("Tu plan actual")}</Button>) : (<Link href="/app/cuenta/contacto">
-                    <Button variant={plan.destacado ? "primary" : "outline"} fullWidth tabIndex={-1}>
+                    <Button variant={plan.destacado ? "primary" : "outline"} fullWidth as="span">
                       {planActual ? t("Cambiar a {0}", { "0": t(plan.name) }) : t("Solicitar {0}", { "0": t(plan.name) })}
                     </Button>
                   </Link>)}

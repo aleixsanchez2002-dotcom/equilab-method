@@ -102,7 +102,7 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
           <label htmlFor="rb-tipo" className={etiqueta}>{t("Tipo")}</label>
           <select id="rb-tipo" value={tipo} onChange={(e) => setTipo(e.target.value as "semi" | "personalizada")} className={selectCls}>
             <option value="personalizada">{t("Personalizada (Premium)")}</option>
-            <option value="semi">{t("Semi-personalizada (B\u00E1sico)")}</option>
+            <option value="semi">{t("Semipersonalizada (B\u00E1sico)")}</option>
           </select>
         </div>
 

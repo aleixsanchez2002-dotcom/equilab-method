@@ -16,7 +16,7 @@ const faqs = [
     },
     {
         question: "Monto en otra disciplina, ¿me sirve el método?",
-        answer: "El método nace de la doma clásica, pero la base — asiento, simetría, estabilidad de core y cadera — beneficia a cualquier jinete. Si buscas trabajo específico de tu disciplina, cuéntanoslo en el plan Premium.",
+        answer: "El método nace de la doma clásica, pero la base —asiento, simetría, estabilidad de core y cadera— beneficia a cualquier jinete. Si buscas trabajo específico de tu disciplina, cuéntanoslo en el plan Premium.",
     },
     {
         question: "¿En qué se diferencia el plan Premium?",

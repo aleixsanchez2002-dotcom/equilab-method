@@ -43,6 +43,11 @@ Ajustes de composición acordados con Aleix. La portada conserva las mismas secc
 - La tabla comparativa de planes se pliega en móvil tras «Ver la comparación completa»; desde 640 px se muestra siempre.
 - Pie: enlaces en dos columnas en móvil, con 44 px de alto por enlace.
 - Sin listas numeradas en el hero ni en el equipo: los números se reservan para «Cómo funciona».
+- Selector de idioma: en la portada va integrado en la cabecera, el menú móvil y el pie; en el resto de páginas sigue flotante. Siempre conserva ruta y parámetros.
+- Los precios se muestran con «IVA incluido».
+- Un botón dentro de un enlace se escribe `<Button as="span">`: un `<button>` dentro de un `<a>` no es HTML válido.
+- Compartir y buscadores: la imagen de vista previa es `public/media/compartir.jpg` (1200 × 630) y la URL pública sale de `src/lib/site.ts` (`NEXT_PUBLIC_SITE_URL` cuando haya dominio propio). `robots.txt` deja fuera `/app`, `/admin`, `/auth` y `/language`.
+- Ortografía: «semipersonalizada» y «exculturista» van sin guion ni espacio.
 
 ## Idiomas y contenidos
 

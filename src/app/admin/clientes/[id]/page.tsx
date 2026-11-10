@@ -128,7 +128,7 @@ export default async function FichaClientePage({
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
           <Logo size="sm" />
           <Link href="/admin">
-            <Button variant="ghost" size="sm" tabIndex={-1}>
+            <Button variant="ghost" size="sm" as="span">
               ← Volver al panel
             </Button>
           </Link>
@@ -193,7 +193,7 @@ export default async function FichaClientePage({
               </>
             )}
             <Link href={`/admin/rutinas/nueva?cliente=${cliente.id}`}>
-              <Button size="sm" tabIndex={-1}>
+              <Button size="sm" as="span">
                 Nueva rutina
               </Button>
             </Link>
@@ -243,7 +243,7 @@ export default async function FichaClientePage({
 
                   <span className="ml-auto flex flex-wrap gap-2">
                     <Link href={`/admin/rutinas/${r.id}`}>
-                      <Button variant="outline" size="sm" tabIndex={-1}>
+                      <Button variant="outline" size="sm" as="span">
                         Modificar
                       </Button>
                     </Link>

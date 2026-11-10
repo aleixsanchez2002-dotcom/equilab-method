@@ -8,6 +8,9 @@ export type ButtonProps = ComponentPropsWithRef<"button"> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  /** `span` cuando el botón va dentro de un enlace: un `<button>` dentro de
+      un `<a>` no es HTML válido y el foco debe quedarse en el enlace. */
+  as?: "button" | "span";
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -30,22 +33,26 @@ export function Button({
   fullWidth = false,
   className,
   type = "button",
+  as = "button",
+  children,
   ...props
 }: ButtonProps) {
+  const classes = cn(
+    "inline-flex items-center justify-center gap-2 rounded-lg font-sans font-semibold uppercase tracking-[0.08em]",
+    "transition-all duration-150 cursor-pointer select-none",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400",
+    "disabled:pointer-events-none disabled:opacity-40",
+    variantClasses[variant],
+    sizeClasses[size],
+    fullWidth && "w-full",
+    className,
+  );
+  if (as === "span") {
+    return <span className={classes}>{children}</span>;
+  }
   return (
-    <button
-      type={type}
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg font-sans font-semibold uppercase tracking-[0.08em]",
-        "transition-all duration-150 cursor-pointer select-none",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400",
-        "disabled:pointer-events-none disabled:opacity-40",
-        variantClasses[variant],
-        sizeClasses[size],
-        fullWidth && "w-full",
-        className,
-      )}
-      {...props}
-    />
+    <button type={type} className={classes} {...props}>
+      {children}
+    </button>
   );
 }

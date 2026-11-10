@@ -169,7 +169,7 @@ export default async function AdminPage({ searchParams, }: {
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/app">
-              <Button variant="outline" size="sm" tabIndex={-1}>{t("\u00C1rea de cliente")}</Button>
+              <Button variant="outline" size="sm" as="span">{t("\u00C1rea de cliente")}</Button>
             </Link>
             <form action={cerrarSesion}>
               <Button variant="ghost" size="sm" type="submit">{t("Salir")}</Button>
