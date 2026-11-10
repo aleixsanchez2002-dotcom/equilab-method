@@ -34,6 +34,16 @@ Ajuste acordado con Aleix dentro de la identidad grafito/lima; no cambia colores
 - Duraciones: 150 ms en hover, 250 ms en interfaz y 500 ms en entradas. La aparición al hacer scroll no debe ocultar contenido si no hay JavaScript.
 - Secciones de la portada: 64 px de margen vertical en móvil y 96 px desde 640 px.
 
+### Portada (10 de noviembre de 2026)
+
+Ajustes de composición acordados con Aleix. La portada conserva las mismas secciones y el mismo orden.
+
+- Hero: debe caber entero, con su franja inferior, en una pantalla de 1440 × 900. La foto va sin texto encima; completa (3:2) en móvil y tableta, y cuadrada en la columna de escritorio. En móvil la foto tiene que verse en la primera pantalla y solo hay un botón.
+- Equipo: tres columnas desde 1024 px; por debajo, filas con la foto pequeña.
+- La tabla comparativa de planes se pliega en móvil tras «Ver la comparación completa»; desde 640 px se muestra siempre.
+- Pie: enlaces en dos columnas en móvil, con 44 px de alto por enlace.
+- Sin listas numeradas en el hero ni en el equipo: los números se reservan para «Cómo funciona».
+
 ## Idiomas y contenidos
 
 La portada existe en español (`/`) e inglés (`/en`). El idioma también se aplica a acceso y zona privada mediante la cookie de idioma y `src/lib/i18n/`. Todo texto nuevo de interfaz debe incluir su traducción.

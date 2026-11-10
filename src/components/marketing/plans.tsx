@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { Overline } from "@/components/ui/overline";
 import { cn } from "@/lib/cn";
+import { MobileDisclosure } from "@/components/marketing/mobile-disclosure";
 type Plan = {
     name: string;
     price: string;
@@ -116,15 +117,16 @@ export async function Plans() {
             </Reveal>))}
         </div>
 
-        <Reveal className="mx-auto mt-16 max-w-5xl">
+        <Reveal className="mx-auto mt-12 max-w-5xl sm:mt-16">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div><Overline accent>{t("Compara lo que incluye")}</Overline><h3 className="mt-3 font-display text-2xl text-sand-50 sm:text-3xl">{t("EL MISMO MÉTODO. DISTINTO ACOMPAÑAMIENTO.")}</h3></div>
           </div>
+          <MobileDisclosure showLabel="Ver la comparación completa" hideLabel="Ocultar la comparación">
           <div className="overflow-hidden rounded-xl border border-edge">
             <table className="w-full table-fixed text-left text-xs leading-relaxed sm:text-sm">
               <caption className="sr-only">{t("Comparación de los planes Básico y Premium")}</caption>
               <thead className="bg-ink-800"><tr>
-                <th scope="col" className="w-[38%] px-3 py-5 font-medium text-sand-300 sm:px-6">{t("Qué incluye")}</th>
+                <th scope="col" className="w-[32%] px-3 py-5 font-medium text-sand-300 sm:w-[38%] sm:px-6">{t("Qué incluye")}</th>
                 <th scope="col" className="px-3 py-5 font-semibold text-sand-50 sm:px-6">{t("Básico")}</th>
                 <th scope="col" className="px-3 py-5 font-semibold text-cognac-400 sm:px-6">Premium</th>
               </tr></thead>
@@ -135,6 +137,7 @@ export async function Plans() {
               </tr>)}</tbody>
             </table>
           </div>
+          </MobileDisclosure>
           <p className="mt-5 text-sm leading-relaxed text-sand-500">{t("¿No sabes cuál elegir?")} <a href="https://instagram.com/equilab_method" target="_blank" rel="noopener noreferrer" className="text-cognac-400 underline underline-offset-4">{t("Habla con el equipo")}</a></p>
         </Reveal>
 

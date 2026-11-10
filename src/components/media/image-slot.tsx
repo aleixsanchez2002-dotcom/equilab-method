@@ -10,8 +10,9 @@ type ImageSlotProps = {
     alt: string;
     /** Descripción visible del contenido esperado mientras no exista el archivo. */
     spec: string;
-    /** Relación de aspecto CSS, p. ej. "4 / 5". */
-    aspect: string;
+    /** Relación de aspecto CSS, p. ej. "4 / 5". Si se omite, la proporción
+        la marcan las clases (`aspect-*`), que sí pueden cambiar por tamaño. */
+    aspect?: string;
     sizes: string;
     priority?: boolean;
     className?: string;
@@ -27,17 +28,17 @@ export async function ImageSlot({ src, alt, aspect, sizes, priority = false, cla
     const { t } = await getI18n();
     const exists = fs.existsSync(path.join(process.cwd(), "public", src));
     if (exists) {
-        return (<div className={cn("relative overflow-hidden rounded-2xl", className)} style={{ aspectRatio: aspect }}>
+        return (<div className={cn("relative overflow-hidden rounded-2xl", className)} style={aspect ? { aspectRatio: aspect } : undefined}>
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover"/>
       </div>);
     }
-    return (<div role="img" aria-label={t("{0} (imagen pendiente)", { "0": alt })} className={cn("relative flex flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl", "border border-edge bg-ink-800 p-8 text-center", className)} style={{
-            aspectRatio: aspect,
+    return (<div role="img" aria-label={t("{0} (imagen pendiente)", { "0": alt })} className={cn("@container relative flex flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl", "border border-edge bg-ink-800 p-[8%] text-center", className)} style={{
+            ...(aspect ? { aspectRatio: aspect } : {}),
             background: "radial-gradient(100% 80% at 30% 100%, rgba(185,232,91,0.12) 0%, transparent 60%), var(--color-ink-800)",
         }}>
       <div aria-hidden="true" className="texture-grain absolute inset-0 opacity-50"/>
-      {fallbackText ? (<span aria-hidden="true" className="relative font-display text-[clamp(4rem,12vw,10rem)] leading-none text-cognac-400">{fallbackText}</span>) : (<BitMark className="relative w-14 text-sand-100/15"/>)}
-      <p className="relative max-w-[26ch] text-xs leading-relaxed text-sand-500">
+      {fallbackText ? (<span aria-hidden="true" className="relative font-display text-[40cqw] leading-none text-cognac-400">{fallbackText}</span>) : (<BitMark className="relative w-14 text-sand-100/15"/>)}
+      <p className="relative hidden max-w-[26ch] text-xs leading-relaxed text-sand-500 @min-[14rem]:block">
         {alt}
       </p>
 

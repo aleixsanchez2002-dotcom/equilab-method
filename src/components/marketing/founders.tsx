@@ -44,27 +44,26 @@ export async function Founders() {
           </div>
         </Reveal>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-3 sm:gap-6 lg:gap-10">
+        {/* Hasta 1024 px, filas con la foto pequeña; desde ahí, tres columnas
+            con la foto grande. Tres columnas a 768 px dejaban 208 px por persona. */}
+        <div className="mt-10 grid gap-8 sm:mt-14 lg:grid-cols-3 lg:gap-10">
           {founders.map(({ name, role, bio, photo, spec, instagram }, i) => (<Reveal key={name} delay={i * 70}>
-              <article className="group">
-                <div className="overflow-hidden rounded-2xl">
+              <article className="group flex items-start gap-5 lg:block">
+                <div className="w-24 shrink-0 overflow-hidden rounded-2xl sm:w-32 lg:w-auto">
                   <div className="transition-transform duration-500 ease-out group-hover:scale-[1.03]">
-                    <ImageSlot src={photo} alt={`${name} — ${t(role)}`} spec={spec} fallbackText={name.split(" ").map((part) => part[0]).join("")} aspect="1 / 1" sizes="(min-width: 768px) 30vw, 90vw"/>
+                    <ImageSlot src={photo} alt={`${name} — ${t(role)}`} spec={spec} fallbackText={name.split(" ").map((part) => part[0]).join("")} aspect="1 / 1" sizes="(min-width: 1024px) 30vw, 128px"/>
                   </div>
                 </div>
-                <div className="mt-6 flex items-baseline justify-between gap-4 border-t border-edge pt-5 transition-colors duration-250 group-hover:border-cognac-500/40">
-                  <div>
+                <div className="min-w-0 flex-1">
+                  <div className="lg:mt-6 lg:border-t lg:border-edge lg:pt-5 lg:transition-colors lg:duration-250 lg:group-hover:border-cognac-500/40">
                     <h3 className="font-display text-xl text-sand-50">{t(name)}</h3>
                     <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-cognac-400">{t(role)}</p>
                   </div>
-                  <span className="font-display text-sm text-sand-600">
-                    0{i + 1}
-                  </span>
+                  <p className="mt-3 text-sm leading-relaxed text-sand-500 lg:mt-4">{t(bio)}</p>
+                  <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-cognac-400 underline-offset-4 transition-colors hover:text-cognac-300 hover:underline lg:mt-4">
+                    @{instagram}<span aria-hidden="true">↗</span>
+                  </a>
                 </div>
-                <p className="mt-4 text-sm leading-relaxed text-sand-500">{t(bio)}</p>
-                <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-cognac-400 underline-offset-4 transition-colors hover:text-cognac-300 hover:underline">
-                  @{instagram}<span aria-hidden="true">↗</span>
-                </a>
               </article>
             </Reveal>))}
         </div>
