@@ -38,8 +38,8 @@ export default async function PlanPage() {
     const esPremium = sub?.plan_code === "premium";
     const dias = sub ? diasRestantes(sub) : null;
     return (<>
-      <h1 className="font-display text-3xl font-medium text-sand-50">{t("Plan y suscripci\u00F3n")}</h1>
-      <p className="mt-3 text-[14px] leading-relaxed text-sand-500">{t("Tu plan, tu pr\u00F3ximo cobro y los cambios que quieras hacer.")}</p>
+      <h1 className="font-display text-3xl text-sand-50">{t("Plan y suscripci\u00F3n")}</h1>
+      <p className="mt-3 text-sm leading-relaxed text-sand-500">{t("Tu plan, tu pr\u00F3ximo cobro y los cambios que quieras hacer.")}</p>
 
       {/* ————— Estado ————— */}
       <Card className="mt-8 p-6 sm:p-8">
@@ -47,16 +47,16 @@ export default async function PlanPage() {
         {acceso && sub ? (<>
             <p className="mt-3 font-display text-3xl text-sand-50">
               {esPremium ? "Premium" : t("B\u00E1sico")}
-              <span className="ml-3 align-middle text-[15px] text-sand-500">
+              <span className="ml-3 align-middle text-base text-sand-500">
                 {(PLAN_PRICES[esPremium ? "premium" : "basico"] / 100).toLocaleString(intlLocale)} €{t(" / mes")}</span>
             </p>
             <div className="mt-6 flex items-baseline gap-3">
-              <span className="font-display text-4xl font-light text-sand-50 tabular-nums">
+              <span className="font-display text-4xl text-sand-50 tabular-nums">
                 {dias ?? "—"}
               </span>
-              <span className="max-w-[18ch] text-[12px] uppercase tracking-[0.14em] text-sand-600">{t("d\u00EDas de acceso restantes")}</span>
+              <span className="max-w-[18ch] text-xs uppercase tracking-[0.14em] text-sand-600">{t("d\u00EDas de acceso restantes")}</span>
             </div>
-            {sub.current_period_end && (<p className="mt-4 text-[14px] text-sand-500">
+            {sub.current_period_end && (<p className="mt-4 text-sm text-sand-500">
                 {sub.cancel_at_period_end ? (<>{t("Tu suscripci\u00F3n est\u00E1 cancelada: mantienes el acceso hasta el")}{" "}
                     <b className="font-semibold text-sand-100">
                       {formatoFecha.format(new Date(sub.current_period_end))}
@@ -71,7 +71,7 @@ export default async function PlanPage() {
               </p>)}
           </>) : (<>
             <p className="mt-3 font-display text-2xl text-sand-50">{t("Sin plan activo")}</p>
-            <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-sand-500">{t("Tu rutina, tu progreso y tus registros siguen guardados. Al reactivar, lo recuperas todo.")}</p>
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-sand-500">{t("Tu rutina, tu progreso y tus registros siguen guardados. Al reactivar, lo recuperas todo.")}</p>
           </>)}
       </Card>
 
@@ -98,8 +98,8 @@ export default async function PlanPage() {
             },
         ].map(({ titulo, detalle, principal }) => (<div key={titulo} className="flex flex-col gap-3 border-t border-edge pt-4 first:border-t-0 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
-                <p className="text-[14px] font-medium text-sand-100">{t(titulo)}</p>
-                <p className="mt-1 max-w-md text-[12.5px] leading-relaxed text-sand-600">
+                <p className="text-sm font-medium text-sand-100">{t(titulo)}</p>
+                <p className="mt-1 max-w-md text-sm leading-relaxed text-sand-600">
                   {t(detalle)}
                 </p>
               </div>
@@ -108,7 +108,7 @@ export default async function PlanPage() {
               </Button>
             </div>))}
         </div>
-        <p className="mt-6 max-w-lg text-[12.5px] leading-relaxed text-sand-600">{t("La gesti\u00F3n autom\u00E1tica del plan y la tarjeta llega con los pagos. Mientras tanto, escr\u00EDbenos y lo hacemos nosotros en el momento.")}</p>
+        <p className="mt-6 max-w-lg text-sm leading-relaxed text-sand-600">{t("La gesti\u00F3n autom\u00E1tica del plan y la tarjeta llega con los pagos. Mientras tanto, escr\u00EDbenos y lo hacemos nosotros en el momento.")}</p>
       </Card>
     </>);
 }

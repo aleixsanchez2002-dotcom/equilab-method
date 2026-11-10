@@ -6,7 +6,18 @@ export function LanguageSwitcher() {
     const pathname = usePathname();
     const params = useSearchParams();
     const destination = `${pathname}${params.size ? `?${params.toString()}` : ""}`;
-    return (<nav aria-label={locale === "en" ? "Language" : "Idioma"} className={`fixed right-4 z-[60] flex rounded-full border border-edge-strong bg-ink-950 p-1 shadow-lg ${pathname === "/app" || pathname.startsWith("/app/") ? "bottom-20 sm:bottom-4" : pathname.startsWith("/admin/rutinas/") ? "bottom-56 sm:bottom-4" : "bottom-4"}`}>
+    const enApp = pathname === "/app" || pathname.startsWith("/app/");
+    // En móvil, la pantalla de registro reserva el pie para la barra de guardar:
+    // el idioma se cambia desde Inicio, Progreso o Cuenta.
+    const enRegistro = pathname === "/app" && params.get("vista") === "rutina";
+    const posicion = enRegistro
+        ? "hidden sm:bottom-4 sm:flex"
+        : enApp
+            ? "bottom-[calc(5rem+env(safe-area-inset-bottom))] flex sm:bottom-4"
+            : pathname.startsWith("/admin/rutinas/")
+                ? "bottom-56 flex sm:bottom-4"
+                : "bottom-4 flex";
+    return (<nav aria-label={locale === "en" ? "Language" : "Idioma"} className={`fixed right-4 z-[60] rounded-full border border-edge-strong bg-ink-950 p-1 shadow-lg ${posicion}`}>
       {(["es", "en"] as const).map((language) => (<a key={language} href={`/language?locale=${language}&next=${encodeURIComponent(destination)}`} lang={language} hrefLang={language} aria-label={language === "en" ? "English" : "Español"} aria-current={locale === language ? "true" : undefined} className={`inline-flex min-h-10 min-w-11 items-center justify-center rounded-full text-xs font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400 ${locale === language ? "bg-cognac-500 text-ink-950" : "text-sand-300 hover:bg-ink-800"}`}>{language.toUpperCase()}</a>))}
     </nav>);
 }

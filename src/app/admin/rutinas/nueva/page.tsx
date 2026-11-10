@@ -69,11 +69,11 @@ export default async function NuevaRutinaPage({
 
       <main className="mx-auto max-w-5xl px-6 py-12">
         <Overline accent>Constructor de rutinas</Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium text-sand-50">
+        <h1 className="mt-4 font-display text-4xl text-sand-50">
           Rutina para{" "}
           <em className="text-cognac-300">{cliente.full_name}</em>
         </h1>
-        <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-sand-500">
+        <p className="mt-4 max-w-xl text-sm leading-relaxed text-sand-500">
           Serie a serie, igual que la verá el jinete: peso objetivo,
           repeticiones y descanso posterior de cada serie.
         </p>

@@ -31,7 +31,7 @@ const founders = [
 ];
 export async function Founders() {
     const { t } = await getI18n();
-    return (<section id="entrenadores" className="scroll-mt-24 bg-ink-950 py-28 sm:py-36">
+    return (<section id="entrenadores" className="scroll-mt-24 bg-ink-950 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
@@ -40,28 +40,28 @@ export async function Founders() {
               <h2 className="section-heading mt-6 font-display text-sand-50">{t("TRES MIRADAS.")}<em className="block text-cognac-300">{t("UN MISMO OBJETIVO.")}</em>
               </h2>
             </div>
-            <p className="max-w-sm text-[15px] leading-relaxed text-sand-500">{t("Equitación, preparación física y tecnología. Tres formas de aportar a un entrenamiento que puedes llevar contigo.")}</p>
+            <p className="max-w-sm text-base leading-relaxed text-sand-500">{t("Equitación, preparación física y tecnología. Tres formas de aportar a un entrenamiento que puedes llevar contigo.")}</p>
           </div>
         </Reveal>
 
         <div className="mt-16 grid gap-10 md:grid-cols-3 sm:gap-6 lg:gap-10">
-          {founders.map(({ name, role, bio, photo, spec, instagram }, i) => (<Reveal key={name} delay={i * 110}>
+          {founders.map(({ name, role, bio, photo, spec, instagram }, i) => (<Reveal key={name} delay={i * 70}>
               <article className="group">
-                <div className="overflow-hidden rounded-sm">
-                  <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                <div className="overflow-hidden rounded-2xl">
+                  <div className="transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                     <ImageSlot src={photo} alt={`${name} — ${t(role)}`} spec={spec} fallbackText={name.split(" ").map((part) => part[0]).join("")} aspect="1 / 1" sizes="(min-width: 768px) 30vw, 90vw"/>
                   </div>
                 </div>
-                <div className="mt-6 flex items-baseline justify-between gap-4 border-t border-edge pt-5 transition-colors duration-300 group-hover:border-cognac-500/40">
+                <div className="mt-6 flex items-baseline justify-between gap-4 border-t border-edge pt-5 transition-colors duration-250 group-hover:border-cognac-500/40">
                   <div>
                     <h3 className="font-display text-xl text-sand-50">{t(name)}</h3>
-                    <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.2em] text-cognac-400">{t(role)}</p>
+                    <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-cognac-400">{t(role)}</p>
                   </div>
-                  <span className="font-display text-sm italic text-sand-600">
+                  <span className="font-display text-sm text-sand-600">
                     0{i + 1}
                   </span>
                 </div>
-                <p className="mt-4 text-[14px] leading-relaxed text-sand-500">{t(bio)}</p>
+                <p className="mt-4 text-sm leading-relaxed text-sand-500">{t(bio)}</p>
                 <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-cognac-400 underline-offset-4 transition-colors hover:text-cognac-300 hover:underline">
                   @{instagram}<span aria-hidden="true">↗</span>
                 </a>

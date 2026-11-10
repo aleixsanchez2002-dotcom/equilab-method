@@ -30,15 +30,15 @@ export function WeightTracker({ puntos, pesoEstaSemana }: Props) {
     return (<Card className={cn("mt-4 max-w-2xl p-6 sm:p-8", pendienteDeSemana && "border-cognac-500/40")}>
       {/* ————— El aviso del lunes ————— */}
       {mostrarFormulario ? (<form action={accion} className="flex flex-col gap-3">
-          <label htmlFor={`${uid}-peso`} className="text-[13px] font-semibold text-sand-100">
+          <label htmlFor={`${uid}-peso`} className="text-sm font-semibold text-sand-100">
             {pendienteDeSemana
                 ? t("Nueva semana: \u00BFcu\u00E1nto pesas hoy?") : t("Corregir el peso de esta semana")}
           </label>
-          <p className="text-[12.5px] text-sand-600">{t("Un dato a la semana basta para ver la tendencia. P\u00E9sate siempre en condiciones parecidas (por la ma\u00F1ana, antes de desayunar).")}</p>
+          <p className="text-sm text-sand-600">{t("Un dato a la semana basta para ver la tendencia. P\u00E9sate siempre en condiciones parecidas (por la ma\u00F1ana, antes de desayunar).")}</p>
           <div className="flex gap-2">
             <div className="relative w-32">
-              <input id={`${uid}-peso`} name="peso" inputMode="decimal" placeholder="62,5" value={peso} onChange={(e) => setPeso(e.target.value)} required className="h-11 w-full rounded-xs border border-edge bg-ink-950 px-3 pr-9 text-[15px] text-sand-100 tabular-nums placeholder:text-sand-600 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20"/>
-              <span className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-[10px] font-semibold uppercase tracking-[0.14em] text-sand-600">
+              <input id={`${uid}-peso`} name="peso" inputMode="decimal" placeholder="62,5" value={peso} onChange={(e) => setPeso(e.target.value)} required className="h-11 w-full rounded-lg border border-edge-control bg-ink-950 px-3 pr-9 text-base text-sand-100 tabular-nums placeholder:text-sand-600 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20"/>
+              <span className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-xs font-semibold uppercase tracking-[0.14em] text-sand-600">
                 kg
               </span>
             </div>
@@ -47,31 +47,31 @@ export function WeightTracker({ puntos, pesoEstaSemana }: Props) {
             </Button>
             {corrigiendo && (<Button variant="ghost" onClick={() => setCorrigiendo(false)}>{t("Cancelar")}</Button>)}
           </div>
-          {estado.error && (<p role="alert" className="text-[13px] text-error">
+          {estado.error && (<p role="alert" className="text-sm text-error">
               {t(estado.error)}
             </p>)}
         </form>) : (<div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-          <span className="font-display text-4xl font-light text-sand-50 tabular-nums">
+          <span className="font-display text-4xl text-sand-50 tabular-nums">
             {fmtKg(pesoEstaSemana, intlLocale)} kg
           </span>
-          <span className="text-[12px] uppercase tracking-[0.14em] text-sand-600">{t("esta semana")}</span>
-          {puntos.length > 1 && primero && ultimo && (<span className={cn("text-[12px] font-semibold uppercase tracking-[0.1em]", ultimo.kg <= primero.kg ? "text-cognac-400" : "text-sand-500")}>
+          <span className="text-xs uppercase tracking-[0.14em] text-sand-600">{t("esta semana")}</span>
+          {puntos.length > 1 && primero && ultimo && (<span className="text-xs font-semibold uppercase tracking-[0.08em] text-sand-500">
               {ultimo.kg <= primero.kg ? "−" : "+"}
               {fmtKg(Math.abs(ultimo.kg - primero.kg), intlLocale)}{t(" kg desde el")}{" "}
               {formatoFecha.format(new Date(primero.fecha))}
             </span>)}
-          <button type="button" onClick={() => setCorrigiendo(true)} className="cursor-pointer text-[12px] text-sand-600 underline-offset-2 transition-colors hover:text-cognac-400 hover:underline">{t("corregir")}</button>
+          <button type="button" onClick={() => setCorrigiendo(true)} className="cursor-pointer text-xs text-sand-600 underline-offset-2 transition-colors hover:text-cognac-400 hover:underline">{t("corregir")}</button>
         </div>)}
 
       {/* ————— La evolución ————— */}
       {puntos.length > 0 && (<>
           <ChartSvg puntos={puntos}/>
-          <div className="mt-1 flex justify-between text-[10px] uppercase tracking-[0.18em] text-sand-600">
+          <div className="mt-1 flex justify-between text-xs uppercase tracking-[0.14em] text-sand-600">
             <span>{primero && formatoFecha.format(new Date(primero.fecha))}</span>
             {puntos.length > 1 && ultimo && (<span>{formatoFecha.format(new Date(ultimo.fecha))}</span>)}
           </div>
         </>)}
-      <p className="mt-4 text-[12px] text-sand-600">{t("Tu peso, semana a semana \u2014 se pide cada lunes.")}{puntos.length === 1 && " Con la próxima semana aparecerá la línea."}
+      <p className="mt-4 text-xs text-sand-600">{t("Tu peso, semana a semana \u2014 se pide cada lunes.")}{puntos.length === 1 && " Con la próxima semana aparecerá la línea."}
       </p>
     </Card>);
 }

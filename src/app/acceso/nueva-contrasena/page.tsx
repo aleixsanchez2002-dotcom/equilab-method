@@ -33,7 +33,7 @@ export default async function NuevaContrasenaPage() {
 
       <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 py-14">
         <Overline accent>{t("Un paso m\u00E1s")}</Overline>
-        <h1 className="mt-4 font-display text-3xl font-medium leading-[1.15] text-sand-50">{t("Crea tu contrase\u00F1a nueva.")}</h1>
+        <h1 className="mt-4 font-display text-3xl leading-[1.15] text-sand-50">{t("Crea tu contrase\u00F1a nueva.")}</h1>
         <div className="mt-8">
           <NewPasswordForm />
         </div>

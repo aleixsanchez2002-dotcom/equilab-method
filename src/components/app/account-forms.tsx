@@ -11,10 +11,10 @@ function Mensajes({ estado }: {
 }) {
     const { t } = useI18n();
     return (<>
-      {estado.error && (<p role="alert" className="text-[13px] text-error">
+      {estado.error && (<p role="alert" className="text-sm text-error">
           {t(estado.error)}
         </p>)}
-      {estado.success && (<p role="status" className="text-[13px] text-sand-300">
+      {estado.success && (<p role="status" className="text-sm text-sand-300">
           {t(estado.success)}
         </p>)}
     </>);

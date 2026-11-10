@@ -269,7 +269,7 @@
   "Tu rutina, tu progreso y tus registros siguen guardados. Al reactivar, lo recuperas todo.": "Your programme, progress and logs are saved. Reactivate to access them again.",
   "Valoración 1:1, rutina hecha a mano y seguimiento mensual del equipo.": "One-to-one assessment, individually designed programme and monthly team reviews.",
   "La diferencia en una línea:": "The difference in one sentence:",
-  "en el Básico tu rutina se genera a partir de tu cuestionario y el equipo la revisa; en el Premium te valoramos en persona, la construimos a mano y seguimos tu evolución cada mes.": "with Basic, your programme is generated from your questionnaire and reviewed by the team; with Premium, we assess you individually, design it by hand and review your progress each month.",
+  "en el Básico tu rutina se genera a partir de tu cuestionario y el equipo la revisa; en el Premium te valoramos por videollamada, la construimos a mano y seguimos tu evolución cada mes.": "with Basic, your programme is generated from your questionnaire and reviewed by the team; with Premium, we assess you one-to-one by video call, design it by hand and review your progress each month.",
   "El pago con tarjeta se activará pronto: por ahora escríbenos y activamos tu plan en menos de 24 h laborables. Sin permanencia.": "Card payments are coming soon. For now, message us and we will activate your plan within one business day. No long-term commitment.",
   "días / semana ·": "days / week ·",
   "¿ Qué disciplina montas principalmente?": "What is your main riding discipline?",
@@ -718,5 +718,17 @@
   "No se pudo activar el cuestionario. Revisa la versión o los permisos del equipo.": "The questionnaire could not be activated. Check the version or team permissions.",
   "Ver cuestionario inicial": "View initial questionnaire",
   "años": "years",
-  "Otras respuestas": "Other answers"
+  "Otras respuestas": "Other answers",
+  "Objetivo": "Target",
+  "Última vez": "Last time",
+  "Hemos recuperado lo que habías apuntado hoy en este día.": "We restored what you had logged today for this day.",
+  "Vaciar": "Clear",
+  "Copiar lo de la última vez": "Copy last time's values",
+  "{0} de {1} series apuntadas": "{0} of {1} sets logged",
+  "Mientras tanto, lo que escribes se conserva en este dispositivo.": "Until then, what you type is kept on this device.",
+  "Página no encontrada — Equilab Method": "Page not found — Equilab Method",
+  "Error 404": "Error 404",
+  "Esta página no existe.": "This page doesn't exist.",
+  "Puede que el enlace esté mal escrito o que la página se haya movido.": "The link may be mistyped or the page may have moved.",
+  "Volver a la portada": "Back to home"
 }

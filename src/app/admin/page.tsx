@@ -180,24 +180,24 @@ export default async function AdminPage({ searchParams, }: {
 
       <main className="mx-auto max-w-6xl px-6 py-12">
         <Overline accent>{t("Panel del equipo")}</Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium text-sand-50">{t("Hola, ")}{perfil.full_name.split(" ")[0]}.
+        <h1 className="mt-4 font-display text-4xl text-sand-50">{t("Hola, ")}{perfil.full_name.split(" ")[0]}.
         </h1>
 
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-sand-500">{t("Busca un cliente para preparar su rutina, o filtra por rutinas pendientes para empezar por lo que necesita revisi\u00F3n.")}</p>
 
         <Link href="/admin/cuestionario" className="mt-5 inline-flex min-h-11 items-center rounded-lg border border-edge-strong px-4 text-sm text-cognac-300">{t("Ver cuestionario inicial")} →</Link>
 
-        {creada && (<p role="status" className="mt-6 max-w-xl rounded-xs border border-cognac-500/40 bg-ink-800 px-4 py-3 text-[13px] text-sand-300">{t("Rutina guardada")}{creada === "publicada"
+        {creada && (<p role="status" className="mt-6 max-w-xl rounded-lg border border-cognac-500/40 bg-ink-800 px-4 py-3 text-sm text-sand-300">{t("Rutina guardada")}{creada === "publicada"
                 ? " y publicada: el cliente ya puede verla."
                 : " como borrador."}
           </p>)}
 
-        <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-edge bg-edge sm:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-edge bg-edge sm:grid-cols-4">
           {kpis.map(({ valor, etiqueta }) => (<div key={t(etiqueta)} className="bg-ink-900 px-5 py-4">
-              <span className="block font-display text-3xl font-light text-sand-50">
+              <span className="block font-display text-3xl text-sand-50">
                 {valor}
               </span>
-              <span className="text-[10px] uppercase tracking-[0.18em] text-sand-600">
+              <span className="text-xs uppercase tracking-[0.14em] text-sand-600">
                 {t(etiqueta)}
               </span>
             </div>))}
@@ -205,13 +205,13 @@ export default async function AdminPage({ searchParams, }: {
 
         {resumenes.length === 0 ? (<Card elevated className="mt-10 max-w-xl p-8">
             <p className="font-display text-xl text-sand-50">{t("A\u00FAn no hay clientes")}</p>
-            <p className="mt-3 text-[14px] leading-relaxed text-sand-500">{t("Para probar el circuito completo, crea una cuenta de prueba: cierra sesi\u00F3n (o abre una ventana de inc\u00F3gnito), reg\u00EDstrate en /acceso con otro email, y aparecer\u00E1 aqu\u00ED como cliente.")}</p>
+            <p className="mt-3 text-sm leading-relaxed text-sand-500">{t("Para probar el circuito completo, crea una cuenta de prueba: cierra sesi\u00F3n (o abre una ventana de inc\u00F3gnito), reg\u00EDstrate en /acceso con otro email, y aparecer\u00E1 aqu\u00ED como cliente.")}</p>
           </Card>) : (<section className="mt-10">
             <Overline>{t("Clientes")}</Overline>
             <ClientDirectory clientes={resumenes}/>
           </section>)}
 
-        <p className="mt-12 text-[12px] leading-relaxed text-sand-600">{t("La activaci\u00F3n de planes se gestiona manualmente. Cuando conectemos los pagos, las suscripciones se crear\u00E1n, renovar\u00E1n y caducar\u00E1n solas.")}</p>
+        <p className="mt-12 text-xs leading-relaxed text-sand-600">{t("La activaci\u00F3n de planes se gestiona manualmente. Cuando conectemos los pagos, las suscripciones se crear\u00E1n, renovar\u00E1n y caducar\u00E1n solas.")}</p>
       </main>
     </div>);
 }

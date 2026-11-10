@@ -26,8 +26,8 @@ export default async function PerfilPage() {
         .eq("id", user.id)
         .single<Profile>();
     return (<>
-      <h1 className="font-display text-3xl font-medium text-sand-50">{t("Perfil")}</h1>
-      <p className="mt-3 text-[14px] leading-relaxed text-sand-500">{t("Tu nombre, tu email y tu contrase\u00F1a.")}</p>
+      <h1 className="font-display text-3xl text-sand-50">{t("Perfil")}</h1>
+      <p className="mt-3 text-sm leading-relaxed text-sand-500">{t("Tu nombre, tu email y tu contrase\u00F1a.")}</p>
 
       <Card className="mt-8 flex flex-col gap-8 p-6 sm:p-8">
         <NombreForm nombreActual={perfil?.full_name ?? ""}/>

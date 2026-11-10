@@ -137,10 +137,10 @@ export default async function FichaClientePage({
 
       <main className="mx-auto max-w-5xl px-6 py-12">
         <Overline accent>Ficha de cliente</Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium text-sand-50">
+        <h1 className="mt-4 font-display text-4xl text-sand-50">
           {cliente.full_name || "Sin nombre"}
         </h1>
-        <p className="mt-2 text-[13px] text-sand-600">
+        <p className="mt-2 text-sm text-sand-600">
           {cliente.email} · alta el {formatoFecha.format(new Date(cliente.created_at))}
         </p>
 
@@ -151,15 +151,15 @@ export default async function FichaClientePage({
             <p className="mt-2 flex items-baseline gap-3">
               {acceso && sub ? (
                 <>
-                  <span className="rounded-xs bg-cognac-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-ink-950">
+                  <span className="rounded-full bg-cognac-500 px-2 py-0.5 text-xs font-bold uppercase tracking-[0.14em] text-ink-950">
                     {sub.plan_code}
                   </span>
-                  <span className="text-[14px] text-sand-300">
+                  <span className="text-sm text-sand-300">
                     {diasRestantes(sub)} días restantes
                   </span>
                 </>
               ) : (
-                <span className="rounded-xs border border-edge-strong px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-sand-500">
+                <span className="rounded-full border border-edge-strong px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.14em] text-sand-500">
                   Sin acceso
                 </span>
               )}
@@ -204,40 +204,40 @@ export default async function FichaClientePage({
         <section className="mt-10">
           <Overline>Rutinas</Overline>
           {(rutinas ?? []).length === 0 ? (
-            <p className="mt-4 text-[14px] text-sand-500">
+            <p className="mt-4 text-sm text-sand-500">
               Todavía no tiene ninguna rutina.
             </p>
           ) : (
-            <div className="mt-4 overflow-hidden rounded-sm border border-edge">
+            <div className="mt-4 overflow-hidden rounded-2xl border border-edge">
               {(rutinas ?? []).map((r) => (
                 <div
                   key={r.id}
                   className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-edge bg-ink-900 px-5 py-4 last:border-b-0"
                 >
-                  <span className="font-display italic text-cognac-400">
+                  <span className="font-display text-cognac-400">
                     {r.type === "personalizada" ? "P" : "S"}
                   </span>
                   <Link
                     href={`/admin/rutinas/${r.id}`}
-                    className="text-[14px] text-sand-300 underline-offset-2 hover:text-sand-100 hover:underline"
+                    className="text-sm text-sand-300 underline-offset-2 hover:text-sand-100 hover:underline"
                   >
                     {r.title}
                   </Link>
                   {r.coach_id === null && r.status === "borrador" && (
-                    <span className="rounded-xs border border-cognac-500/50 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-cognac-400">
+                    <span className="rounded-full border border-cognac-500/50 px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.14em] text-cognac-400">
                       Propuesta del motor
                     </span>
                   )}
                   <span
                     className={
                       r.status === "publicada"
-                        ? "rounded-xs bg-cognac-500 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em] text-ink-950"
-                        : "rounded-xs border border-edge-strong px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-sand-500"
+                        ? "rounded-full bg-cognac-500 px-2 py-0.5 text-xs font-bold uppercase tracking-[0.14em] text-ink-950"
+                        : "rounded-full border border-edge-strong px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.14em] text-sand-500"
                     }
                   >
                     {r.status}
                   </span>
-                  <span className="text-[12px] text-sand-600">
+                  <span className="text-xs text-sand-600">
                     {formatoFecha.format(new Date(r.created_at))}
                   </span>
 
@@ -273,46 +273,46 @@ export default async function FichaClientePage({
         {/* ————— Su progreso ————— */}
         <section className="mt-12">
           <Overline accent>Progreso de {nombreCorto}</Overline>
-          <h2 className="mt-2 font-display text-2xl font-medium text-sand-50">
+          <h2 className="mt-2 font-display text-2xl text-sand-50">
             Cargas, sesión a sesión
           </h2>
           <ProgressChart series={seriesProgreso} />
 
-          <h2 className="mt-10 font-display text-2xl font-medium text-sand-50">
+          <h2 className="mt-10 font-display text-2xl text-sand-50">
             Peso corporal
           </h2>
           {puntosPeso.length > 0 ? (
             <Card className="mt-4 max-w-2xl p-6 sm:p-8">
               <div className="flex items-baseline gap-3">
-                <span className="font-display text-3xl font-light text-sand-50 tabular-nums">
+                <span className="font-display text-3xl text-sand-50 tabular-nums">
                   {ultimoPeso.kg.toLocaleString("es-ES", {
                     maximumFractionDigits: 1,
                   })}{" "}
                   kg
                 </span>
-                <span className="text-[12px] uppercase tracking-[0.14em] text-sand-600">
+                <span className="text-xs uppercase tracking-[0.14em] text-sand-600">
                   último registro
                 </span>
               </div>
               <ChartSvg puntos={puntosPeso} />
-              <p className="mt-3 text-[12px] text-sand-600">
+              <p className="mt-3 text-xs text-sand-600">
                 {puntosPeso.length} registro{puntosPeso.length === 1 ? "" : "s"} semanal
                 {puntosPeso.length === 1 ? "" : "es"}.
               </p>
             </Card>
           ) : (
-            <p className="mt-4 text-[14px] text-sand-500">
+            <p className="mt-4 text-sm text-sand-500">
               Aún no ha registrado su peso.
             </p>
           )}
 
-          <h2 className="mt-10 font-display text-2xl font-medium text-sand-50">
+          <h2 className="mt-10 font-display text-2xl text-sand-50">
             Sesiones registradas
           </h2>
           {sesiones.length > 0 ? (
             <SessionHistory sesiones={sesiones} />
           ) : (
-            <p className="mt-4 text-[14px] text-sand-500">
+            <p className="mt-4 text-sm text-sand-500">
               Aún no ha registrado ninguna sesión.
             </p>
           )}
@@ -323,13 +323,13 @@ export default async function FichaClientePage({
           <Overline>Cuestionario inicial</Overline>
           {respuesta ? (
             <Card className="mt-4 p-6 sm:p-8">
-              <p className="text-[12px] text-sand-600">
+              <p className="text-xs text-sand-600">
                 Respondido el {formatoFecha.format(new Date(respuesta.created_at))}
               </p>
               <QuestionnaireAnswers preguntas={respuesta.questionnaire_templates?.questions ?? []} respuestas={respuesta.answers}/>
             </Card>
           ) : (
-            <p className="mt-4 text-[14px] text-sand-500">
+            <p className="mt-4 text-sm text-sand-500">
               Todavía no ha rellenado el cuestionario.
             </p>
           )}

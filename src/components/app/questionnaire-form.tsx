@@ -9,7 +9,7 @@ import { QUESTIONNAIRE_SECTIONS, preguntaVisible, preguntaRequerida, validarCues
 export type { PreguntaCuestionario } from "@/lib/questionnaire";
 
 const estadoInicial: CuestionarioEstado = {};
-const inputClass = "w-full rounded-lg border border-edge bg-ink-900 px-4 py-3 text-base text-sand-100 placeholder:text-sand-600 focus:border-cognac-400 focus:outline-none focus:ring-2 focus:ring-cognac-500/20";
+const inputClass = "w-full rounded-lg border border-edge-control bg-ink-900 px-4 py-3 text-base text-sand-100 placeholder:text-sand-600 focus:border-cognac-400 focus:outline-none focus:ring-2 focus:ring-cognac-500/20";
 
 export function QuestionnaireForm({ templateId, preguntas, preview = false }: {
   templateId: string;

@@ -88,8 +88,8 @@ export default async function AppPage({ searchParams, }: {
     if (!supabaseConfigurado) {
         return (<main className="mx-auto flex min-h-dvh max-w-lg flex-col items-center justify-center gap-6 px-6 text-center">
         <Logo size="md"/>
-        <p className="text-[15px] leading-relaxed text-sand-500">{t("El backend a\u00FAn no est\u00E1 conectado. Sigue los pasos de")}{" "}
-          <code className="rounded-xs border border-edge bg-ink-900 px-2 py-0.5 text-[13px] text-cognac-400">
+        <p className="text-base leading-relaxed text-sand-500">{t("El backend a\u00FAn no est\u00E1 conectado. Sigue los pasos de")}{" "}
+          <code className="rounded-lg border border-edge bg-ink-900 px-2 py-0.5 text-sm text-cognac-400">
             supabase/README.md
           </code>{" "}{t("y vuelve a cargar esta p\u00E1gina.")}</p>
       </main>);
@@ -244,7 +244,7 @@ export default async function AppPage({ searchParams, }: {
       <ClientNav active={seccion}/>
       <main className="mx-auto max-w-5xl px-5 pt-10 pb-36 sm:px-6">
         <Overline accent>{t(seccion === "rutina" ? "Mi rutina" : seccion === "progreso" ? "Tu progreso" : "Tu espacio Equilab")}</Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium text-sand-50">{seccion === "inicio" ? <>{t("Hola, ")}{nombre}.</> : t(seccion === "rutina" ? "Tu plan, día a día." : "Cada sesión cuenta.")}
+        <h1 className="mt-4 font-display text-4xl text-sand-50">{seccion === "inicio" ? <>{t("Hola, ")}{nombre}.</> : t(seccion === "rutina" ? "Tu plan, día a día." : "Cada sesión cuenta.")}
         </h1>
 
         {seccion === "inicio" && esEquipo && <section className="mt-8 rounded-2xl border border-cognac-500/30 bg-ink-900 p-6 sm:p-8">
@@ -277,15 +277,15 @@ export default async function AppPage({ searchParams, }: {
                 ? t("Reactiva tu plan y sigue donde lo dejaste.") : t("Elige cu\u00E1nto equipo quieres detr\u00E1s.")} entradilla={suscripcion
                 ? t("Tu rutina, tus registros y tu progreso siguen guardados. Al reactivar, lo recuperas todo.") : t("Los dos planes entrenan el mismo m\u00E9todo. La diferencia est\u00E1 en cu\u00E1nto nos metemos nosotros.")}/>)}
 
-        {contrasena === "cambiada" && (<p role="status" className="mt-6 max-w-xl rounded-xs border border-cognac-500/40 bg-ink-800 px-4 py-3 text-[13px] leading-relaxed text-sand-300">{t("Contrase\u00F1a cambiada. Ya puedes usarla la pr\u00F3xima vez que entres.")}</p>)}
+        {contrasena === "cambiada" && (<p role="status" className="mt-6 max-w-xl rounded-lg border border-cognac-500/40 bg-ink-800 px-4 py-3 text-sm leading-relaxed text-sand-300">{t("Contrase\u00F1a cambiada. Ya puedes usarla la pr\u00F3xima vez que entres.")}</p>)}
 
-        {cuestionario === "gracias" && (<p role="status" className="mt-6 max-w-xl rounded-xs border border-cognac-500/40 bg-ink-800 px-4 py-3 text-[13px] leading-relaxed text-sand-300">{t("Cuestionario recibido. El equipo prepara tu rutina y la ver\u00E1s aqu\u00ED en cuanto est\u00E9 publicada.")}</p>)}
+        {cuestionario === "gracias" && (<p role="status" className="mt-6 max-w-xl rounded-lg border border-cognac-500/40 bg-ink-800 px-4 py-3 text-sm leading-relaxed text-sand-300">{t("Cuestionario recibido. El equipo prepara tu rutina y la ver\u00E1s aqu\u00ED en cuanto est\u00E9 publicada.")}</p>)}
 
         {/* ————— Con acceso pero sin cuestionario: el primer paso ————— */}
         {accesoVigente && !rutina && !respuesta && (<Card elevated className="mt-8 max-w-xl p-8">
             <Overline accent>{t("Primer paso")}</Overline>
             <p className="mt-3 font-display text-2xl text-sand-50">{t("Cu\u00E9ntanos c\u00F3mo montas")}</p>
-            <p className="mt-4 text-[14px] leading-relaxed text-sand-500">{t("Un cuestionario por pasos sobre tu experiencia, tu técnica, tu preparación física y tus objetivos. Con eso construimos tu rutina.")}</p>
+            <p className="mt-4 text-sm leading-relaxed text-sand-500">{t("Un cuestionario por pasos sobre tu experiencia, tu técnica, tu preparación física y tus objetivos. Con eso construimos tu rutina.")}</p>
             <div className="mt-6">
               <Link href="/app/cuestionario">
                 <Button size="lg" tabIndex={-1}>{t("Empezar cuestionario")}</Button>
@@ -297,16 +297,16 @@ export default async function AppPage({ searchParams, }: {
         {accesoVigente && !rutina && respuesta && (<Card elevated className="mt-8 max-w-xl p-8">
             <Overline accent>{t("Tu rutina")}</Overline>
             <p className="mt-3 font-display text-2xl text-sand-50">{t("El equipo est\u00E1 preparando tu rutina")}</p>
-            <p className="mt-4 text-[14px] leading-relaxed text-sand-500">{t("Tenemos tu cuestionario. En cuanto tu rutina est\u00E9 revisada y publicada aparecer\u00E1 aqu\u00ED, d\u00EDa a d\u00EDa y serie a serie.")}</p>
+            <p className="mt-4 text-sm leading-relaxed text-sand-500">{t("Tenemos tu cuestionario. En cuanto tu rutina est\u00E9 revisada y publicada aparecer\u00E1 aqu\u00ED, d\u00EDa a d\u00EDa y serie a serie.")}</p>
           </Card>)}
 
         {/* ————— Acceso a la información del bloque (vive en su página) ————— */}
-        {seccion === "rutina" && rutina?.explanation && (<Link href="/app/bloque" className="group mt-10 flex max-w-2xl items-center justify-between gap-6 rounded-sm border border-edge bg-ink-900 px-6 py-5 transition-colors duration-200 hover:border-cognac-500/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400">
+        {seccion === "rutina" && rutina?.explanation && (<Link href="/app/bloque" className="group mt-10 flex max-w-2xl items-center justify-between gap-6 rounded-2xl border border-edge bg-ink-900 px-6 py-5 transition-colors duration-150 hover:border-cognac-500/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400">
             <span className="min-w-0">
               <Overline accent>{t("Informaci\u00F3n de este bloque")}</Overline>
-              <span className="mt-2 block font-display text-[17px] text-sand-100">{t("Por qu\u00E9 entrenas as\u00ED")}</span>
+              <span className="mt-2 block font-display text-lg text-sand-100">{t("Por qu\u00E9 entrenas as\u00ED")}</span>
             </span>
-            <span aria-hidden="true" className="shrink-0 font-display text-xl text-sand-600 transition-all duration-200 group-hover:translate-x-1 group-hover:text-cognac-400">
+            <span aria-hidden="true" className="shrink-0 font-display text-xl text-sand-600 transition-all duration-150 group-hover:translate-x-1 group-hover:text-cognac-400">
               →
             </span>
           </Link>)}
@@ -316,11 +316,11 @@ export default async function AppPage({ searchParams, }: {
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
                 <Overline accent>{t("Tu rutina")}</Overline>
-                <h2 className="mt-2 font-display text-3xl font-medium text-sand-50">
+                <h2 className="mt-2 font-display text-3xl text-sand-50">
                   {t(rutina.title)}
                 </h2>
               </div>
-              <span className="text-[12px] uppercase tracking-[0.14em] text-sand-600">
+              <span className="text-xs uppercase tracking-[0.14em] text-sand-600">
                 {semanasCliente[0]?.dias.length ?? 0}{t(" d\u00EDas / semana \u00B7")}{" "}
                 {semanasCliente.length === 1
                 ? t("1 semana")
@@ -335,22 +335,22 @@ export default async function AppPage({ searchParams, }: {
         {seccion === "progreso" && accesoVigente && (<section className="mt-8">
             <Overline accent>{t("Tu progreso")}</Overline>
 
-            <h2 className="mt-2 font-display text-3xl font-medium text-sand-50">{t("Tus cargas, sesi\u00F3n a sesi\u00F3n")}</h2>
-            <p className="mt-2 text-[13px] text-sand-600">{t("Seg\u00FAn tus sesiones registradas.")}</p>
+            <h2 className="mt-2 font-display text-3xl text-sand-50">{t("Tus cargas, sesi\u00F3n a sesi\u00F3n")}</h2>
+            <p className="mt-2 text-sm text-sand-600">{t("Seg\u00FAn tus sesiones registradas.")}</p>
             <ProgressChart series={seriesProgreso}/>
 
-            <h2 className="mt-12 font-display text-3xl font-medium text-sand-50">{t("Tu peso corporal")}</h2>
-            <p className="mt-2 text-[13px] text-sand-600">{t("Un dato a la semana, cada lunes.")}</p>
+            <h2 className="mt-12 font-display text-3xl text-sand-50">{t("Tu peso corporal")}</h2>
+            <p className="mt-2 text-sm text-sand-600">{t("Un dato a la semana, cada lunes.")}</p>
             <WeightTracker puntos={puntosPeso} pesoEstaSemana={pesoEstaSemana}/>
 
             {sesionesHistorial.length > 0 && (<>
-                <h3 className="mt-12 font-display text-xl font-medium text-sand-50">{t("Sesiones anteriores")}</h3>
+                <h3 className="mt-12 font-display text-xl text-sand-50">{t("Sesiones anteriores")}</h3>
                 <SessionHistory sesiones={sesionesHistorial}/>
               </>)}
           </section>)}
 
         {/* ————— Estado de suscripción (resumen) ————— */}
-        {suscripcion && accesoVigente && (<p className="mt-10 text-[12.5px] text-sand-600">
+        {suscripcion && accesoVigente && (<p className="mt-10 text-sm text-sand-600">
             Plan {suscripcion.plan_code === "premium" ? "Premium" : t("B\u00E1sico")} ·{" "}
             {diasRestantes(suscripcion) === null ? t("Acceso activo.") : <>{diasRestantes(suscripcion)}{t(" días de acceso restantes.")}</>}</p>)}
       </main>

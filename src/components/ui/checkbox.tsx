@@ -11,7 +11,7 @@ export function Checkbox({ label, className, id, ...props }: CheckboxProps) {
     <label
       htmlFor={id}
       className={cn(
-        "group flex cursor-pointer items-start gap-3 text-[13px] leading-relaxed text-sand-500",
+        "group flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-sand-500",
         className,
       )}
     >
@@ -20,7 +20,7 @@ export function Checkbox({ label, className, id, ...props }: CheckboxProps) {
           type="checkbox"
           id={id}
           className={cn(
-            "peer size-4 cursor-pointer appearance-none rounded-[2px] border border-edge-strong bg-ink-900",
+            "peer size-4 cursor-pointer appearance-none rounded-[2px] border border-edge-control bg-ink-900",
             "transition-colors duration-150 checked:border-cognac-500 checked:bg-cognac-500",
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400",
           )}

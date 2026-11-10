@@ -64,7 +64,7 @@ async function CheckIcon() {
 }
 export async function Plans() {
     const { t } = await getI18n();
-    return (<section id="planes" className="relative scroll-mt-24 overflow-hidden border-t border-edge bg-ink-900 py-28 sm:py-36">
+    return (<section id="planes" className="relative scroll-mt-24 overflow-hidden border-t border-edge bg-ink-900 py-16 sm:py-24">
       <div aria-hidden="true" className="absolute inset-0" style={{
             background: "radial-gradient(90% 60% at 50% 120%, rgba(185,232,91,0.1) 0%, transparent 60%)",
         }}/>
@@ -74,19 +74,19 @@ export async function Plans() {
           <Overline accent>{t("Planes")}</Overline>
           <h2 className="section-heading mx-auto mt-6 max-w-3xl font-display text-sand-50">{t("TU OBJETIVO.")}<em className="block text-cognac-300">{t("TU PLAN.")}</em>
           </h2>
-          <p className="mx-auto mt-6 max-w-md text-[15px] leading-relaxed text-sand-500">{t("Dos formas de trabajar el mismo método. Elige la estructura y el acompañamiento que necesitas.")}</p>
+          <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-sand-500">{t("Dos formas de trabajar el mismo método. Elige la estructura y el acompañamiento que necesitas.")}</p>
         </Reveal>
 
         <div className="mx-auto mt-16 grid max-w-5xl gap-6 lg:grid-cols-2 lg:gap-8">
-          {plans.map((plan, i) => (<Reveal key={plan.name} delay={i * 120}>
-              <article className={cn("relative flex h-full flex-col rounded-sm border p-8 transition-all duration-300 sm:p-10", plan.highlighted
+          {plans.map((plan, i) => (<Reveal key={plan.name} delay={i * 70}>
+              <article className={cn("relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-250 sm:p-10", plan.highlighted
                 ? "border-cognac-500/50 bg-ink-950 shadow-[0_30px_60px_-25px_rgba(185,232,91,0.25)] hover:border-cognac-400/70"
                 : "border-edge bg-ink-950/60 hover:border-edge-strong")}>
-                {plan.badge && (<span className="absolute -top-3 right-8 rounded-xs bg-cognac-500 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-950">
+                {plan.badge && (<span className="absolute -top-3 right-8 rounded-full bg-cognac-500 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-ink-950">
                     {t(plan.badge)}
                   </span>)}
 
-                <h3 className="text-[13px] font-semibold uppercase tracking-[0.22em] text-sand-300">{t(plan.name)}</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-sand-300">{t(plan.name)}</h3>
 
                 <div className="mt-6 flex items-baseline gap-2">
                   <span className="font-display text-6xl text-sand-50">
@@ -95,11 +95,11 @@ export async function Plans() {
                   <span className="text-sm text-sand-500">{t("\u20AC / mes")}</span>
                 </div>
 
-                <p className="mt-4 font-sans text-[17px] leading-snug text-cognac-300">{t(plan.tagline)}</p>
+                <p className="mt-4 font-sans text-lg leading-snug text-cognac-300">{t(plan.tagline)}</p>
                 <p className="mt-4 text-sm leading-relaxed text-sand-500">{t(plan.highlighted ? "Para quien busca un trabajo individual y un seguimiento más cercano." : "Para quien quiere una estructura clara y entrenar con autonomía.")}</p>
 
                 <ul className="mt-8 flex flex-col gap-3.5 border-t border-edge pt-8">
-                  {plan.features.map((feature) => (<li key={feature} className="flex gap-3 text-[14px] leading-relaxed text-sand-300">
+                  {plan.features.map((feature) => (<li key={feature} className="flex gap-3 text-sm leading-relaxed text-sand-300">
                       <CheckIcon />{t(feature)}
 
                     </li>))}
@@ -107,7 +107,7 @@ export async function Plans() {
 
                 <div className="mt-10 flex-1"/>
 
-                <Link href="/acceso">
+                <Link href="/acceso?modo=registro">
                   <Button fullWidth size="lg" variant={plan.highlighted ? "primary" : "outline"} tabIndex={-1}>
                     {t(plan.cta)}
                   </Button>
@@ -138,8 +138,8 @@ export async function Plans() {
           <p className="mt-5 text-sm leading-relaxed text-sand-500">{t("¿No sabes cuál elegir?")} <a href="https://instagram.com/equilab_method" target="_blank" rel="noopener noreferrer" className="text-cognac-400 underline underline-offset-4">{t("Habla con el equipo")}</a></p>
         </Reveal>
 
-        <Reveal delay={200}>
-          <p className="mt-10 text-center text-[13px] text-sand-600">{t("El plan Premium tiene plazas limitadas: cada jinete recibe seguimiento directo del equipo.")}</p>
+        <Reveal delay={100}>
+          <p className="mt-10 text-center text-sm text-sand-600">{t("El plan Premium tiene plazas limitadas: cada jinete recibe seguimiento directo del equipo.")}</p>
         </Reveal>
       </div>
     </section>);

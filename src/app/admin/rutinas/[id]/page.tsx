@@ -144,16 +144,16 @@ export default async function RevisarRutinaPage({
         <Overline accent>
           {esPropuestaMotor ? "Propuesta del motor · por revisar" : "Revisar rutina"}
         </Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium text-sand-50">
+        <h1 className="mt-4 font-display text-4xl text-sand-50">
           Rutina de <em className="text-cognac-300">{cliente.full_name}</em>
         </h1>
-        <p className="mt-3 text-[13px] uppercase tracking-[0.14em] text-sand-600">
+        <p className="mt-3 text-sm uppercase tracking-[0.14em] text-sand-600">
           Estado: {rutina.status}
         </p>
 
         {rutina.notes && (
-          <div className="mt-6 max-w-2xl rounded-xs border border-cognac-500/40 bg-ink-900 px-5 py-4">
-            <p className="text-[13px] leading-relaxed text-sand-300">
+          <div className="mt-6 max-w-2xl rounded-lg border border-cognac-500/40 bg-ink-900 px-5 py-4">
+            <p className="text-sm leading-relaxed text-sand-300">
               {rutina.notes}
             </p>
           </div>

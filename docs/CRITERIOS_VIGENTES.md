@@ -21,6 +21,19 @@ Preparación física para jinetes: fuerza, movilidad y control corporal aplicado
 - Fotografía real y pertinente. No recuperar la antigua imagen de pista como elemento central del método ni las maquetas HTML retiradas.
 - Sin desbordamiento horizontal en móvil. Botones cómodos, etiquetas accesibles, buen contraste y estados de carga, error y vacío comprensibles.
 
+### Escala de la interfaz (10 de noviembre de 2026)
+
+Ajuste acordado con Aleix dentro de la identidad grafito/lima; no cambia colores de marca ni tipografías.
+
+- Tamaños de texto: 12, 14, 16 y 18 px (`text-xs`, `text-sm`, `text-base`, `text-lg`) y títulos con `font-display`. Nada por debajo de 12 px salvo el subtítulo del logotipo. No usar tamaños arbitrarios (`text-[13px]`).
+- Campos de formulario a 16 px: por debajo, iOS amplía la página al tocarlos.
+- Archivo Black solo tiene un grosor y no tiene cursiva: no añadir `font-medium`, `font-light` ni `italic` a `font-display`.
+- Espaciado entre letras: `0.14em` en rótulos en mayúsculas y `0.08em` en botones. El logotipo conserva los suyos.
+- Radios: 8 px en controles (`rounded-lg`), 12 px en bloques anidados (`rounded-xl`), 16 px en tarjetas (`rounded-2xl`) y píldora en etiquetas.
+- Bordes de campos y botones con contorno: `border-edge-control` (3:1 o más sobre los fondos). `border-edge` queda para separadores y tarjetas.
+- Duraciones: 150 ms en hover, 250 ms en interfaz y 500 ms en entradas. La aparición al hacer scroll no debe ocultar contenido si no hay JavaScript.
+- Secciones de la portada: 64 px de margen vertical en móvil y 96 px desde 640 px.
+
 ## Idiomas y contenidos
 
 La portada existe en español (`/`) e inglés (`/en`). El idioma también se aplica a acceso y zona privada mediante la cookie de idioma y `src/lib/i18n/`. Todo texto nuevo de interfaz debe incluir su traducción.
@@ -43,7 +56,8 @@ Los números de teléfono Premium se configuran en variables de entorno privadas
 - Inicio indica el siguiente paso: elegir plan, responder cuestionario, esperar preparación o abrir su rutina.
 - Rutina presenta semanas, días, ejercicios, técnica, objetivos por serie y registro de kg, repeticiones, RIR y descanso.
 - El registro de una sesión no debe confundirse con su prescripción. Los campos se vacían solo después de guardar correctamente.
-- Progreso separa las cargas, el historial y el peso corporal; no convertir el peso en el objetivo principal de todos los clientes.
+- Mientras no se guarda, lo apuntado se conserva como borrador en el dispositivo (solo kg, repeticiones, RIR y descanso del día en curso); caduca al cambiar de fecha y se borra al guardar. En móvil, los cuatro campos llevan su etiqueta visible y la barra de guardar queda fija con el número de series apuntadas.
+- Progreso separa las cargas, el historial y el peso corporal; no convertir el peso en el objetivo principal de todos los clientes. La variación de peso se muestra en color neutro, sin premiar que baje.
 - Cuenta agrupa perfil, plan y contacto. Los estados sin acceso o sin rutina deben explicarse sin bloquear la página.
 
 ## Trabajo del equipo
@@ -66,7 +80,7 @@ El motor Básico solo prepara borradores. Respetar disponibilidad y material y s
 
 ## Datos y permisos
 
-Mantener Supabase Auth, autorización en el servidor y políticas RLS. No exponer datos de salud o contacto por ocultación visual únicamente. No guardar cuestionarios en almacenamiento local persistente ni registrar sus respuestas en logs.
+Mantener Supabase Auth, autorización en el servidor y políticas RLS. No exponer datos de salud o contacto por ocultación visual únicamente. No guardar cuestionarios en almacenamiento local persistente ni registrar sus respuestas en logs. El único dato que se guarda en el dispositivo es el borrador de la sesión de entrenamiento descrito arriba.
 
 No versionar `.env.local`, claves, credenciales, sesiones, datos reales de clientes, copias de bases de datos ni artefactos de depuración. Las imágenes públicas aprobadas de marca sí forman parte del proyecto.
 

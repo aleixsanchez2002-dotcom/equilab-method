@@ -20,7 +20,7 @@ const steps = [
 ];
 export async function Steps() {
     const { t } = await getI18n();
-    return (<section className="light-section border-t border-edge bg-ink-950 py-24 sm:py-32">
+    return (<section className="light-section border-t border-edge bg-ink-950 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <Reveal className="text-left">
           <Overline accent>{t("C\u00F3mo funciona")}</Overline>
@@ -28,13 +28,13 @@ export async function Steps() {
         </Reveal>
 
         <ol className="mt-16 grid gap-12 sm:grid-cols-3 sm:gap-8">
-          {steps.map(({ index, title, text }, i) => (<Reveal key={index} delay={i * 110}>
+          {steps.map(({ index, title, text }, i) => (<Reveal key={index} delay={i * 70}>
               <li className="relative border-t border-edge pt-7 text-left">
                 <span className="font-display text-5xl text-cognac-500">
                   {index}
                 </span>
-                <h3 className="mt-5 text-[13px] font-semibold uppercase tracking-[0.18em] text-sand-100">{t(title)}</h3>
-                <p className="mx-auto mt-3 max-w-[32ch] text-[15px] leading-relaxed text-sand-500 sm:mx-0">{t(text)}</p>
+                <h3 className="mt-5 text-sm font-semibold uppercase tracking-[0.14em] text-sand-100">{t(title)}</h3>
+                <p className="mx-auto mt-3 max-w-[32ch] text-base leading-relaxed text-sand-500 sm:mx-0">{t(text)}</p>
               </li>
             </Reveal>))}
         </ol>
