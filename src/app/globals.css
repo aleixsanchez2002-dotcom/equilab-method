@@ -186,7 +186,4 @@
   color-scheme: light;
 }
 .marketing .section-heading { font-size: clamp(2.1rem, 5.2vw, 4.75rem); line-height: 1.02; }
-.hero-photo { position: relative; }
-.hero-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(20,23,25,.75), transparent 55%); }
-.hero-photo img { object-position: 60% 50%; }
 .hero-rule { width: 68px; height: 5px; background: var(--color-cognac-500); transform: skewX(-25deg); }
