@@ -29,13 +29,13 @@ export default async function ContactoPage() {
     const esPremium = sub?.plan_code === "premium" && tieneAccesoVigente(sub ?? null);
     const contactos = esPremium ? premiumContacts() : [];
     return (<>
-      <h1 className="font-display text-3xl font-medium text-sand-50">{t("Cont\u00E1ctanos")}</h1>
-      <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-sand-500">{t("Dudas con un ejercicio, con tu plan o con tu cuenta: escr\u00EDbenos y te contestamos ")}{esPremium ? t("en menos de 24 h") : t("en menos de 48 h")}{" "}{t("laborables.")}</p>
+      <h1 className="font-display text-3xl text-sand-50">{t("Cont\u00E1ctanos")}</h1>
+      <p className="mt-3 max-w-lg text-sm leading-relaxed text-sand-500">{t("Dudas con un ejercicio, con tu plan o con tu cuenta: escr\u00EDbenos y te contestamos ")}{esPremium ? t("en menos de 24 h") : t("en menos de 48 h")}{" "}{t("laborables.")}</p>
 
       <Card className="mt-8 p-6 sm:p-8">
         <Overline accent>Instagram</Overline>
-        <p className="mt-3 text-[14px] leading-relaxed text-sand-500">{t("La v\u00EDa m\u00E1s r\u00E1pida: m\u00E1ndanos un mensaje directo.")}</p>
-        <a href="https://instagram.com/equilab_method" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-xs border border-edge-strong px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-sand-100 transition-colors hover:border-cognac-400 hover:text-cognac-300">
+        <p className="mt-3 text-sm leading-relaxed text-sand-500">{t("La v\u00EDa m\u00E1s r\u00E1pida: m\u00E1ndanos un mensaje directo.")}</p>
+        <a href="https://instagram.com/equilab_method" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-lg border border-edge-strong px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-sand-100 transition-colors hover:border-cognac-400 hover:text-cognac-300">
           <svg viewBox="0 0 24 24" aria-hidden="true" className="size-4" fill="none">
             <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5"/>
             <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5"/>
@@ -62,7 +62,7 @@ export default async function ContactoPage() {
 
       {esPremium && (<Card className="mt-6 border-cognac-500/40 p-6 sm:p-8">
           <Overline accent>{t("Tu seguimiento Premium")}</Overline>
-          <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-sand-500">{t("Como cliente Premium tienes revisi\u00F3n mensual con el equipo. Aqu\u00ED aparecer\u00E1 tu pr\u00F3xima videollamada y podr\u00E1s agendarla cuando conectemos la agenda.")}</p>
+          <p className="mt-3 max-w-lg text-sm leading-relaxed text-sand-500">{t("Como cliente Premium tienes revisi\u00F3n mensual con el equipo. Aqu\u00ED aparecer\u00E1 tu pr\u00F3xima videollamada y podr\u00E1s agendarla cuando conectemos la agenda.")}</p>
         </Card>)}
 
     </>);

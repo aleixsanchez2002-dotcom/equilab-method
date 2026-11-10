@@ -49,14 +49,14 @@ export default async function BloquePage() {
 
       <main className="mx-auto max-w-3xl px-6 py-14">
         <Overline accent>{t("Informaci\u00F3n de este bloque")}</Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium leading-[1.1] text-sand-50">
+        <h1 className="mt-4 font-display text-4xl leading-[1.1] text-sand-50">
           {t(rutina.title)}
         </h1>
-        {rutina.weeks && (<p className="mt-3 text-[12px] uppercase tracking-[0.14em] text-sand-600">{t("Bloque de ")}{rutina.weeks}{t(" semanas")}</p>)}
+        {rutina.weeks && (<p className="mt-3 text-xs uppercase tracking-[0.14em] text-sand-600">{t("Bloque de ")}{rutina.weeks}{t(" semanas")}</p>)}
 
         {/* whitespace-pre-line: el coach puede estructurar con párrafos */}
         <div className="mt-10 border-l-2 border-cognac-500/40 pl-6">
-          <p className="text-[16px] leading-[1.8] whitespace-pre-line break-words text-sand-300">
+          <p className="text-base leading-[1.8] whitespace-pre-line break-words text-sand-300">
             {t(rutina.explanation)}
           </p>
         </div>

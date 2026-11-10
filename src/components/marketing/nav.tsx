@@ -31,7 +31,7 @@ export function Nav({ sesion = false }: {
             document.documentElement.style.overflow = "";
         };
     }, [open]);
-    return (<header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled
+    return (<header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-250", scrolled
             ? "border-b border-edge bg-ink-950/85 backdrop-blur-md"
             : "border-b border-edge bg-ink-950/95")}>
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:h-20 sm:px-10">
@@ -41,7 +41,7 @@ export function Nav({ sesion = false }: {
 
         <ul className="hidden items-center gap-8 lg:flex">
           {links.map(({ href, label }) => (<li key={href}>
-              <a href={href} className="text-[12px] font-medium uppercase tracking-[0.16em] text-sand-500 transition-colors duration-200 hover:text-sand-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cognac-400">{t(label)}</a>
+              <a href={href} className="text-xs font-medium uppercase tracking-[0.14em] text-sand-500 transition-colors duration-150 hover:text-sand-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cognac-400">{t(label)}</a>
             </li>))}
         </ul>
 
@@ -64,18 +64,18 @@ export function Nav({ sesion = false }: {
 
           {/* Menú móvil */}
           <button type="button" aria-expanded={open} aria-label={open ? t("Cerrar men\u00FA") : t("Abrir men\u00FA")} onClick={() => setOpen((v) => !v)} className="flex size-11 cursor-pointer flex-col items-center justify-center gap-[7px] lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400">
-            <span className={cn("h-px w-6 bg-sand-100 transition-transform duration-300", open && "translate-y-1 rotate-45")}/>
-            <span className={cn("h-px w-6 bg-sand-100 transition-transform duration-300", open && "-translate-y-1.5 -rotate-45")}/>
+            <span className={cn("h-px w-6 bg-sand-100 transition-transform duration-250", open && "translate-y-1 rotate-45")}/>
+            <span className={cn("h-px w-6 bg-sand-100 transition-transform duration-250", open && "-translate-y-1.5 -rotate-45")}/>
           </button>
         </div>
       </nav>
 
       {/* Overlay de navegación móvil */}
-      <div className={cn("fixed inset-0 top-16 z-40 flex flex-col bg-ink-950/97 backdrop-blur-lg transition-opacity duration-300 lg:hidden", open ? "opacity-100" : "pointer-events-none opacity-0")}>
+      <div className={cn("fixed inset-0 top-16 z-40 flex flex-col bg-ink-950/97 backdrop-blur-lg transition-opacity duration-250 lg:hidden", open ? "opacity-100" : "pointer-events-none opacity-0")}>
         <ul className="flex flex-1 flex-col justify-center gap-2 px-8">
           {links.map(({ href, label }, i) => (<li key={href}>
               <a href={href} onClick={() => setOpen(false)} className={cn("block py-3 font-display text-3xl text-sand-100 transition-all duration-500", open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0")} style={{ transitionDelay: open ? `${100 + i * 60}ms` : "0ms" }}>
-                <span className="mr-4 font-display text-sm italic text-cognac-400">
+                <span className="mr-4 font-display text-sm text-cognac-400">
                   0{i + 1}
                 </span>{t(label)}
 

@@ -29,7 +29,7 @@ export function BitMark({ className }: { className?: string }) {
 }
 
 const sizeMap = {
-  sm: { mark: "w-8", name: "text-xl", sub: "text-[7px] tracking-[0.42em]" },
+  sm: { mark: "w-8", name: "text-xl", sub: "text-[9px] tracking-[0.42em]" },
   md: { mark: "w-10", name: "text-lg", sub: "text-[9px] tracking-[0.5em]" },
   lg: { mark: "w-12", name: "text-2xl", sub: "text-[10px] tracking-[0.56em]" },
 } as const;
@@ -42,7 +42,7 @@ export function Logo({ size = "md", className }: LogoProps) {
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-display font-medium tracking-[-0.035em] text-sand-100",
+            "font-display tracking-[-0.035em] text-sand-100",
             s.name,
           )}
         >

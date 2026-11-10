@@ -45,8 +45,8 @@ const diaVacio = (): DiaInput => ({
 });
 const semanaVacia = (): SemanaInput => ({ dias: [diaVacio()] });
 const estadoInicial: AccionEstado = {};
-const etiqueta = "text-[11px] font-medium uppercase tracking-[0.14em] text-sand-500";
-const selectCls = "h-11 w-full rounded-xs border border-edge bg-ink-900 px-3 text-[15px] text-sand-100 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20";
+const etiqueta = "text-xs font-medium uppercase tracking-[0.14em] text-sand-500";
+const selectCls = "h-11 w-full rounded-lg border border-edge-control bg-ink-900 px-3 text-base text-sand-100 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20";
 export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) {
     const { t } = useI18n();
     const [title, setTitle] = useState(inicial?.title ?? "");
@@ -93,7 +93,7 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
         <p className="mt-2 text-sand-500">{t("Empieza con una semana y c\u00F3piala para preparar las siguientes. El cliente solo ver\u00E1 la rutina cuando la publiques.")}</p>
       </div>
       {/* ————— Cabecera del bloque ————— */}
-      <section className="grid gap-5 rounded-sm border border-edge bg-ink-900 p-6 sm:grid-cols-[2fr_1fr]">
+      <section className="grid gap-5 rounded-2xl border border-edge bg-ink-900 p-6 sm:grid-cols-[2fr_1fr]">
         <div className="flex flex-col gap-2">
           <label htmlFor="rb-titulo" className={etiqueta}>{t("Nombre del bloque")}</label>
           <Input id="rb-titulo" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("Estabilidad de cadera")}/>
@@ -108,12 +108,12 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
 
         <div className="flex flex-col gap-2 sm:col-span-2">
           <label htmlFor="rb-explicacion" className={etiqueta}>{t("Informaci\u00F3n de este bloque (el cliente la lee en su propia p\u00E1gina)")}</label>
-          <textarea id="rb-explicacion" rows={3} value={explicacion} onChange={(e) => setExplicacion(e.target.value)} placeholder={t("Qu\u00E9 busca este bloque, en qu\u00E9 debe fijarse, qu\u00E9 sentir\u00E1 encima del caballo\u2026")} className="w-full rounded-xs border border-edge bg-ink-900 px-4 py-3 text-[15px] text-sand-100 placeholder:text-sand-600 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20"/>
+          <textarea id="rb-explicacion" rows={3} value={explicacion} onChange={(e) => setExplicacion(e.target.value)} placeholder={t("Qu\u00E9 busca este bloque, en qu\u00E9 debe fijarse, qu\u00E9 sentir\u00E1 encima del caballo\u2026")} className="w-full rounded-lg border border-edge-control bg-ink-900 px-4 py-3 text-base text-sand-100 placeholder:text-sand-600 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20"/>
         </div>
       </section>
 
       {/* ————— Semanas del bloque ————— */}
-      <section className="overflow-hidden rounded-sm border border-edge bg-ink-900">
+      <section className="overflow-hidden rounded-2xl border border-edge bg-ink-900">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-edge px-6 py-4">
           <span className={etiqueta}>{t(semanas.length === 1 ? "Bloque de 1 semana" : "Bloque de {0} semanas", { "0": semanas.length })}
           </span>
@@ -126,7 +126,7 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
         <div role="tablist" aria-label={t("Semanas del bloque")} className="flex gap-1 overflow-x-auto border-b border-edge px-4 py-2">
           {semanas.map((_, s) => {
             const seleccionada = s === Math.min(activa, semanas.length - 1);
-            return (<button key={s} type="button" role="tab" aria-selected={seleccionada} onClick={() => setActiva(s)} className={cn("shrink-0 cursor-pointer rounded-xs px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors", seleccionada
+            return (<button key={s} type="button" role="tab" aria-selected={seleccionada} onClick={() => setActiva(s)} className={cn("shrink-0 cursor-pointer rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition-colors", seleccionada
                     ? "bg-cognac-500 text-ink-950"
                     : "text-sand-500 hover:bg-sand-100/5 hover:text-sand-100")}>{t("Semana ")}{s + 1}
               </button>);
@@ -138,10 +138,10 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
             const s = Math.min(activa, semanas.length - 1);
             return (<div key={i} className="border-b border-edge">
               <div className="flex flex-wrap items-center gap-4 bg-ink-800/40 px-6 py-3">
-                <span className="font-display text-lg italic text-cognac-400">
+                <span className="font-display text-lg text-cognac-400">
                   {LETRAS_PISTA[i % LETRAS_PISTA.length]}
                 </span>
-                <h3 className="text-[13px] font-semibold uppercase tracking-[0.18em] text-sand-100">{t("Día {0}", { "0": i + 1 })}
+                <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-sand-100">{t("Día {0}", { "0": i + 1 })}
                 </h3>
                 <Button variant="outline" size="sm" className="ml-auto" onClick={() => editar(d => { d[s].dias.splice(i + 1, 0, structuredClone(d[s].dias[i])); })}>{t("Copiar d\u00EDa")}</Button>
                 {semana.dias.length > 1 && (<Button variant="ghost" size="sm" className="" onClick={() => editar((d) => {
@@ -166,7 +166,7 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
 
               {dia.ejercicios.map((ej, j) => (<div key={j} className="border-t border-edge px-6 py-5">
                   <div className="grid gap-4 sm:grid-cols-[auto_2fr_2fr_auto] sm:items-end">
-                    <span className="hidden font-display text-[15px] italic text-cognac-400 sm:block sm:pb-3">
+                    <span className="hidden font-display text-base text-cognac-400 sm:block sm:pb-3">
                       {String(j + 1).padStart(2, "0")}
                     </span>
                     <div className="flex flex-col gap-2">
@@ -208,17 +208,17 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
                       <span />
                     </div>
                     {ej.series.map((serie, k) => (<div key={k} className="grid grid-cols-[1.75rem_minmax(0,1fr)_1.5rem] items-center gap-2">
-                        <span className="font-display text-[13px] italic text-sand-600">{t("S")}{k + 1}
+                        <span className="font-display text-sm text-sand-600">{t("S")}{k + 1}
                         </span>
                         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">{([
                             ["peso", "62,5 kg"],
                             ["reps", "8"],
                             ["rir", "2"],
                             ["descanso", "2:30"],
-                        ] as const).map(([campo, ejemplo]) => (<label key={campo} className="min-w-0"><span className="mb-1 block text-[10px] uppercase text-sand-500 sm:sr-only">{t(campo)}</span><Input aria-label={`${campo} de la serie ${k + 1}`} value={serie[campo]} onChange={(e) => editar((d) => {
+                        ] as const).map(([campo, ejemplo]) => (<label key={campo} className="min-w-0"><span className="mb-1 block text-xs uppercase text-sand-500 sm:sr-only">{t(campo)}</span><Input aria-label={`${campo} de la serie ${k + 1}`} value={serie[campo]} onChange={(e) => editar((d) => {
                                 d[s].dias[i].ejercicios[j].series[k][campo] =
                                     e.target.value;
-                            })} placeholder={ejemplo} className="h-11 px-2.5 text-[14px]"/></label>))}</div>
+                            })} placeholder={ejemplo} className="h-11 px-2.5"/></label>))}</div>
                         {ej.series.length > 1 ? (<button type="button" aria-label={`Quitar serie ${k + 1}`} onClick={() => editar((d) => {
                                 d[s].dias[i].ejercicios[j].series.splice(k, 1);
                             })} className="cursor-pointer text-sand-600 transition-colors hover:text-error">
@@ -251,8 +251,8 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
       </section>
 
       {/* ————— Guardar ————— */}
-      <section className="sticky bottom-0 z-30 flex flex-col gap-4 rounded-sm border border-edge bg-ink-900 p-4 shadow-xl sm:p-6">
-        {estado.error && (<p role="alert" className="rounded-xs border border-oxblood-500/50 bg-ink-800 px-4 py-3 text-[13px] leading-relaxed text-error">
+      <section className="sticky bottom-0 z-30 flex flex-col gap-4 rounded-2xl border border-edge bg-ink-900 p-4 shadow-xl sm:p-6">
+        {estado.error && (<p role="alert" className="rounded-lg border border-oxblood-500/50 bg-ink-800 px-4 py-3 text-sm leading-relaxed text-error">
             {estado.error}
           </p>)}
         <div className="flex flex-wrap items-center gap-3">
@@ -262,7 +262,7 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
             : t("Publicar a {0}", { "0": cliente.full_name.split(" ")[0] })}
           </Button>
           <Button type="submit" name="accion" value="borrador" variant="outline" size="md" disabled={pendiente}>{t("Guardar como borrador")}</Button>
-          <p className="text-[12.5px] text-sand-500 sm:ml-auto sm:max-w-[28ch] sm:text-right">{t("El borrador no es visible para el cliente hasta que lo publiques.")}</p>
+          <p className="text-sm text-sand-500 sm:ml-auto sm:max-w-[28ch] sm:text-right">{t("El borrador no es visible para el cliente hasta que lo publiques.")}</p>
         </div>
       </section>
     </form>);

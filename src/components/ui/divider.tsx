@@ -12,7 +12,7 @@ export function Divider({ label, className }: DividerProps) {
   return (
     <div className={cn("flex items-center gap-4", className)} role="separator">
       <span className="h-px flex-1 bg-edge" />
-      <span className="text-[11px] font-medium uppercase tracking-[0.24em] text-sand-600">
+      <span className="text-xs font-medium uppercase tracking-[0.14em] text-sand-600">
         {label}
       </span>
       <span className="h-px flex-1 bg-edge" />

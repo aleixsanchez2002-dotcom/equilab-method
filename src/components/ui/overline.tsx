@@ -10,7 +10,7 @@ export function Overline({ accent = false, className, ...props }: OverlineProps)
   return (
     <span
       className={cn(
-        "font-sans text-[11px] font-medium uppercase tracking-[0.24em]",
+        "font-sans text-xs font-medium uppercase tracking-[0.14em]",
         accent ? "text-cognac-400" : "text-sand-500",
         className,
       )}

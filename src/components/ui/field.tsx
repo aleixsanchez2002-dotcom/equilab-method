@@ -27,7 +27,7 @@ export function Field({
       <div className="flex items-baseline justify-between gap-4">
         <label
           htmlFor={htmlFor}
-          className="text-[11px] font-medium uppercase tracking-[0.14em] text-sand-500"
+          className="text-xs font-medium uppercase tracking-[0.14em] text-sand-500"
         >
           {label}
         </label>
@@ -35,9 +35,9 @@ export function Field({
       </div>
       {children}
       {error ? (
-        <p className="text-[13px] text-error">{error}</p>
+        <p className="text-sm text-error">{error}</p>
       ) : hint ? (
-        <p className="text-[13px] text-sand-600">{hint}</p>
+        <p className="text-sm text-sand-600">{hint}</p>
       ) : null}
     </div>
   );

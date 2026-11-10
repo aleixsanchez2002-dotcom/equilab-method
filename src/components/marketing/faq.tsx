@@ -37,30 +37,30 @@ function FaqItem({ question, answer, index, }: {
     const panelId = useId();
     return (<div className="border-b border-edge">
       <button type="button" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((v) => !v)} className="group flex w-full cursor-pointer items-baseline gap-6 py-7 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cognac-400">
-        <span className="font-display text-sm italic text-cognac-500">
+        <span className="font-display text-sm text-cognac-500">
           0{index + 1}
         </span>
-        <span className={cn("flex-1 font-sans font-semibold text-xl leading-snug transition-colors duration-200 sm:text-2xl", open ? "text-sand-50" : "text-sand-300 group-hover:text-sand-50")}>{t(question)}</span>
-        <svg viewBox="0 0 16 16" aria-hidden="true" className={cn("size-4 shrink-0 self-center text-sand-500 transition-transform duration-300", open && "rotate-45 text-cognac-400")}>
+        <span className={cn("flex-1 font-sans font-semibold text-xl leading-snug transition-colors duration-150 sm:text-2xl", open ? "text-sand-50" : "text-sand-300 group-hover:text-sand-50")}>{t(question)}</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" className={cn("size-4 shrink-0 self-center text-sand-500 transition-transform duration-250", open && "rotate-45 text-cognac-400")}>
           <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
         </svg>
       </button>
       <div id={panelId} className="faq-body" data-open={open}>
         <div>
-          <p className="max-w-2xl pb-7 pl-10 text-[15px] leading-relaxed text-sand-500 sm:pl-12">{t(answer)}</p>
+          <p className="max-w-2xl pb-7 pl-10 text-base leading-relaxed text-sand-500 sm:pl-12">{t(answer)}</p>
         </div>
       </div>
     </div>);
 }
 export function Faq() {
     const { t } = useI18n();
-    return (<section id="faq" className="scroll-mt-24 bg-ink-950 py-28 sm:py-36">
+    return (<section id="faq" className="scroll-mt-24 bg-ink-950 py-16 sm:py-24">
       <div className="mx-auto grid max-w-7xl gap-14 px-6 sm:px-10 lg:grid-cols-[1fr_1.6fr] lg:gap-24">
         <Reveal>
           <Overline accent>{t("Preguntas")}</Overline>
           <h2 className="section-heading mt-6 font-display text-sand-50">{t("RESOLVEMOS")}<em className="block text-cognac-300">{t("TUS DUDAS.")}</em>
           </h2>
-          <p className="mt-7 max-w-xs text-[15px] leading-relaxed text-sand-500">{t("\u00BFTienes otra duda? Escr\u00EDbenos por Instagram a")}{" "}
+          <p className="mt-7 max-w-xs text-base leading-relaxed text-sand-500">{t("\u00BFTienes otra duda? Escr\u00EDbenos por Instagram a")}{" "}
             <a href="https://instagram.com/equilab_method" target="_blank" rel="noopener noreferrer" className="text-cognac-400 underline-offset-2 hover:underline">
               @equilab_method
             </a>
@@ -68,7 +68,7 @@ export function Faq() {
           </p>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={80}>
           <div className="border-t border-edge">
             {faqs.map((faq, i) => (<FaqItem key={faq.question} {...faq} index={i}/>))}
           </div>

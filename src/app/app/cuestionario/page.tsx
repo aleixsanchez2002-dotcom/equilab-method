@@ -63,11 +63,11 @@ export default async function CuestionarioPage() {
 
       <main className="mx-auto max-w-3xl px-6 py-12">
         <Overline accent>{t("Antes de empezar")}</Overline>
-        <h1 className="mt-4 font-display text-4xl font-medium leading-[1.1] text-sand-50">{t("Cu\u00E9ntanos c\u00F3mo montas.")}</h1>
-        <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-sand-500">{t("Gracias por confiar en Equilab. Queremos conocer cómo montas, qué necesitas y qué quieres conseguir. Tus respuestas nos ayudan a preparar un entrenamiento que encaje contigo, dentro y fuera de la pista.")}</p>
+        <h1 className="mt-4 font-display text-4xl leading-[1.1] text-sand-50">{t("Cu\u00E9ntanos c\u00F3mo montas.")}</h1>
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-sand-500">{t("Gracias por confiar en Equilab. Queremos conocer cómo montas, qué necesitas y qué quieres conseguir. Tus respuestas nos ayudan a preparar un entrenamiento que encaje contigo, dentro y fuera de la pista.")}</p>
 
         <div className="mt-12">
-          {plantilla ? (<QuestionnaireForm templateId={plantilla.id} preguntas={plantilla.questions}/>) : (<p className="text-[14px] text-sand-500">{t("El cuestionario no est\u00E1 disponible ahora mismo. Vuelve a intentarlo en un rato.")}</p>)}
+          {plantilla ? (<QuestionnaireForm templateId={plantilla.id} preguntas={plantilla.questions}/>) : (<p className="text-sm text-sand-500">{t("El cuestionario no est\u00E1 disponible ahora mismo. Vuelve a intentarlo en un rato.")}</p>)}
         </div>
       </main>
     </div>);

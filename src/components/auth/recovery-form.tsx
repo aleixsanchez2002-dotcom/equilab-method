@@ -11,10 +11,10 @@ function Mensajes({ estado }: {
 }) {
     const { t } = useI18n();
     return (<>
-      {estado.error && (<p role="alert" className="animate-rise rounded-xs border border-oxblood-500/50 bg-ink-800 px-4 py-3 text-[13px] leading-relaxed text-error">
+      {estado.error && (<p role="alert" className="animate-rise rounded-lg border border-oxblood-500/50 bg-ink-800 px-4 py-3 text-sm leading-relaxed text-error">
           {t(estado.error)}
         </p>)}
-      {estado.success && (<p role="status" className="animate-rise rounded-xs border border-cognac-500/40 bg-ink-800 px-4 py-3 text-[13px] leading-relaxed text-sand-300">
+      {estado.success && (<p role="status" className="animate-rise rounded-lg border border-cognac-500/40 bg-ink-800 px-4 py-3 text-sm leading-relaxed text-sand-300">
           {t(estado.success)}
         </p>)}
     </>);

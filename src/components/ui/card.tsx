@@ -10,7 +10,7 @@ export function Card({ elevated = false, className, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-sm border border-edge",
+        "rounded-2xl border border-edge",
         elevated ? "bg-ink-800" : "bg-ink-900",
         className,
       )}

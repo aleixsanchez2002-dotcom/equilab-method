@@ -27,8 +27,8 @@ export default async function RecuperarPage() {
 
       <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 py-14">
         <Overline accent>{t("Recuperar acceso")}</Overline>
-        <h1 className="mt-4 font-display text-3xl font-medium leading-[1.15] text-sand-50">{t("\u00BFHas olvidado tu contrase\u00F1a?")}</h1>
-        <p className="mt-4 text-[14px] leading-relaxed text-sand-500">{t("Dinos tu email y te enviamos un enlace para crear una nueva.")}</p>
+        <h1 className="mt-4 font-display text-3xl leading-[1.15] text-sand-50">{t("\u00BFHas olvidado tu contrase\u00F1a?")}</h1>
+        <p className="mt-4 text-sm leading-relaxed text-sand-500">{t("Dinos tu email y te enviamos un enlace para crear una nueva.")}</p>
         <div className="mt-8">
           <RecoveryRequestForm />
         </div>

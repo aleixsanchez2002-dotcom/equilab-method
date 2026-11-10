@@ -36,7 +36,19 @@
   --color-error: #f5a395;
   --color-edge: rgba(232, 235, 229, 0.12);
   --color-edge-strong: rgba(232, 235, 229, 0.25);
+  /* Borde de campos y botones con contorno: 3:1 o más sobre los fondos
+     grafito, para que el control se distinga sin depender del texto. */
+  --color-edge-control: #687074;
 }
+
+/* Escala de la interfaz (ver docs/CRITERIOS_VIGENTES.md):
+   · Texto: text-xs 12 · text-sm 14 · text-base 16 · text-lg 18; títulos con
+     font-display. Nada por debajo de 12 px salvo el subtítulo del logotipo.
+   · Campos de formulario a 16 px: por debajo, iOS amplía la página al tocarlos.
+   · Espaciado entre letras: 0.14em en rótulos en mayúsculas, 0.08em en botones.
+   · Radios: rounded-lg (8) controles · rounded-xl (12) bloques anidados ·
+     rounded-2xl (16) tarjetas · rounded-full etiquetas.
+   · Duraciones: 150 ms hover · 250 ms interfaz · 500 ms entradas. */
 
 @layer base {
   html {
@@ -68,7 +80,7 @@
 }
 
 @utility animate-rise {
-  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Grano fotográfico sutil para superficies grandes (sustituto elegante
@@ -80,18 +92,21 @@
 
 /* ————— Sistema de revelado al hacer scroll ————— */
 
+/* El contenido es visible por defecto. Solo se oculta a la espera del
+   scroll cuando hay JavaScript y el sistema admite movimiento: si el script
+   no llega a ejecutarse en un navegador sin scripts, la página se lee igual. */
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
   transition:
-    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-.reveal.is-revealed {
-  opacity: 1;
-  transform: none;
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 
 /* ————— Cinta editorial (marquee) ————— */
@@ -112,7 +127,7 @@
 .faq-body {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: grid-template-rows 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .faq-body[data-open="true"] {
@@ -150,9 +165,8 @@
   h1, h2 { text-wrap: balance; }
   button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 }
-.font-display { letter-spacing: -0.035em; }
+.font-display { letter-spacing: -0.035em; text-wrap: balance; }
 .font-display em, em.font-display { font-style: normal; }
-.marketing .font-display.italic { font-style: normal; }
 .marketing .light-section {
   --color-ink-950: #f4f5ef;
   --color-ink-900: #e9ede5;
@@ -167,6 +181,7 @@
   --color-cognac-500: #55742a;
   --color-edge: rgba(20, 23, 25, 0.15);
   --color-edge-strong: rgba(20, 23, 25, 0.3);
+  --color-edge-control: #788279;
   color: var(--color-sand-100);
   color-scheme: light;
 }
