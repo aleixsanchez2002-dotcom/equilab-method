@@ -58,31 +58,31 @@ const plans: Plan[] = [
         badge: "Plazas limitadas",
     },
 ];
-async function CheckIcon() {
-    return (<svg viewBox="0 0 16 16" aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-cognac-400">
+async function CheckIcon({ accent = false }: {
+    accent?: boolean;
+}) {
+    return (<svg viewBox="0 0 16 16" aria-hidden="true" className={cn("mt-0.5 size-4 shrink-0", accent ? "text-cognac-400" : "text-sand-500")}>
       <path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>);
 }
 export async function Plans() {
     const { t } = await getI18n();
-    return (<section id="planes" className="relative scroll-mt-24 overflow-hidden border-t border-edge bg-ink-900 py-16 sm:py-24">
-      <div aria-hidden="true" className="absolute inset-0" style={{
-            background: "radial-gradient(90% 60% at 50% 120%, rgba(185,232,91,0.1) 0%, transparent 60%)",
-        }}/>
-
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-10">
+    return (<section id="planes" className="light-section scroll-mt-24 bg-ink-950 py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <Reveal className="text-center">
-          <Overline accent>{t("Planes")}</Overline>
-          <h2 className="section-heading mx-auto mt-6 max-w-3xl font-display text-sand-50">{t("TU OBJETIVO.")}<em className="block text-cognac-300">{t("TU PLAN.")}</em>
+          <Overline>{t("Planes")}</Overline>
+          <h2 className="section-heading mx-auto mt-6 max-w-3xl font-display text-sand-50">{t("ELIGE CÓMO")}<em className="block text-cognac-300">{t("QUIERES ENTRENAR.")}</em>
           </h2>
           <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-sand-500">{t("Dos formas de trabajar el mismo método. Elige la estructura y el acompañamiento que necesitas.")}</p>
         </Reveal>
 
         <div className="mx-auto mt-16 grid max-w-5xl gap-6 lg:grid-cols-2 lg:gap-8">
           {plans.map((plan, i) => (<Reveal key={plan.name} delay={i * 70}>
+              {/* El Premium es la única tarjeta oscura de una sección clara:
+                  destaca por contraste y conserva el lima de la marca. */}
               <article className={cn("relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-250 sm:p-10", plan.highlighted
-                ? "border-cognac-500/50 bg-ink-950 shadow-[0_30px_60px_-25px_rgba(185,232,91,0.25)] hover:border-cognac-400/70"
-                : "border-edge bg-ink-950/60 hover:border-edge-strong")}>
+                ? "dark-surface border-ink-950 bg-ink-950 shadow-[0_30px_60px_-30px_rgba(20,23,25,0.55)]"
+                : "border-edge-strong bg-ink-950 hover:border-edge-control")}>
                 {plan.badge && (<span className="absolute -top-3 right-8 rounded-full bg-cognac-500 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-ink-950">
                     {t(plan.badge)}
                   </span>)}
@@ -97,12 +97,12 @@ export async function Plans() {
                 </div>
                 <p className="mt-1 text-xs text-sand-600">{t("IVA incluido")}</p>
 
-                <p className="mt-4 font-sans text-lg leading-snug text-cognac-300">{t(plan.tagline)}</p>
+                <p className="mt-4 font-sans text-lg leading-snug text-sand-100">{t(plan.tagline)}</p>
                 <p className="mt-4 text-sm leading-relaxed text-sand-500">{t(plan.highlighted ? "Para quien busca un trabajo individual y un seguimiento más cercano." : "Para quien quiere una estructura clara y entrenar con autonomía.")}</p>
 
                 <ul className="mt-8 flex flex-col gap-3.5 border-t border-edge pt-8">
                   {plan.features.map((feature) => (<li key={feature} className="flex gap-3 text-sm leading-relaxed text-sand-300">
-                      <CheckIcon />{t(feature)}
+                      <CheckIcon accent={plan.highlighted} />{t(feature)}
 
                     </li>))}
                 </ul>
@@ -120,7 +120,7 @@ export async function Plans() {
 
         <Reveal className="mx-auto mt-12 max-w-5xl sm:mt-16">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-            <div><Overline accent>{t("Compara lo que incluye")}</Overline><h3 className="mt-3 font-display text-2xl text-sand-50 sm:text-3xl">{t("EL MISMO MÉTODO. DISTINTO ACOMPAÑAMIENTO.")}</h3></div>
+            <div><Overline>{t("Comparación")}</Overline><h3 className="mt-3 font-display text-2xl text-sand-50 sm:text-3xl">{t("QUÉ INCLUYE CADA PLAN.")}</h3></div>
           </div>
           <MobileDisclosure showLabel="Ver la comparación completa" hideLabel="Ocultar la comparación">
           <div className="overflow-hidden rounded-xl border border-edge">
@@ -129,7 +129,7 @@ export async function Plans() {
               <thead className="bg-ink-800"><tr>
                 <th scope="col" className="w-[32%] px-3 py-5 font-medium text-sand-300 sm:w-[38%] sm:px-6">{t("Qué incluye")}</th>
                 <th scope="col" className="px-3 py-5 font-semibold text-sand-50 sm:px-6">{t("Básico")}</th>
-                <th scope="col" className="px-3 py-5 font-semibold text-cognac-400 sm:px-6">Premium</th>
+                <th scope="col" className="px-3 py-5 font-semibold text-sand-50 sm:px-6">Premium</th>
               </tr></thead>
               <tbody>{comparison.map(({label,basic,premium}) => <tr key={label} className="border-t border-edge">
                 <th scope="row" className="break-words px-3 py-5 align-top font-medium text-sand-300 sm:px-6">{t(label)}</th>
