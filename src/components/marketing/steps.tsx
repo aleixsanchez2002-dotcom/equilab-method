@@ -23,8 +23,8 @@ export async function Steps() {
     return (<section className="light-section border-t border-edge bg-ink-950 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <Reveal className="text-left">
-          <Overline accent>{t("C\u00F3mo funciona")}</Overline>
-          <h2 className="section-heading mt-6 max-w-3xl font-display text-sand-50">{t("UN PLAN. TRES PASOS.")}</h2>
+          <Overline>{t("C\u00F3mo funciona")}</Overline>
+          <h2 className="section-heading mt-6 max-w-3xl font-display text-sand-50">{t("TRES PASOS PARA EMPEZAR.")}</h2>
         </Reveal>
 
         <ol className="mt-16 grid gap-12 sm:grid-cols-3 sm:gap-8">
