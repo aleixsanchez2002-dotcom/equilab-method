@@ -21,10 +21,10 @@ const columns = [
     {
         title: "Legal",
         links: [
-            /* PLACEHOLDER: páginas legales pendientes de redactar (fase 2, con RGPD). */
-            { label: "Privacidad", href: "#" },
-            { label: "Términos del servicio", href: "#" },
-            { label: "Cookies", href: "#" },
+            { label: "Aviso legal", href: "/legal/aviso-legal" },
+            { label: "Privacidad", href: "/legal/privacidad" },
+            { label: "Términos del servicio", href: "/legal/condiciones" },
+            { label: "Cookies", href: "/legal/cookies" },
         ],
     },
 ];

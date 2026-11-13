@@ -132,7 +132,7 @@ export default async function RevisarRutinaPage({
       <header className="sticky top-0 z-40 border-b border-edge bg-ink-950/95">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
           <Logo size="sm" />
-          <Link href="/admin">
+          <Link href={cliente.id === user.id ? "/admin/mi-rutina" : "/admin"}>
             <Button variant="ghost" size="sm" tabIndex={-1}>
               ← Volver al panel
             </Button>

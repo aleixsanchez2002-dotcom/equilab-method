@@ -63,7 +63,7 @@ export function AuthCard() {
         </Field>
 
         {mode === "register" && (<Checkbox id={`${uid}-consent`} name="healthConsent" required label={<>{t("Doy mi ")}<strong className="font-medium text-sand-300">{t("consentimiento expl\u00EDcito")}</strong>{" "}{t("al tratamiento de mis datos de salud y bienestar para el dise\u00F1o y seguimiento de mi entrenamiento.")}{" "}
-                <a href="#" className="text-cognac-400 underline-offset-2 hover:underline">{t("C\u00F3mo tratamos tus datos")}</a>
+                <Link href="/legal/privacidad#bases" className="text-cognac-400 underline-offset-2 hover:underline">{t("C\u00F3mo tratamos tus datos")}</Link>
               </>}/>)}
 
         <Button type="submit" size="lg" fullWidth disabled={pending}>

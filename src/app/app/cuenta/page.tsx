@@ -1,4 +1,5 @@
 import { getI18n } from "@/lib/i18n/server";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { EmailForm, NombreForm, PasswordForm, } from "@/components/app/account-forms";
@@ -38,5 +39,6 @@ export default async function PerfilPage() {
           <PasswordForm />
         </div>
       </Card>
+      <p className="mt-6 text-sm text-sand-500"><Link href="/legal" className="underline underline-offset-4 hover:text-cognac-400">{t("Información legal y privacidad")}</Link></p>
     </>);
 }

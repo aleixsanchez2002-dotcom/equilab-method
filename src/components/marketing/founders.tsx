@@ -17,8 +17,8 @@ const founders = [
         instagram: "alex_ricarte.fit",
         role: "Fuerza",
         bio: "Ex culturista natural. Construye la base de fuerza que sostiene un asiento estable.",
-        photo: "/media/alex.jpg",
-        spec: "FOTO ALEX — retrato o entrenando. Vertical 4:5, mínimo 1200×1500 px.",
+        photo: "/media/alex.png",
+        spec: "Foto de Alex Ricarte en competición de culturismo.",
     },
     {
         name: "Aleix Sánchez",
@@ -49,7 +49,7 @@ export async function Founders() {
               <article className="group">
                 <div className="overflow-hidden rounded-sm">
                   <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <ImageSlot src={photo} alt={`${name} — ${t(role)}`} spec={spec} className={name === "Aleix Sánchez" ? "[&_img]:object-top" : undefined} fallbackText={name.split(" ").map((part) => part[0]).join("")} aspect="1 / 1" sizes="(min-width: 768px) 30vw, 90vw"/>
+                    <ImageSlot src={photo} alt={`${name} — ${t(role)}`} spec={spec} className={name === "Aleix Sánchez" || name === "Alex Ricarte" ? "[&_img]:object-top" : undefined} fallbackText={name.split(" ").map((part) => part[0]).join("")} aspect="1 / 1" sizes="(min-width: 768px) 30vw, 90vw"/>
                   </div>
                 </div>
                 <div className="mt-6 flex items-baseline justify-between gap-4 border-t border-edge pt-5 transition-colors duration-300 group-hover:border-cognac-500/40">

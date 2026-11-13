@@ -12,7 +12,7 @@ export async function QuestionnaireAnswers({ preguntas, respuestas }: { pregunta
       <summary className="cursor-pointer text-sm font-semibold text-cognac-300">{t(section.titulo)}</summary>
       <dl className="mt-4 space-y-4">{questions.map(q => {
         const value = respuestas[q.id];
-        return <div key={q.id}><dt className="text-xs leading-relaxed text-sand-500">{t(q.texto)}</dt><dd className="mt-1 whitespace-pre-wrap break-words text-sm leading-relaxed text-sand-100">{Array.isArray(value) ? value.map(v => t(v)).join(", ") : (q.tipo === "select" ? t(value) : value) || "—"}{value && q.unidad ? ` ${t(q.unidad)}` : ""}</dd></div>;
+        return <div key={q.id}><dt className="text-xs leading-relaxed text-sand-500">{t(q.texto)}</dt><dd className="mt-1 whitespace-pre-wrap break-words text-sm leading-relaxed text-sand-100">{Array.isArray(value) ? value.map(v => t(v)).join(", ") : q.tipo === "telefono" && typeof value === "string" && value ? <a className="text-cognac-300 underline underline-offset-4" href={`tel:${value.replace(/[^+0-9]/g, "")}`}>{value}</a> : (q.tipo === "select" ? t(value) : value) || "—"}{value && q.unidad ? ` ${t(q.unidad)}` : ""}</dd></div>;
       })}</dl>
     </details>;
   })}</div>;

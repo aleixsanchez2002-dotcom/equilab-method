@@ -6,6 +6,7 @@ import { registrarSesion, type RegistroEstado, type RegistroInput, type SerieHec
 import { BitMark } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { siguienteDia, type SesionEnviada } from "@/lib/workout-submission";
 import { cn } from "@/lib/cn";
 /* Letras de pista de doma para los días — la firma de la marca. */
 const LETRAS_PISTA = ["A", "E", "C", "B", "F", "K", "H", "M"];
@@ -34,6 +35,7 @@ export type DiaCliente = {
     focus: string;
     duration_note: string | null;
     ejercicios: EjercicioCliente[];
+    registro: SesionEnviada | null;
 };
 export type SemanaCliente = {
     week: number;
@@ -61,13 +63,12 @@ function MediaEjercicio({ ej }: {
           </svg>{t("V\u00EDdeo de ejecuci\u00F3n")}</a>) : (<span className="text-[10px] uppercase tracking-[0.14em] text-sand-600">{t("V\u00EDdeo \u00B7 pr\u00F3ximamente")}</span>)}
     </div>);
 }
-/** Los campos de registro del día. Su estado vive aquí para que baste
-    cambiar la `key` (al guardar) para vaciarlos de golpe. */
-function CamposSesion({ dia }: {
-    dia: DiaCliente;
+/** Los datos guardados se precargan tanto al consultar como al corregir. */
+function CamposSesion({ dia, registro }: {
+    dia: DiaCliente; registro: SesionEnviada | null;
 }) {
     const { t } = useI18n();
-    const [valores, setValores] = useState<Record<string, SerieHecha[]>>(() => Object.fromEntries(dia.ejercicios.map((ej) => [ej.id, ej.series.map(serieVacia)])));
+    const [valores, setValores] = useState<Record<string, SerieHecha[]>>(() => Object.fromEntries(dia.ejercicios.map((ej) => [ej.id, ej.series.map((_,i) => registro?.entradas.find(e => e.routine_exercise_id === ej.id)?.series[i] ?? serieVacia())])));
     function setCampo(ejId: string, k: number, campo: keyof SerieHecha, valor: string) {
         setValores((v) => ({
             ...v,
@@ -76,6 +77,7 @@ function CamposSesion({ dia }: {
     }
     const payload: RegistroInput = {
         routine_day_id: dia.id,
+        revision: registro?.revision ?? null,
         entradas: dia.ejercicios.map((ej) => ({
             routine_exercise_id: ej.id,
             exercise_id: ej.exercise_id,
@@ -142,64 +144,80 @@ function CamposSesion({ dia }: {
 
     </>);
 }
-/** Un día de la rutina con su formulario de registro. */
-function DiaPanel({ dia }: {
-    dia: DiaCliente;
+/** Un envío queda cerrado; la corrección necesita una acción explícita. */
+function DiaPanel({ dia, registro, onSaved, onNext }: {
+    dia: DiaCliente; registro: SesionEnviada | null;
+    onSaved: (registro: SesionEnviada) => void; onNext?: () => void;
 }) {
-    const { t } = useI18n();
-    const [estado, accion, pendiente] = useActionState(registrarSesion, estadoInicial);
-    return (<form action={accion}>
-      {/* Al guardar cambia el token, cambia la clave y los campos nacen
-                vacíos: la sesión ya está en el historial. */}
-      <CamposSesion key={estado.token ?? "inicial"} dia={dia}/>
-
-      <div className="flex flex-col gap-3 border-t border-edge bg-ink-900 px-5 py-5 sm:flex-row sm:flex-wrap sm:items-center">
-        <Button type="submit" disabled={pendiente}>
-          {pendiente ? t("Guardando\u2026") : t("Guardar sesi\u00F3n del d\u00EDa {0}", { "0": dia.position })}
-        </Button>
-        {estado.error && (<p role="alert" className="text-[13px] text-error">
-            {t(estado.error)}
-          </p>)}
-        {estado.success && (<p role="status" className="text-[13px] text-sand-300">
-            {t(estado.success)}
-          </p>)}
-        <p className="whitespace-nowrap text-[11px] text-sand-600 sm:ml-auto sm:text-right sm:text-[12px]">{t("Solo se guardan las series con algo apuntado.")}</p>
+    const { t, intlLocale } = useI18n();
+    const [editando, setEditando] = useState(false);
+    const [estado, accion, pendiente] = useActionState(async (prev: RegistroEstado, data: FormData) => {
+        const result = await registrarSesion(prev, data);
+        if (result.registro) { setEditando(false); onSaved(result.registro); }
+        return result;
+    }, estadoInicial);
+    const editable = !registro || editando;
+    return <form action={accion}>
+      {registro && <div className="border-b border-edge bg-cognac-500/10 px-6 py-4">
+        <p className="font-semibold text-cognac-400">✓ {t("Día completado")}</p>
+        <p className="mt-1 text-sm text-sand-300">{t("Enviado el {0}", {"0":new Intl.DateTimeFormat(intlLocale,{dateStyle:"medium",timeStyle:"short"}).format(new Date(registro.completed_at))})}</p>
+        <p className="mt-1 text-xs text-sand-500">{t("Tu registro está guardado y disponible para el equipo.")}{registro.revision > 1 ? ` · ${t("Registro corregido")}` : ""}</p>
+      </div>}
+      <fieldset disabled={!editable || pendiente}>
+        <legend className="sr-only">{t(editable ? "Tu registro de entrenamiento" : "Registro enviado")}</legend>
+        <CamposSesion key={`${registro?.revision ?? 0}-${editando}`} dia={dia} registro={registro}/>
+      </fieldset>
+      <div className="flex flex-wrap items-center gap-3 border-t border-edge bg-ink-900 px-5 py-5">
+        {editable ? <>
+          <Button type="submit" disabled={pendiente}>{pendiente ? t("Guardando…") : t(registro ? "Guardar corrección" : "Completar y enviar día")}</Button>
+          {registro && <Button type="button" variant="outline" disabled={pendiente} onClick={event => {event.preventDefault();setEditando(false);}}>{t("Cancelar edición")}</Button>}
+          <p className="w-full text-xs text-sand-500">{t("Revisa tus datos antes de enviar. Después quedarán guardados; podrás corregirlos si te has equivocado.")}</p>
+        </> : <>
+          <Button type="button" variant="outline" onClick={event => {event.preventDefault();setEditando(true);}}>{t("Modificar registro")}</Button>
+          {onNext && <Button type="button" onClick={onNext}>{t("Ir al siguiente día pendiente")}</Button>}
+        </>}
+        {editable && estado.error && <p role="alert" className="w-full text-sm text-error">{t(estado.error)}</p>}
+        {estado.success && <p role="status" className="w-full text-sm text-sand-300">{t(estado.success)}</p>}
       </div>
-    </form>);
+    </form>;
 }
 type Props = {
     semanas: SemanaCliente[];
     /** Semana en la que va el cliente según la fecha de arranque (1..n). */
     semanaActual: number;
 };
-export function RoutineLog({ semanas, semanaActual }: Props) {
+export function RoutineLog({ semanas }: Props) {
     const { t } = useI18n();
-    const indiceInicial = Math.max(0, semanas.findIndex((s) => s.week === semanaActual));
-    const [semanaActiva, setSemanaActiva] = useState(indiceInicial);
-    const [diaActivo, setDiaActivo] = useState(0);
+    const [guardados, setGuardados] = useState<Record<string, SesionEnviada>>({});
+    const completados = new Set(semanas.flatMap(s => s.dias).filter(d => guardados[d.id] || d.registro).map(d => d.id));
+    const siguiente = siguienteDia(semanas, completados);
+    const [semanaActiva, setSemanaActiva] = useState(siguiente?.semana ?? 0);
+    const [diaActivo, setDiaActivo] = useState(siguiente?.dia ?? 0);
+    const total = semanas.reduce((n,s) => n + s.dias.length,0);
+    function irSiguiente() { if (siguiente) {setSemanaActiva(siguiente.semana);setDiaActivo(siguiente.dia);} }
     const semana = semanas[Math.min(semanaActiva, semanas.length - 1)];
     if (!semana) return <Card className="mt-6 p-6"><p role="status" className="text-sm text-sand-300">{t("El equipo está terminando de preparar los días de este bloque.")}</p></Card>;
     return (<div className="mt-6 flex flex-col gap-4">
+      <div className="rounded-xl border border-edge bg-ink-900 p-5" role="status">
+        <p className="font-semibold text-cognac-400">{t(siguiente ? "Tu mesociclo" : "Mesociclo completado")}</p>
+        <p className="mt-2 text-sm text-sand-300">{t("{0} de {1} días completados", {"0":completados.size,"1":total})}</p>
+        <p className="mt-2 text-sm text-sand-500">{siguiente ? t("Siguiente entrenamiento: semana {0}, día {1}", {"0":semanas[siguiente.semana].week,"1":semanas[siguiente.semana].dias[siguiente.dia].position}) : t("¡Buen trabajo! El equipo revisará tu progreso y te enviará una nueva rutina. Puedes consultar y corregir los días enviados.")}</p>
+      </div>
       {/* ————— Semanas del mesociclo ————— */}
       {semanas.length > 1 && (<div role="tablist" aria-label={t("Semanas del bloque")} className="flex gap-2 overflow-x-auto pb-1">
           {semanas.map((s, i) => {
                 const activa = i === Math.min(semanaActiva, semanas.length - 1);
-                const esActual = s.week === semanaActual;
+                const esActual = i === siguiente?.semana;
                 return (<button key={s.week} type="button" role="tab" aria-selected={activa} onClick={() => {
                         setSemanaActiva(i);
                         setDiaActivo(0);
                     }} className={cn("relative shrink-0 cursor-pointer rounded-xs border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors", activa
                         ? "border-cognac-500 bg-cognac-500 text-ink-950"
-                        : "border-edge text-sand-500 hover:border-edge-strong hover:text-sand-100")}>{t("Semana ")}{s.week}
+                        : "border-edge text-sand-500 hover:border-edge-strong hover:text-sand-100")}>{t("Semana ")}{s.week} · {s.dias.filter(d => completados.has(d.id)).length}/{s.dias.length}
                 {esActual && !activa && (<span aria-hidden="true" className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-cognac-400"/>)}
               </button>);
             })}
         </div>)}
-
-      {semana.week !== semanaActual && (<p className="text-[12.5px] text-sand-600">
-          {semana.week < semanaActual
-                ? t("Est\u00E1s viendo una semana ya pasada del bloque.") : t("Est\u00E1s viendo una semana que a\u00FAn no te toca.")}{" "}{t("Tu semana actual es la ")}{semanaActual}.
-        </p>)}
 
       {/* ————— Días de la semana ————— */}
       <Card className="overflow-hidden p-0">
@@ -211,7 +229,7 @@ export function RoutineLog({ semanas, semanaActual }: Props) {
                     : "text-sand-600 hover:text-sand-300")}>
                 <span className={cn("mr-2 font-display text-[13px] italic normal-case tracking-normal", seleccionado ? "text-cognac-400" : "text-sand-600")}>
                   {LETRAS_PISTA[i % LETRAS_PISTA.length]}
-                </span>{t("D\u00EDa ")}{dia.position}
+                </span>{t("D\u00EDa ")}{dia.position}{completados.has(dia.id) && <span className="ml-2 text-cognac-400" aria-label={t("Completado")}>✓</span>}
                 <span className="ml-2 hidden normal-case tracking-normal text-sand-600 md:inline">
                   · {t(dia.focus)}
                 </span>
@@ -226,7 +244,7 @@ export function RoutineLog({ semanas, semanaActual }: Props) {
             <p className="border-b border-edge px-6 pt-4 pb-3 text-[13px] text-sand-500 md:hidden">
               <b className="font-semibold text-sand-300">{t(dia.focus)}</b>
             </p>
-            <DiaPanel dia={dia}/>
+            <DiaPanel dia={dia} registro={guardados[dia.id] ?? dia.registro} onSaved={registro => setGuardados(prev => ({...prev,[dia.id]:registro}))} onNext={siguiente ? irSiguiente : undefined}/>
           </div>))}
       </Card>
     </div>);

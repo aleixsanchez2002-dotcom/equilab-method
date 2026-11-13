@@ -169,7 +169,7 @@ export default async function AdminPage({ searchParams, }: {
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/app">
-              <Button variant="outline" size="sm" tabIndex={-1}>{t("\u00C1rea de cliente")}</Button>
+              <Button variant="outline" size="sm" tabIndex={-1}>{t("Mi entrenamiento")}</Button>
             </Link>
             <form action={cerrarSesion}>
               <Button variant="ghost" size="sm" type="submit">{t("Salir")}</Button>
@@ -185,6 +185,7 @@ export default async function AdminPage({ searchParams, }: {
 
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-sand-500">{t("Busca un cliente para preparar su rutina, o filtra por rutinas pendientes para empezar por lo que necesita revisi\u00F3n.")}</p>
 
+        <Link href="/admin/mi-rutina" className="mr-3 mt-5 inline-flex min-h-11 items-center rounded-lg border border-edge-strong px-4 text-sm text-cognac-300">{t("Organizar mi rutina")} →</Link>
         <Link href="/admin/cuestionario" className="mt-5 inline-flex min-h-11 items-center rounded-lg border border-edge-strong px-4 text-sm text-cognac-300">{t("Ver cuestionario inicial")} →</Link>
 
         {creada && (<p role="status" className="mt-6 max-w-xl rounded-xs border border-cognac-500/40 bg-ink-800 px-4 py-3 text-[13px] text-sand-300">{t("Rutina guardada")}{creada === "publicada"

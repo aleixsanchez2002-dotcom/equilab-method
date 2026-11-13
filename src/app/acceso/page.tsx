@@ -45,7 +45,7 @@ export default async function AccesoPage() {
         <section aria-label={t("Acceso a tu cuenta")} className="flex items-center justify-center rounded-3xl border border-edge bg-ink-900 px-6 py-9 sm:p-10 lg:p-12">
           <div className="w-full max-w-md">
             <AuthCard />
-            <p className="mt-8 text-xs leading-relaxed text-sand-600">{t("Al continuar aceptas los")}{" "}<a href="#" className="underline underline-offset-2 hover:text-sand-300">{t("términos del servicio")}</a>{" "}{t("y la")}{" "}<a href="#" className="underline underline-offset-2 hover:text-sand-300">{t("política de privacidad")}</a>.</p>
+            <p className="mt-8 text-xs leading-relaxed text-sand-600">{t("Consulta los")}{" "}<Link href="/legal/condiciones" className="underline underline-offset-2 hover:text-sand-300">{t("términos del servicio")}</Link>{" "}{t("y la")}{" "}<Link href="/legal/privacidad" className="underline underline-offset-2 hover:text-sand-300">{t("política de privacidad")}</Link>.</p>
           </div>
         </section>
       </main>

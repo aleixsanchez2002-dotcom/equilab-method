@@ -5,19 +5,22 @@ import { useI18n } from "@/components/i18n/provider";
 import { responderCuestionario, type CuestionarioEstado } from "@/app/app/cuestionario/actions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
-import { QUESTIONNAIRE_SECTIONS, preguntaVisible, preguntaRequerida, validarCuestionario, type PreguntaCuestionario, type Respuestas } from "@/lib/questionnaire";
+import { CONTACTO_BASICO, CONTACTO_PREMIUM, QUESTIONNAIRE_SECTIONS, preguntaVisible, preguntaRequerida, validarCuestionario, type PreguntaCuestionario, type Respuestas } from "@/lib/questionnaire";
 export type { PreguntaCuestionario } from "@/lib/questionnaire";
 
 const estadoInicial: CuestionarioEstado = {};
 const inputClass = "w-full rounded-lg border border-edge bg-ink-900 px-4 py-3 text-base text-sand-100 placeholder:text-sand-600 focus:border-cognac-400 focus:outline-none focus:ring-2 focus:ring-cognac-500/20";
 
-export function QuestionnaireForm({ templateId, preguntas, preview = false }: {
+export function QuestionnaireForm({ templateId, preguntas, preview = false, premium = false }: {
   templateId: string;
   preguntas: PreguntaCuestionario[];
   preview?: boolean;
+  premium?: boolean;
 }) {
   const { t } = useI18n();
   const [respuestas, setRespuestas] = useState<Respuestas>({});
+  const [vistaPremium, setVistaPremium] = useState(premium);
+  const contacto = (preview ? vistaPremium : premium) ? CONTACTO_PREMIUM : CONTACTO_BASICO;
   const [paso, setPaso] = useState(0);
   const [ultimoPaso, setUltimoPaso] = useState(0);
   const initialStep = useRef(true);
@@ -74,6 +77,7 @@ export function QuestionnaireForm({ templateId, preguntas, preview = false }: {
     <input type="hidden" name="template_id" value={templateId}/>
     <input type="hidden" name="answers" value={JSON.stringify(respuestas)}/>
     {preview && <p className="rounded-xl border border-cognac-500/30 bg-cognac-500/5 p-4 text-sm text-cognac-300">{t("Vista previa: puedes probar los pasos, pero no se guardan respuestas.")}</p>}
+    {preview && <label className="flex flex-wrap items-center gap-3 text-sm text-sand-300">{t("Vista previa del plan")}<select aria-label={t("Vista previa del plan")} value={vistaPremium ? "premium" : "basico"} onChange={e => setVistaPremium(e.target.value === "premium")} className="min-h-11 rounded-lg border border-edge bg-ink-900 px-3"><option value="basico">{t("Básico")}</option><option value="premium">Premium</option></select></label>}
     <div className="rounded-2xl border border-edge bg-ink-900 p-5 sm:p-6">
       <div className="flex items-center justify-between gap-4 text-xs text-sand-500"><span>{t("Paso {0} de {1}", { "0": paso + 1, "1": grupos.length + 1 })}</span><span>{t("8–12 minutos")}</span></div>
       <div role="progressbar" aria-label={t("Progreso del cuestionario")} aria-valuemin={1} aria-valuemax={grupos.length + 1} aria-valuenow={paso + 1} className="mt-3 h-1.5 overflow-hidden rounded-full bg-ink-800"><div className="h-full bg-cognac-500 transition-all" style={{ width: `${(paso + 1) / (grupos.length + 1) * 100}%` }}/></div>
@@ -88,6 +92,7 @@ export function QuestionnaireForm({ templateId, preguntas, preview = false }: {
       {!revisar && <p className="mt-3 text-xs text-sand-500">{t("Las preguntas marcadas como opcionales se pueden dejar en blanco.")}</p>}
       {grupo?.id === "salud" && <p className="mt-4 rounded-xl border border-edge p-4 text-sm leading-relaxed text-sand-300">{t("Cuéntanos solo lo necesario para adaptar el entrenamiento. No adjuntes informes médicos. Tus respuestas son privadas y las revisa el equipo.")}</p>}
 
+      {revisar && preguntas.some(p => p.id === "telefono_contacto") && <p className="mt-6 rounded-xl border border-cognac-500/30 bg-ink-900 p-5 text-sm leading-relaxed text-sand-300">{t(contacto)}</p>}
       {revisar ? <div className="mt-8 space-y-5">{grupos.map((g, index) => <div key={g.id} className="rounded-xl border border-edge bg-ink-900 p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="font-display text-lg text-sand-50">{t(g.titulo)}</h3><Button variant="outline" size="sm" onClick={() => setPaso(index)}>{t("Editar este bloque")}</Button></div>
         <dl className="mt-4 space-y-4">{g.preguntas.filter(p => preguntaVisible(p, respuestas)).map(p => {
@@ -105,6 +110,7 @@ export function QuestionnaireForm({ templateId, preguntas, preview = false }: {
               <span className="inline-flex min-h-12 items-center rounded-lg border border-edge px-4 py-3 text-sm text-sand-300 transition-colors hover:border-cognac-400 peer-checked:border-cognac-500 peer-checked:bg-cognac-500 peer-checked:text-ink-950 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-cognac-400">{t(opcion)}</span>
             </label>)}
           </div> : p.tipo === "numero" ? <div className="flex max-w-xs items-center gap-3"><input aria-label={t(p.texto)} aria-invalid={!!error} type="number" inputMode={p.paso === "0.1" ? "decimal" : "numeric"} min={p.min} max={p.max} step={p.paso ?? 1} value={String(respuestas[p.id] ?? "")} onChange={e => cambiar(p.id, e.target.value)} className={inputClass}/>{p.unidad && <span className="text-sm text-sand-500">{t(p.unidad)}</span>}</div>
+          : p.tipo === "telefono" ? <><input aria-label={t(p.texto)} aria-invalid={!!error} aria-describedby={`contacto-${p.id}`} type="tel" inputMode="tel" autoComplete="tel" maxLength={32} required={preguntaRequerida(p)} placeholder="+34 600 000 000" value={String(respuestas[p.id] ?? "")} onChange={e => cambiar(p.id, e.target.value)} className={inputClass}/><p id={`contacto-${p.id}`} className="mt-3 text-sm leading-relaxed text-sand-300">{t(contacto)}</p></>
           : <textarea aria-label={t(p.texto)} aria-invalid={!!error} rows={3} maxLength={2000} placeholder={t("Cuéntanoslo con tus palabras…")} value={String(respuestas[p.id] ?? "")} onChange={e => cambiar(p.id, e.target.value)} className={inputClass}/>}
           {p.tipo === "multiselect" && <p className="mt-3 text-xs text-sand-500">{t("Puedes elegir varias.")}</p>}
           {error && <p id={`error-${p.id}`} role="alert" className="mt-3 text-sm text-error">{t(error)}</p>}

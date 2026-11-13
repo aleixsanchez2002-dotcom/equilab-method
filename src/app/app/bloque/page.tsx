@@ -1,3 +1,4 @@
+import { BlockExplanation } from "@/components/app/block-explanation";
 import { getI18n } from "@/lib/i18n/server";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -56,9 +57,7 @@ export default async function BloquePage() {
 
         {/* whitespace-pre-line: el coach puede estructurar con párrafos */}
         <div className="mt-10 border-l-2 border-cognac-500/40 pl-6">
-          <p className="text-[16px] leading-[1.8] whitespace-pre-line break-words text-sand-300">
-            {t(rutina.explanation)}
-          </p>
+          <BlockExplanation text={t(rutina.explanation)}/>
         </div>
 
         <div className="mt-12">
