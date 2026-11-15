@@ -67,7 +67,7 @@ export default async function CuestionarioPage() {
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand-500">{t("Gracias por confiar en Equilab. Queremos conocer cómo montas, qué necesitas y qué quieres conseguir. Tus respuestas nos ayudan a preparar un entrenamiento que encaje contigo, dentro y fuera de la pista.")}</p>
 
         <div className="mt-12">
-          {plantilla ? (<QuestionnaireForm templateId={plantilla.id} preguntas={plantilla.questions}/>) : (<p className="text-sm text-sand-500">{t("El cuestionario no est\u00E1 disponible ahora mismo. Vuelve a intentarlo en un rato.")}</p>)}
+          {plantilla ? (<QuestionnaireForm templateId={plantilla.id} preguntas={plantilla.questions} premium={sub?.plan_code === "premium"}/>) : (<p className="text-sm text-sand-500">{t("El cuestionario no est\u00E1 disponible ahora mismo. Vuelve a intentarlo en un rato.")}</p>)}
         </div>
       </main>
     </div>);

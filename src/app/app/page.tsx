@@ -10,8 +10,9 @@ import { RoutineLog, type DiaCliente, type SemanaCliente, } from "@/components/a
 import { SessionHistory } from "@/components/app/session-history";
 import { PlanPicker } from "@/components/app/plan-picker";
 import { WeightTracker } from "@/components/app/weight-tracker";
-import { historialDeSesiones, pesosSemanales, seriesDeProgreso, type SerieRegistrada, } from "@/lib/progreso";
-import { lunesDeLaSemana, semanaDelBloque } from "@/lib/semana";
+import { historialDeSesiones, pesosSemanales, seriesDeProgreso, } from "@/lib/progreso";
+import { siguienteDia, type SesionEnviada } from "@/lib/workout-submission";
+import { lunesDeLaSemana } from "@/lib/semana";
 import { slug } from "@/lib/slug";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -98,7 +99,7 @@ export default async function AppPage({ searchParams, }: {
     const { data: { user }, } = await supabase.auth.getUser();
     if (!user)
         redirect("/acceso");
-    const [{ data: perfil }, { data: suscripcion }, { data: respuesta }] = await Promise.all([
+    const [perfilResult, suscripcionResult, respuestaResult] = await Promise.all([
         supabase
             .from("profiles")
             .select("id, full_name, role")
@@ -113,21 +114,29 @@ export default async function AppPage({ searchParams, }: {
             .from("questionnaire_responses")
             .select("id")
             .eq("user_id", user.id)
+            .order("created_at", { ascending: false })
+            .limit(1)
             .maybeSingle<{
             id: string;
         }>(),
     ]);
+    if (perfilResult.error || suscripcionResult.error || respuestaResult.error) {
+        throw new Error("No se pudo cargar tu espacio de entrenamiento.");
+    }
+    const perfil = perfilResult.data;
+    const suscripcion = suscripcionResult.data;
+    const respuesta = respuestaResult.data;
     const { cuestionario, contrasena, vista } = await searchParams;
     const seccion = vista === "rutina" || vista === "progreso" ? vista : "inicio";
     const nombre = perfil?.full_name?.split(" ")[0] || "jinete";
     const esEquipo = perfil?.role === "coach" || perfil?.role === "admin";
     const accesoVigente = tieneAccesoVigente(suscripcion ?? null);
-    // La rutina publicada más reciente (la RLS ya exige acceso vigente,
-    // pero comprobamos también aquí para elegir qué pantalla enseñar).
-    let rutina: Rutina | null = null;
-    let dias: DiaRutina[] = [];
-    if (accesoVigente) {
-        const { data: r } = await supabase
+    const puedeEntrenar = esEquipo || accesoVigente;
+    // Cada sección lee solo lo que muestra. Las lecturas independientes se
+    // ejecutan juntas para no acumular viajes de ida y vuelta a Supabase.
+    const cargarRutina = async (): Promise<{ rutina: Rutina | null; dias: DiaRutina[] }> => {
+        if (!puedeEntrenar) return { rutina: null, dias: [] };
+        const { data: r, error } = await supabase
             .from("routines")
             .select("id, title, weeks, type, explanation, started_on")
             .eq("user_id", user.id)
@@ -135,56 +144,39 @@ export default async function AppPage({ searchParams, }: {
             .order("created_at", { ascending: false })
             .limit(1)
             .maybeSingle<Rutina>();
-        rutina = r ?? null;
-        if (rutina) {
-            const { data: d } = await supabase
-                .from("routine_days")
-                .select("id, week, position, focus, duration_note, routine_exercises(id, position, exercise_id, technique_note, series, exercises(name, category, video_url))")
-                .eq("routine_id", rutina.id)
-                .returns<DiaRutina[]>();
-            dias = (d ?? [])
-                .slice()
-                .sort((a, b) => a.week - b.week || a.position - b.position)
-                .map((dia) => ({
-                ...dia,
-                routine_exercises: dia.routine_exercises
-                    .slice()
-                    .sort((a, b) => a.position - b.position),
-            }));
-        }
+        if (error) throw new Error("No se pudo cargar la rutina.");
+        if (!r || seccion === "progreso") return { rutina: r ?? null, dias: [] };
+        type DiaLeido = Omit<DiaRutina, "routine_exercises"> & { routine_exercises?: DiaRutina["routine_exercises"] };
+        const { data: d, error: diasError } = await supabase.from("routine_days")
+            .select(seccion === "rutina"
+                ? "id, week, position, focus, duration_note, routine_exercises(id, position, exercise_id, technique_note, series, exercises(name, category, video_url))"
+                : "id, week, position, focus, duration_note")
+            .eq("routine_id", r.id).returns<DiaLeido[]>();
+        if (diasError) throw new Error("No se pudieron cargar los días de entrenamiento.");
+        const dias = (d ?? []).map(dia => ({
+            ...dia,
+            routine_exercises: (dia.routine_exercises ?? [])
+                .slice().sort((a, b) => a.position - b.position),
+        })).sort((a, b) => a.week - b.week || a.position - b.position);
+        return { rutina: r, dias };
+    };
+    const [{ rutina, dias }, seriesProgreso, puntosPeso, sesionesHistorial] = await Promise.all([
+        cargarRutina(),
+        puedeEntrenar && seccion !== "rutina" ? seriesDeProgreso(supabase, user.id) : Promise.resolve([]),
+        puedeEntrenar && seccion === "progreso" ? pesosSemanales(supabase, user.id) : Promise.resolve([]),
+        puedeEntrenar && seccion !== "rutina" ? historialDeSesiones(supabase, user.id) : Promise.resolve([]),
+    ]);
+    const enviados = new Map<string, SesionEnviada>();
+    if (dias.length > 0) {
+        const {data: sesiones,error} = await supabase.from("workout_sessions")
+            .select("id, routine_day_id, completed_at, revision, workout_logs(routine_exercise_id, exercise_id, series)")
+            .eq("user_id",user.id).in("routine_day_id",dias.map(d => d.id)).not("completed_at","is",null)
+            .returns<{id:string;routine_day_id:string;completed_at:string;revision:number;workout_logs:SesionEnviada["entradas"]}[]>();
+        if (error) throw new Error("No se pudieron cargar los días completados.");
+        for (const sesion of sesiones ?? []) enviados.set(sesion.routine_day_id,{id:sesion.id,completed_at:sesion.completed_at,revision:sesion.revision,entradas:sesion.workout_logs.map(e => ({...e,series:e.series.map(s => ({...s,rir:s.rir ?? ""}))}))});
     }
-    // Última sesión registrada de cada ejercicio, para el «última: 100 × 3».
-    const ultimaPorEjercicio = new Map<string, SerieRegistrada[]>();
-    if (rutina && dias.length > 0) {
-        const ids = dias.flatMap((d) => d.routine_exercises.map((e) => e.id));
-        const { data: logs } = await supabase
-            .from("workout_logs")
-            .select("routine_exercise_id, series, performed_on")
-            .eq("user_id", user.id)
-            .in("routine_exercise_id", ids)
-            .order("performed_on", { ascending: false })
-            .returns<{
-            routine_exercise_id: string;
-            series: SerieRegistrada[];
-        }[]>();
-        for (const log of logs ?? []) {
-            if (!ultimaPorEjercicio.has(log.routine_exercise_id)) {
-                ultimaPorEjercicio.set(log.routine_exercise_id, log.series);
-            }
-        }
-    }
-    // Progresión de fuerza (módulo compartido con el panel del equipo)
-    const seriesProgreso = accesoVigente
-        ? await seriesDeProgreso(supabase, user.id)
-        : [];
-    // Peso corporal semanal (se pide cada lunes)
     const lunesActual = lunesDeLaSemana(new Date());
-    const puntosPeso = accesoVigente ? await pesosSemanales(supabase, user.id) : [];
-    const pesoEstaSemana = puntosPeso.find((p) => p.fecha === lunesActual)?.kg ?? null;
-    // Historial de sesiones anteriores (solo lectura, módulo compartido)
-    const sesionesHistorial = accesoVigente
-        ? await historialDeSesiones(supabase, user.id)
-        : [];
+    const pesoEstaSemana = puntosPeso.find(p => p.fecha === lunesActual)?.kg ?? null;
     // Forma que consume el componente de registro, agrupada por semanas.
     // Se descartan las series prescritas vacías (rutinas antiguas) y los
     // ejercicios que se quedan sin ninguna.
@@ -193,6 +185,7 @@ export default async function AppPage({ searchParams, }: {
         position: dia.position,
         focus: dia.focus,
         duration_note: dia.duration_note,
+        registro: enviados.get(dia.id) ?? null,
         ejercicios: dia.routine_exercises
             .map((ej) => ({
             id: ej.id,
@@ -204,9 +197,7 @@ export default async function AppPage({ searchParams, }: {
             series: ej.series
                 .map((s) => ({ ...s, rir: s.rir ?? "" }))
                 .filter((s) => (s.peso + s.reps + s.rir + s.descanso).trim() !== ""),
-            ultima: ultimaPorEjercicio
-                .get(ej.id)
-                ?.map((s) => ({ ...s, rir: s.rir ?? "" })) ?? null,
+            ultima: null,
         }))
             .filter((ej) => ej.series.length > 0),
     });
@@ -223,7 +214,8 @@ export default async function AppPage({ searchParams, }: {
         dias: diasDeLaSemana.map(comoDiaCliente),
     }))
         .filter((s) => s.dias.length > 0);
-    const semanaActual = semanaDelBloque(rutina?.started_on ?? null, semanasCliente.length);
+    const pendiente = siguienteDia(semanasCliente, new Set(enviados.keys()));
+    const semanaActual = pendiente ? semanasCliente[pendiente.semana].week : (semanasCliente.at(-1)?.week ?? 1);
     return (<div className="min-h-dvh bg-ink-950">
       <header className="sticky top-0 z-40 border-b border-edge bg-ink-950/95">
         <div className="mx-auto flex min-h-16 max-w-5xl items-center justify-between gap-2 px-4">
@@ -251,7 +243,7 @@ export default async function AppPage({ searchParams, }: {
           <Overline accent>{t("Para el equipo")}</Overline>
           <h2 className="mt-3 font-display text-2xl text-sand-50">{t("Todo listo para organizar el entrenamiento.")}</h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-sand-500">{t("Consulta los clientes, revisa los borradores y prepara sus próximas rutinas desde el panel del equipo.")}</p>
-          <Link href="/admin" className="mt-6 inline-flex min-h-12 items-center rounded-lg bg-cognac-500 px-6 text-sm font-semibold text-ink-950">{t("Abrir panel del equipo")} →</Link>
+          <div className="mt-6 flex flex-wrap gap-3"><Link href="/admin" className="inline-flex min-h-12 items-center rounded-lg bg-cognac-500 px-6 text-sm font-semibold text-ink-950">{t("Abrir panel del equipo")} →</Link><Link href="/admin/mi-rutina" className="inline-flex min-h-12 items-center rounded-lg border border-edge-strong px-6 text-sm text-sand-100">{t("Organizar mi rutina")} →</Link></div>
         </section>}
 
         {seccion === "inicio" && !esEquipo && !rutina && <ol aria-label={t("Tus primeros pasos")} className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -261,7 +253,7 @@ export default async function AppPage({ searchParams, }: {
           })}
         </ol>}
 
-        {seccion === "inicio" && accesoVigente && rutina && <section className="mt-8 rounded-2xl border border-edge bg-ink-900 p-6 sm:p-8">
+        {seccion === "inicio" && puedeEntrenar && rutina && <section className="mt-8 rounded-2xl border border-edge bg-ink-900 p-6 sm:p-8">
           <Overline accent>{t("Tu siguiente entrenamiento")}</Overline>
           <h2 className="mt-3 font-display text-2xl text-sand-50">{t(rutina.title)}</h2>
           <p className="mt-3 text-sm text-sand-500">{t("Semana {0} de {1}", { "0": semanaActual, "1": Math.max(1, semanasCliente.length) })} · {semanasCliente.find(s => s.week === semanaActual)?.dias.length ?? 0} {t("días de entrenamiento")}</p>
@@ -269,9 +261,9 @@ export default async function AppPage({ searchParams, }: {
           <div className="mt-6 grid grid-cols-2 gap-4 border-t border-edge pt-5 text-sm text-sand-500"><p><b className="block font-display text-2xl text-sand-50">{sesionesHistorial.length}</b>{t("Sesiones recientes")}</p><p><b className="block font-display text-2xl text-sand-50">{seriesProgreso.length}</b>{t("Ejercicios con registros de carga")}</p></div>
         </section>}
 
-        {seccion === "rutina" && !rutina && esEquipo && !accesoVigente && <Card className="mt-8 p-6"><p className="text-sand-300">{t("Las rutinas de tus clientes se organizan en el panel del equipo.")}</p><Link href="/admin" className="mt-4 inline-flex min-h-11 items-center text-cognac-300 underline underline-offset-4">{t("Abrir panel del equipo")} →</Link></Card>}
+        {seccion === "rutina" && !rutina && esEquipo && <Card className="mt-8 p-6"><p className="text-sand-300">{t("Prepara tu propia rutina y publícala para entrenar y registrar tus sesiones.")}</p><Link href="/admin/mi-rutina" className="mt-4 inline-flex min-h-11 items-center text-cognac-300 underline underline-offset-4">{t("Organizar mi rutina")} →</Link></Card>}
         {seccion === "rutina" && !accesoVigente && !esEquipo && <Card className="mt-8 p-6"><p className="text-sand-300">{t("Elige un plan para empezar tu entrenamiento.")}</p><Link href="/app" className="mt-4 inline-flex min-h-11 items-center text-cognac-300 underline underline-offset-4">{t("Ver planes")} →</Link></Card>}
-        {seccion === "progreso" && !accesoVigente && <Card className="mt-8 p-6"><p className="text-sand-300">{t("Aquí verás tu evolución cuando empieces a registrar entrenamientos.")}</p></Card>}
+        {seccion === "progreso" && !puedeEntrenar && <Card className="mt-8 p-6"><p className="text-sand-300">{t("Aquí verás tu evolución cuando empieces a registrar entrenamientos.")}</p></Card>}
         {/* ————— Sin acceso: elegir plan ————— */}
         {seccion === "inicio" && !accesoVigente && !esEquipo && (<PlanPicker planActual={suscripcion?.plan_code ?? null} titulo={suscripcion
                 ? t("Reactiva tu plan y sigue donde lo dejaste.") : t("Elige cu\u00E1nto equipo quieres detr\u00E1s.")} entradilla={suscripcion
@@ -282,7 +274,7 @@ export default async function AppPage({ searchParams, }: {
         {cuestionario === "gracias" && (<p role="status" className="mt-6 max-w-xl rounded-lg border border-cognac-500/40 bg-ink-800 px-4 py-3 text-sm leading-relaxed text-sand-300">{t("Cuestionario recibido. El equipo prepara tu rutina y la ver\u00E1s aqu\u00ED en cuanto est\u00E9 publicada.")}</p>)}
 
         {/* ————— Con acceso pero sin cuestionario: el primer paso ————— */}
-        {accesoVigente && !rutina && !respuesta && (<Card elevated className="mt-8 max-w-xl p-8">
+        {!esEquipo && accesoVigente && !rutina && !respuesta && (<Card elevated className="mt-8 max-w-xl p-8">
             <Overline accent>{t("Primer paso")}</Overline>
             <p className="mt-3 font-display text-2xl text-sand-50">{t("Cu\u00E9ntanos c\u00F3mo montas")}</p>
             <p className="mt-4 text-sm leading-relaxed text-sand-500">{t("Un cuestionario por pasos sobre tu experiencia, tu técnica, tu preparación física y tus objetivos. Con eso construimos tu rutina.")}</p>
@@ -294,7 +286,7 @@ export default async function AppPage({ searchParams, }: {
           </Card>)}
 
         {/* ————— Cuestionario enviado, rutina en revisión ————— */}
-        {accesoVigente && !rutina && respuesta && (<Card elevated className="mt-8 max-w-xl p-8">
+        {!esEquipo && accesoVigente && !rutina && respuesta && (<Card elevated className="mt-8 max-w-xl p-8">
             <Overline accent>{t("Tu rutina")}</Overline>
             <p className="mt-3 font-display text-2xl text-sand-50">{t("El equipo est\u00E1 preparando tu rutina")}</p>
             <p className="mt-4 text-sm leading-relaxed text-sand-500">{t("Tenemos tu cuestionario. En cuanto tu rutina est\u00E9 revisada y publicada aparecer\u00E1 aqu\u00ED, d\u00EDa a d\u00EDa y serie a serie.")}</p>
@@ -312,6 +304,7 @@ export default async function AppPage({ searchParams, }: {
           </Link>)}
 
         {/* ————— La rutina, día a día y serie a serie ————— */}
+        {seccion === "rutina" && esEquipo && rutina && <Link href="/admin/mi-rutina" className="mt-6 inline-flex min-h-11 items-center text-cognac-300 underline underline-offset-4">{t("Organizar mi rutina")} →</Link>}
         {seccion === "rutina" && rutina && (<section className="mt-10">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
@@ -332,7 +325,7 @@ export default async function AppPage({ searchParams, }: {
           </section>)}
 
         {/* ————— Tu progreso: fuerza + peso corporal + historial ————— */}
-        {seccion === "progreso" && accesoVigente && (<section className="mt-8">
+        {seccion === "progreso" && puedeEntrenar && (<section className="mt-8">
             <Overline accent>{t("Tu progreso")}</Overline>
 
             <h2 className="mt-2 font-display text-3xl text-sand-50">{t("Tus cargas, sesi\u00F3n a sesi\u00F3n")}</h2>

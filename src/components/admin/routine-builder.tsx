@@ -5,6 +5,7 @@ import { guardarRutina, type AccionEstado, type DiaInput, type EjercicioInput, t
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
+import { EXPLICACION_BASE, explicacionInicial } from "@/lib/routine-explanation";
 /* Letras de pista de doma para los días — la firma de la marca. */
 const LETRAS_PISTA = ["A", "E", "C", "B", "F", "K", "H", "M"];
 type EjercicioCatalogo = {
@@ -51,7 +52,7 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
     const { t } = useI18n();
     const [title, setTitle] = useState(inicial?.title ?? "");
     const [tipo, setTipo] = useState<"semi" | "personalizada">(inicial?.type ?? "personalizada");
-    const [explicacion, setExplicacion] = useState(inicial?.explanation ?? "");
+    const [explicacion, setExplicacion] = useState(() => explicacionInicial(!!rutinaId || !!inicial, inicial?.explanation));
     const [semanas, setSemanas] = useState<SemanaInput[]>(inicial && inicial.semanas.length > 0 ? inicial.semanas : [semanaVacia()]);
     const [activa, setActiva] = useState(0);
     const [estado, accion, pendiente] = useActionState(guardarRutina, estadoInicial);
@@ -108,7 +109,8 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
 
         <div className="flex flex-col gap-2 sm:col-span-2">
           <label htmlFor="rb-explicacion" className={etiqueta}>{t("Informaci\u00F3n de este bloque (el cliente la lee en su propia p\u00E1gina)")}</label>
-          <textarea id="rb-explicacion" rows={3} value={explicacion} onChange={(e) => setExplicacion(e.target.value)} placeholder={t("Qu\u00E9 busca este bloque, en qu\u00E9 debe fijarse, qu\u00E9 sentir\u00E1 encima del caballo\u2026")} className="w-full rounded-lg border border-edge-control bg-ink-900 px-4 py-3 text-base text-sand-100 placeholder:text-sand-600 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20"/>
+          <textarea id="rb-explicacion" aria-describedby="rb-explicacion-ayuda" rows={10} value={explicacion === EXPLICACION_BASE ? t(EXPLICACION_BASE) : explicacion} onChange={(e) => setExplicacion(e.target.value)} placeholder={t("Qu\u00E9 busca este bloque, en qu\u00E9 debe fijarse, qu\u00E9 sentir\u00E1 encima del caballo\u2026")} className="w-full rounded-lg border border-edge-control bg-ink-900 px-4 py-3 text-base text-sand-100 placeholder:text-sand-600 focus:border-cognac-500/60 focus:outline-none focus:ring-2 focus:ring-cognac-500/20"/>
+          <p id="rb-explicacion-ayuda" className="text-xs leading-relaxed text-sand-500">{t("Base editable: adapta estas pautas a la rutina antes de publicar. No cambia automáticamente las series, el RIR ni los descansos de los ejercicios.")}</p>
         </div>
       </section>
 

@@ -1,0 +1,18 @@
+{
+  "confirmation": {
+    "subject": "Confirma tu cuenta / Confirm your account — Equilab Method",
+    "file": "confirmation.html"
+  },
+  "recovery": {
+    "subject": "Recupera tu contraseña / Reset your password — Equilab Method",
+    "file": "recovery.html"
+  },
+  "email-change": {
+    "subject": "Confirma tu nuevo correo / Confirm your new email — Equilab Method",
+    "file": "email-change.html"
+  },
+  "password-changed": {
+    "subject": "Tu contraseña ha cambiado / Your password was changed — Equilab Method",
+    "file": "password-changed.html"
+  }
+}
