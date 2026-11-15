@@ -1,0 +1,492 @@
+{
+  "aviso-legal": {
+    "es": {
+      "title": "Aviso legal",
+      "intro": "Identificación del prestador, uso de la web y marco legal de Equilab Method.",
+      "pending": [
+        "Completar titular, NIF, domicilio y correo de contacto.",
+        "Confirmar, cuando proceda, registro mercantil, autorización, titulación profesional y normativa autonómica aplicable a la actividad deportiva."
+      ],
+      "sections": [
+        {
+          "id": "titular",
+          "title": "1. Titular de la web",
+          "paragraphs": [
+            "Equilab Method es el nombre del proyecto. La persona o entidad que presta el servicio y asume su responsabilidad debe identificarse en los datos de titularidad de esta página. La marca y los nombres del equipo no sustituyen esa identificación."
+          ]
+        },
+        {
+          "id": "actividad",
+          "title": "2. Actividad y acceso",
+          "paragraphs": [
+            "La web facilita preparación física para jinetes, cuestionarios, rutinas revisadas por el equipo y registro de entrenamientos. El acceso a la información pública es gratuito; crear una cuenta no contrata por sí solo un plan de pago. Las condiciones de cada servicio se recogen en Condiciones del servicio."
+          ]
+        },
+        {
+          "id": "uso",
+          "title": "3. Uso de la web y contenidos",
+          "paragraphs": [
+            "Utiliza la web de forma lícita, protege tus credenciales y evita accesos no autorizados o contenido que vulnere derechos de terceros. Puedes usar las rutinas para tu entrenamiento personal. Su explotación comercial o redistribución requiere autorización del titular de los derechos, sin perjuicio de los usos permitidos por la ley. Los datos y vídeos aportados por el cliente no pasan a ser propiedad de Equilab."
+          ]
+        },
+        {
+          "id": "enlaces",
+          "title": "4. Enlaces y funcionamiento",
+          "paragraphs": [
+            "Los enlaces a Instagram, estudios o vídeos externos llevan a servicios con sus propias condiciones y políticas. La web no carga un reproductor externo por el mero hecho de mostrar un enlace. Las incidencias deben comunicarse al contacto del titular. Ninguna cláusula excluye las responsabilidades que legalmente correspondan al prestador."
+          ]
+        },
+        {
+          "id": "marco",
+          "title": "5. Marco aplicable",
+          "paragraphs": [
+            "Se aplican la normativa española y europea que corresponda, incluida la LSSI, la normativa de consumo y la protección de datos. Se respetan los derechos imperativos del consumidor y las reglas legales de competencia judicial; no se impone un juzgado ajeno al que le corresponda."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Legal notice",
+      "intro": "Service provider identification, website use and the legal framework for Equilab Method.",
+      "pending": [
+        "Complete the provider’s legal name, tax ID, address and contact email.",
+        "Confirm any applicable company registration, authorisation, professional qualifications and regional sports regulations."
+      ],
+      "sections": [
+        {
+          "id": "titular",
+          "title": "1. Website provider",
+          "paragraphs": [
+            "Equilab Method is the project name. The person or entity providing the service and responsible for it must be identified in the ownership details on this page. The brand and team members’ names do not replace that identification."
+          ]
+        },
+        {
+          "id": "actividad",
+          "title": "2. Activity and access",
+          "paragraphs": [
+            "The website provides physical training for riders, questionnaires, team-reviewed routines and training logs. Public information is free to access; creating an account does not itself purchase a paid plan. Service details are described in the Terms of service."
+          ]
+        },
+        {
+          "id": "uso",
+          "title": "3. Website use and content",
+          "paragraphs": [
+            "Use the website lawfully, protect your credentials and avoid unauthorised access or content that infringes others’ rights. Routines are for your personal training. Commercial exploitation or redistribution requires the rights holder’s permission, without prejudice to uses allowed by law. Customer data and videos do not become Equilab’s property."
+          ]
+        },
+        {
+          "id": "enlaces",
+          "title": "4. Links and availability",
+          "paragraphs": [
+            "Links to Instagram, research or external videos lead to services with their own terms and policies. Showing a link does not itself load an external video player. Report issues using the provider’s contact details. Nothing excludes liability imposed on the provider by law."
+          ]
+        },
+        {
+          "id": "marco",
+          "title": "5. Applicable framework",
+          "paragraphs": [
+            "Applicable Spanish and European laws include the LSSI, consumer legislation and data protection rules. Mandatory consumer rights and statutory jurisdiction rules remain protected; no unrelated court is imposed on consumers."
+          ]
+        }
+      ]
+    }
+  },
+  "privacidad": {
+    "es": {
+      "title": "Política de privacidad",
+      "intro": "Qué información necesitamos para preparar y seguir tu entrenamiento y cómo puedes ejercer tus derechos.",
+      "pending": [
+        "Identificar al responsable y habilitar el correo para derechos y retirada del consentimiento.",
+        "Cerrar los plazos por categoría y el proceso de baja, borrado, bloqueo y copias de seguridad.",
+        "Revisar contratos de encargo, subencargados y transferencias de los proveedores y el canal privado para vídeos.",
+        "Definir y aplicar el procedimiento para menores antes de admitirlos."
+      ],
+      "sections": [
+        {
+          "id": "responsable",
+          "title": "1. Responsable y alcance",
+          "paragraphs": [
+            "El responsable del tratamiento será el titular identificado en esta página. Esta política cubre la cuenta, el cuestionario, las rutinas, el seguimiento y los contactos relacionados con el servicio. Los datos pendientes de identificación deben completarse antes de utilizar este borrador como información definitiva."
+          ]
+        },
+        {
+          "id": "datos",
+          "title": "2. Datos y finalidades",
+          "paragraphs": [
+            "El formulario identifica los campos obligatorios. Sin los datos necesarios para el acceso o la preparación del plan no podremos completar esas funciones. No añadas datos de salud o de terceras personas que no sean necesarios; la información de salud está sujeta al consentimiento específico explicado a continuación. Los datos de entrenamiento y contacto se obtienen de ti; el equipo añade las rutinas y anotaciones necesarias para el servicio."
+          ],
+          "items": [
+            "Cuenta y acceso: nombre, correo, credenciales gestionadas por Supabase Auth y datos de sesión para identificarte y proteger el acceso. No debes enviar tu contraseña al equipo.",
+            "Entrenamiento: experiencia ecuestre, disponibilidad, material, objetivos, respuestas técnicas, rutinas y registros de series, cargas y peso corporal para preparar y seguir el plan.",
+            "Salud: lesiones, molestias, limitaciones y precauciones que comuniques para adaptar el entrenamiento. Evita adjuntar informes o información que no sea necesaria.",
+            "Contacto: teléfono y correo para resolver dudas y coordinar el servicio; el teléfono es obligatorio en el cuestionario actual. En Premium el equipo contactará para completar la valoración y solicitar el vídeo acordado. Esto no equivale a aceptar publicidad.",
+            "Vídeos: solo los necesarios para la valoración, por el canal privado que se acuerde. El cuestionario actual no permite subirlos. No se autoriza su publicación ni su uso como testimonio publicitario por enviarlos.",
+            "Seguridad: registros técnicos de conexión y errores que puedan incluir IP o identificadores, limitados a operación, prevención de abusos y resolución de incidencias."
+          ]
+        },
+        {
+          "id": "bases",
+          "title": "3. Bases jurídicas y datos de salud",
+          "paragraphs": [
+            "La cuenta y el servicio se gestionan para atender tu solicitud y ejecutar la relación contractual (art. 6.1.b RGPD). La seguridad se apoya, cuando corresponda, en el interés legítimo de proteger el servicio (art. 6.1.f), ponderando tus derechos; las obligaciones legales se atenderán conforme al art. 6.1.c.",
+            "Los datos de salud requieren además tu consentimiento explícito para esa finalidad (art. 9.2.a). Debe recabarse por separado de las condiciones y de cualquier publicidad. Puedes retirarlo sin afectar a la licitud del tratamiento previo. El equipo deberá dejar de utilizar esos datos para el entrenamiento y valorar qué parte del servicio puede continuar sin ellos.",
+            "No se realizan decisiones exclusivamente automatizadas con efectos jurídicos o similares. El motor Básico prepara borradores que el equipo debe revisar antes de publicar."
+          ]
+        },
+        {
+          "id": "destinatarios",
+          "title": "4. Acceso, proveedores y transferencias",
+          "paragraphs": [
+            "Accede el equipo autorizado para gestionar el servicio. Vercel presta el alojamiento web y Supabase la autenticación y base de datos; la región principal configurada de la base de datos es Irlanda. La operativa distribuida, soporte y subencargados pueden implicar tratamientos fuera del Espacio Económico Europeo.",
+            "Antes de cerrar esta política se deben confirmar los contratos de encargo y países implicados, y documentar la garantía aplicable a cada transferencia: decisión de adecuación o garantías del capítulo V del RGPD, como cláusulas contractuales tipo y medidas complementarias cuando procedan. No se afirma que todos los datos permanezcan exclusivamente en la UE.",
+            "No se venden tus datos ni se ceden vídeos para publicidad. Los cobros online y el correo personalizado aún están pendientes de configuración; el proveedor que finalmente se elija deberá incorporarse a esta información antes de recibir datos."
+          ]
+        },
+        {
+          "id": "conservacion",
+          "title": "5. Conservación",
+          "paragraphs": [
+            "Los datos de cuenta y entrenamiento se conservarán mientras sean necesarios para la relación y el seguimiento solicitado. Tras la baja o una solicitud procedente de supresión, se eliminarán o anonimizarán; únicamente se conservará bloqueada la información mínima necesaria para obligaciones legales o reclamaciones durante los plazos aplicables.",
+            "Los datos de salud y vídeos no se conservarán de forma indefinida para posibles usos futuros. Quedan pendientes de fijar los plazos concretos por categoría y la operativa de borrado y rotación de copias; deben documentarse antes de la publicación definitiva."
+          ]
+        },
+        {
+          "id": "derechos",
+          "title": "6. Tus derechos",
+          "paragraphs": [
+            "Puedes solicitar acceso, rectificación, supresión, limitación, oposición y portabilidad cuando proceda, y retirar el consentimiento de salud, mediante el correo del responsable que se completará en esta página. Indica la solicitud y los datos necesarios para identificar tu cuenta; solo se pedirá acreditación adicional si hay dudas razonables sobre tu identidad.",
+            "La respuesta se dará normalmente en un mes; si la complejidad o el número de solicitudes lo justifican, podrá ampliarse hasta dos meses más, informándote dentro del primer mes. Puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es)."
+          ]
+        },
+        {
+          "id": "menores",
+          "title": "7. Menores y actualización",
+          "paragraphs": [
+            "El consentimiento para datos y la capacidad para contratar son cuestiones distintas. Cuando el consentimiento sea la base del tratamiento, los menores de 14 años necesitan el de su representante conforme a la LOPDGDD; también se requiere la intervención que corresponda para contratar. La admisión de menores queda pendiente de definir y verificar con sus representantes.",
+            "Los cambios relevantes se comunicarán y, si cambia una finalidad que lo requiera, se solicitará un nuevo consentimiento. Esta versión es un borrador; no sustituye los consentimientos históricos ni acredita por sí sola el cumplimiento del RGPD."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Privacy policy",
+      "intro": "The information used to prepare and monitor your training, and how to exercise your rights.",
+      "pending": [
+        "Identify the controller and activate the email for rights requests and consent withdrawal.",
+        "Set category-specific retention periods and closure, deletion, restriction and backup processes.",
+        "Review processor contracts, subprocessors, transfers and the private video channel.",
+        "Define and implement a process for minors before accepting them."
+      ],
+      "sections": [
+        {
+          "id": "responsable",
+          "title": "1. Controller and scope",
+          "paragraphs": [
+            "The controller will be the provider identified on this page. This policy covers accounts, questionnaires, routines, monitoring and service-related contact. Missing identity details must be completed before this draft is used as final information."
+          ]
+        },
+        {
+          "id": "datos",
+          "title": "2. Data and purposes",
+          "paragraphs": [
+            "Forms identify required fields. Without data necessary for access or plan preparation we cannot complete those functions. Do not add unnecessary health data or information about other people; health information is subject to the specific consent described below. Training and contact data come from you; the team adds routines and notes needed for the service."
+          ],
+          "items": [
+            "Account and access: name, email, credentials managed by Supabase Auth and session data to identify you and secure access. Do not send your password to the team.",
+            "Training: riding experience, availability, equipment, goals, technical answers, routines and logs of sets, loads and body weight to prepare and monitor the plan.",
+            "Health: injuries, discomfort, limitations and precautions you share to adapt training. Avoid unnecessary reports or other information.",
+            "Contact: phone and email to clarify questions and coordinate the service; a phone number is required in the current questionnaire. For Premium, the team will contact you to complete the assessment and request the agreed video. This is not consent to advertising.",
+            "Videos: only those needed for assessment, using an agreed private channel. The current questionnaire has no upload feature. Sending a video does not authorise publication or promotional testimonials.",
+            "Security: connection and error logs which may include IP addresses or identifiers, limited to operation, abuse prevention and troubleshooting."
+          ]
+        },
+        {
+          "id": "bases",
+          "title": "3. Legal bases and health information",
+          "paragraphs": [
+            "Account and service management address your request and perform the contractual relationship (GDPR Article 6(1)(b)). Security may rely on the legitimate interest in protecting the service (Article 6(1)(f)), balanced against your rights; legal obligations rely on Article 6(1)(c).",
+            "Health information additionally requires your explicit consent for that purpose (Article 9(2)(a)), separate from terms and advertising. You may withdraw it without affecting earlier lawful processing. The team must stop using that information for training and assess which services can continue without it.",
+            "There are no solely automated decisions with legal or similarly significant effects. The Basic routine engine produces drafts for human review before publication."
+          ]
+        },
+        {
+          "id": "destinatarios",
+          "title": "4. Access, providers and transfers",
+          "paragraphs": [
+            "The authorised team accesses data to manage the service. Vercel hosts the website and Supabase provides authentication and the database, whose main configured region is Ireland. Distributed operations, support and subprocessors may involve processing outside the European Economic Area.",
+            "Processor contracts, countries and transfer safeguards must be confirmed before finalising this policy. Each transfer must have an appropriate GDPR Chapter V mechanism, such as an adequacy decision or standard contractual clauses with supplementary measures where needed. We do not claim that all data remains exclusively within the EU.",
+            "Data is not sold and videos are not shared for advertising. Online payments and branded email delivery are not yet configured; the providers ultimately selected must be included before receiving data."
+          ]
+        },
+        {
+          "id": "conservacion",
+          "title": "5. Retention",
+          "paragraphs": [
+            "Account and training information is retained while needed for the relationship and requested monitoring. Following closure or a valid erasure request, it will be deleted or anonymised; only the minimum data needed for legal obligations or claims will remain restricted for the applicable periods.",
+            "Health information and videos will not be retained indefinitely for possible future uses. Category-specific periods and deletion and backup rotation procedures still need to be documented before final publication."
+          ]
+        },
+        {
+          "id": "derechos",
+          "title": "6. Your rights",
+          "paragraphs": [
+            "You may request access, rectification, erasure, restriction, objection and portability where applicable, and withdraw health consent, using the controller’s email to be completed on this page. Identify your request and account; additional identity evidence will only be requested where reasonably necessary.",
+            "The normal response period is one month. Complex or numerous requests may justify up to two additional months, with notice during the first month. You may complain to the Spanish Data Protection Agency (www.aepd.es)."
+          ]
+        },
+        {
+          "id": "menores",
+          "title": "7. Minors and updates",
+          "paragraphs": [
+            "Consent to data processing and capacity to contract are separate matters. Where consent is the legal basis, children under 14 require their representative’s consent under the Spanish LOPDGDD; contractual representation must also be addressed. Admission of minors remains subject to a defined and verified process.",
+            "Material changes will be communicated and new consent obtained for purposes that require it. This is a draft: it does not replace historical consents or itself establish GDPR compliance."
+          ]
+        }
+      ]
+    }
+  },
+  "condiciones": {
+    "es": {
+      "title": "Condiciones del servicio",
+      "intro": "Alcance del entrenamiento, planes, contratación, cancelación y derechos del consumidor.",
+      "pending": [
+        "Completar el prestador, el contacto de atención al cliente y las credenciales profesionales que procedan.",
+        "Confirmar fiscalidad, plazos de entrega y atención, duración de la valoración y canal de vídeos.",
+        "Configurar contratación, confirmación en soporte duradero, cancelación, desistimiento y reembolsos antes de cobrar."
+      ],
+      "sections": [
+        {
+          "id": "servicio",
+          "title": "1. Qué ofrece Equilab",
+          "paragraphs": [
+            "Preparación física online adaptada a la equitación, con rutinas revisadas por el equipo y registro de entrenamiento. El servicio no es asistencia sanitaria ni sustituye diagnóstico, rehabilitación o tratamiento profesional. Los resultados dependen de múltiples factores y no se garantiza un resultado físico o deportivo concreto. Esto no limita las obligaciones del prestador ni tus derechos legales."
+          ]
+        },
+        {
+          "id": "planes",
+          "title": "2. Planes y precio",
+          "paragraphs": [
+            "Básico: {basico} al mes; cuestionario, propuesta semi-personalizada revisada, biblioteca disponible y registro de progreso. Premium: {premium} al mes; valoración individual, rutina personalizada, seguimiento y contacto directo. El equipo contactará para acordar el vídeo de competición o entrenamiento necesario para la valoración.",
+            "El precio total, impuestos aplicables, contenido disponible, plazo de preparación y fecha de inicio deben confirmarse antes de contratar. No se cobra por crear una cuenta. Los pagos con tarjeta y la renovación automática aún no están activados; este borrador no formaliza una suscripción ni autoriza cargos."
+          ]
+        },
+        {
+          "id": "contratacion",
+          "title": "3. Contratación y prestación",
+          "paragraphs": [
+            "Antes de contratar podrás conocer el prestador, el plan, el precio total, la duración, cómo cancelar y cómo desistir, corregir errores y aceptar expresamente las condiciones. Si hay obligación de pago, deberá indicarse inequívocamente. Se facilitará confirmación en un soporte duradero, como el correo, con las condiciones aceptadas.",
+            "Los plazos de entrega de la primera rutina y de atención deben acordarse por escrito antes del inicio. La creación de un borrador por el motor no equivale a una rutina publicada ni sustituye la revisión humana. La cuenta es personal; comunica datos relevantes y detén un ejercicio si provoca dolor para que el equipo revise su adaptación."
+          ]
+        },
+        {
+          "id": "cancelacion",
+          "title": "4. Duración y cancelación",
+          "paragraphs": [
+            "Los planes se ofrecen por periodos mensuales y sin permanencia. La baja evita futuras renovaciones; no equivale por sí sola a solicitar la devolución de un periodo ya prestado. Podrás pedirla por el canal escrito de atención al cliente que se completará antes de la contratación, sin requisitos desproporcionados. Cualquier renovación y su precio deberán haberse informado y acordado; en la versión actual el acceso se activa manualmente."
+          ]
+        },
+        {
+          "id": "desistimiento",
+          "title": "5. Derecho de desistimiento",
+          "paragraphs": [
+            "En la contratación a distancia de servicios, dispones con carácter general de 14 días naturales desde la celebración del contrato para desistir sin dar motivo. Puedes comunicarlo mediante cualquier declaración inequívoca al contacto del prestador; el modelo de esta página es opcional. La falta de información puede ampliar el plazo en los términos legales.",
+            "Si solicitas expresamente empezar durante esos 14 días y recibiste la información precontractual exigible, al desistir podrá corresponder el importe proporcional del servicio efectivamente prestado. La pérdida del derecho por ejecución completa de un servicio de pago requiere los presupuestos legales, incluidos consentimiento expreso previo y conocimiento de esa consecuencia. Personalizar o publicar una rutina no elimina automáticamente el derecho.",
+            "Cuando corresponda, el reembolso se realizará sin demora indebida y, como máximo, en 14 días desde la comunicación, por el mismo medio de pago salvo acuerdo válido distinto, sin costes por el reembolso. El proceso electrónico de desistimiento que legalmente resulte exigible deberá estar operativo al abrir la contratación online."
+          ]
+        },
+        {
+          "id": "modelo",
+          "title": "6. Modelo orientativo de desistimiento",
+          "paragraphs": [
+            "A la atención de [TITULAR, DIRECCIÓN Y CORREO PENDIENTES]: comunico que desisto del contrato de [PLAN/SERVICIO], celebrado el [FECHA]. Nombre del cliente: [NOMBRE]. Correo de la cuenta: [CORREO]. Fecha de la comunicación: [FECHA]. Firma, solo si se presenta en papel. Puedes utilizar otra declaración inequívoca."
+          ]
+        },
+        {
+          "id": "garantias",
+          "title": "7. Incidencias, conformidad y responsabilidad",
+          "paragraphs": [
+            "Comunica las incidencias al contacto de atención para que puedan revisarse. Se mantienen los derechos de conformidad, corrección, reducción del precio o resolución que resulten aplicables. No se excluye la responsabilidad por dolo, negligencia o daños cuando la ley no permita excluirla, ni se te exige renunciar a derechos de consumo."
+          ]
+        },
+        {
+          "id": "datos-videos",
+          "title": "8. Datos, vídeos y menores",
+          "paragraphs": [
+            "El tratamiento de datos se explica en Privacidad. Los vídeos se usan para valorar el entrenamiento, no para publicarlos o hacer publicidad sin una autorización distinta y específica. La admisión de menores exige definir la intervención del representante legal y el consentimiento de datos que corresponda antes de prestar el servicio."
+          ]
+        },
+        {
+          "id": "reclamaciones",
+          "title": "9. Reclamaciones y ley aplicable",
+          "paragraphs": [
+            "Puedes presentar una reclamación al prestador y acudir a los organismos de consumo o a la vía judicial competente. No se afirma adhesión al arbitraje de consumo mientras no esté confirmada. Se aplicará la normativa española y europea que corresponda sin privarte de la protección imperativa de tu país de residencia cuando sea aplicable. Los cambios futuros no alterarán retroactivamente lo contratado sin una base válida."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Terms of service",
+      "intro": "Training scope, plans, contracting, cancellation and consumer rights.",
+      "pending": [
+        "Complete provider identity, customer service contact and applicable professional credentials.",
+        "Confirm tax treatment, delivery and support timeframes, assessment duration and the video channel.",
+        "Implement contracting, durable confirmation, cancellation, withdrawal and refunds before taking payments."
+      ],
+      "sections": [
+        {
+          "id": "servicio",
+          "title": "1. What Equilab provides",
+          "paragraphs": [
+            "Online physical training adapted to riding, with team-reviewed routines and training logs. This is not healthcare and does not replace professional diagnosis, rehabilitation or treatment. Results depend on multiple factors; no specific physical or sporting outcome is guaranteed. This does not limit the provider’s obligations or your legal rights."
+          ]
+        },
+        {
+          "id": "planes",
+          "title": "2. Plans and price",
+          "paragraphs": [
+            "Basic: {basico} per month; questionnaire, reviewed semi-personalised proposal, available exercise library and progress logs. Premium: {premium} per month; individual assessment, personalised routine, follow-up and direct contact. The team will arrange the competition or training video needed for assessment.",
+            "The total price, applicable taxes, available content, preparation timeframe and start date must be confirmed before contracting. Creating an account is not charged. Card payments and automatic renewals are not active; this draft does not create a subscription or authorise charges."
+          ]
+        },
+        {
+          "id": "contratacion",
+          "title": "3. Contracting and delivery",
+          "paragraphs": [
+            "Before contracting, you must be able to identify the provider and review the plan, total price, duration, cancellation and withdrawal terms, correct errors and expressly accept the terms. Any obligation to pay must be unambiguous. Confirmation and the accepted terms will be provided on a durable medium such as email.",
+            "Delivery of the first routine and support timeframes must be agreed in writing before starting. An engine-generated draft is not a published routine and does not replace human review. Accounts are personal; provide relevant information and stop any exercise causing pain so the team can review its adaptation."
+          ]
+        },
+        {
+          "id": "cancelacion",
+          "title": "4. Duration and cancellation",
+          "paragraphs": [
+            "Plans are offered for monthly periods without a minimum commitment. Cancellation stops future renewals; it does not itself request a refund for an already delivered period. The written support channel must be completed before contracting, without disproportionate cancellation requirements. Any renewal and its price must have been disclosed and agreed; access is currently activated manually."
+          ]
+        },
+        {
+          "id": "desistimiento",
+          "title": "5. Right of withdrawal",
+          "paragraphs": [
+            "Distance service contracts generally allow 14 calendar days from conclusion to withdraw without a reason. Send any unambiguous statement to the provider’s contact; the model on this page is optional. Missing statutory information may extend the period.",
+            "If you expressly request an early start within those 14 days and received the required precontractual information, a proportionate amount for services actually delivered may be payable on withdrawal. Loss of the right after full performance of a paid service requires the legal conditions, including prior express consent and acknowledgement of that consequence. Personalising or publishing a routine does not automatically remove the right.",
+            "Where due, refunds must be made without undue delay and within 14 days of notification, through the same payment method unless validly agreed otherwise, without refund fees. Any legally required online withdrawal function must be operational when online contracting opens."
+          ]
+        },
+        {
+          "id": "modelo",
+          "title": "6. Illustrative withdrawal notice",
+          "paragraphs": [
+            "To [PROVIDER, ADDRESS AND EMAIL TO BE COMPLETED]: I withdraw from the contract for [PLAN/SERVICE], concluded on [DATE]. Customer name: [NAME]. Account email: [EMAIL]. Notification date: [DATE]. Signature only for paper submissions. Another unambiguous statement may be used."
+          ]
+        },
+        {
+          "id": "garantias",
+          "title": "7. Issues, conformity and liability",
+          "paragraphs": [
+            "Report issues through the support contact for review. Applicable conformity, correction, price reduction and termination rights remain unaffected. Liability for fraud, negligence or damage is not excluded where exclusion is unlawful, and no waiver of consumer rights is required."
+          ]
+        },
+        {
+          "id": "datos-videos",
+          "title": "8. Data, videos and minors",
+          "paragraphs": [
+            "Data processing is explained in Privacy. Videos support training assessment, not publication or advertising without separate specific authorisation. Accepting minors requires a defined process for legal representatives and the relevant data consent before service delivery."
+          ]
+        },
+        {
+          "id": "reclamaciones",
+          "title": "9. Complaints and applicable law",
+          "paragraphs": [
+            "You may complain to the provider and use competent consumer authorities or courts. Participation in consumer arbitration is not claimed unless confirmed. Applicable Spanish and European law does not remove mandatory protection under your country of residence where applicable. Future changes will not retrospectively alter a contract without a valid basis."
+          ]
+        }
+      ]
+    }
+  },
+  "cookies": {
+    "es": {
+      "title": "Política de cookies",
+      "intro": "Cookies de acceso e idioma identificadas en el código de la web.",
+      "pending": [
+        "Contrastar este inventario con las cookies reales del dominio definitivo y de todos los recorridos de acceso.",
+        "Revisar la política y el consentimiento antes de añadir analítica, publicidad o reproductores incrustados."
+      ],
+      "sections": [
+        {
+          "id": "uso",
+          "title": "1. Qué utiliza la web",
+          "paragraphs": [
+            "La revisión del código no ha identificado analítica publicitaria, píxeles de marketing ni reproductores externos incrustados. Se utilizan cookies de autenticación y de preferencia de idioma para las funciones solicitadas. Los registros técnicos del alojamiento se describen en Privacidad y no deben confundirse con cookies publicitarias."
+          ]
+        },
+        {
+          "id": "inventario",
+          "title": "2. Inventario de cookies",
+          "paragraphs": [
+            "equilab_locale: recuerda el idioma español o inglés; duración configurada de un año; cookie propia de preferencia funcional, sin finalidad de seguimiento.",
+            "sb-<proyecto>-auth-token y fragmentos .0, .1, etc.: mantienen y renuevan la sesión de Supabase en este dominio. El SDK instalado configura una duración máxima de 400 días, aunque la sesión puede caducar o revocarse antes y los valores se renuevan. Cerrar sesión elimina las cookies de autenticación gestionadas por el SDK.",
+            "sb-<proyecto>-auth-token-code-verifier: puede aparecer en flujos de confirmación o recuperación PKCE. Protege el intercambio del código; usa las opciones de caducidad del SDK, con máximo configurado de 400 días, y normalmente se elimina al completarse el intercambio. El nombre varía según el proyecto."
+          ]
+        },
+        {
+          "id": "consentimiento",
+          "title": "3. Consentimiento y cambios",
+          "paragraphs": [
+            "Las cookies estrictamente necesarias para el servicio solicitado y las preferencias elegidas por el usuario pueden estar exentas de consentimiento conforme al art. 22.2 LSSI. Con el uso identificado en el código, no se ha añadido un panel de consentimiento para analítica o publicidad.",
+            "Si se añaden cookies no exentas, deberán permanecer desactivadas hasta una decisión válida. Se informará de finalidad, proveedores y duración, con opciones de aceptar y rechazar igualmente accesibles, elección granular cuando proceda y retirada del consentimiento tan sencilla como otorgarlo."
+          ]
+        },
+        {
+          "id": "control",
+          "title": "4. Cómo gestionarlas",
+          "paragraphs": [
+            "Puedes consultar y borrar las cookies en los ajustes de privacidad de tu navegador y cerrar sesión para retirar las de acceso. Bloquear las necesarias puede impedir iniciar sesión; borrar la de idioma hará que deba seleccionarse de nuevo.",
+            "Los enlaces externos a Instagram, estudios o vídeos no equivalen a reproductores integrados: al abrir otra web se aplican sus propias políticas. Antes de publicar esta política como definitiva se revisará también el comportamiento real del alojamiento y del dominio."
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Cookie policy",
+      "intro": "Access and language cookies identified in the website code.",
+      "pending": [
+        "Check this inventory against real cookies on the final domain and all authentication flows.",
+        "Review this policy and consent before adding analytics, advertising or embedded players."
+      ],
+      "sections": [
+        {
+          "id": "uso",
+          "title": "1. What the website uses",
+          "paragraphs": [
+            "The code review identified no advertising analytics, marketing pixels or embedded external video players. Authentication and language preference cookies support requested functions. Hosting logs are described in Privacy and should not be confused with advertising cookies."
+          ]
+        },
+        {
+          "id": "inventario",
+          "title": "2. Cookie inventory",
+          "paragraphs": [
+            "equilab_locale: remembers Spanish or English; configured lifetime of one year; a first-party functional preference cookie, not a tracking tool.",
+            "sb-<project>-auth-token and .0, .1 and other chunks: maintain and refresh the Supabase session on this domain. The installed SDK sets a maximum cookie lifetime of 400 days, although sessions can expire or be revoked earlier and values are refreshed. Signing out removes authentication cookies managed by the SDK.",
+            "sb-<project>-auth-token-code-verifier: may appear during PKCE confirmation or recovery flows to secure the code exchange. It uses the SDK’s cookie settings, with a configured maximum of 400 days, and is normally removed after exchange. Its name varies by project."
+          ]
+        },
+        {
+          "id": "consentimiento",
+          "title": "3. Consent and changes",
+          "paragraphs": [
+            "Cookies strictly necessary for a requested service and user-selected preferences may be exempt from consent under LSSI Article 22(2). Based on the uses identified in the code, no analytics or advertising consent panel has been added.",
+            "If non-exempt cookies are introduced, they must remain off until valid consent. Purposes, providers and lifetimes must be disclosed, with equally accessible acceptance and rejection, granular choices where applicable and withdrawal as easy as consent."
+          ]
+        },
+        {
+          "id": "control",
+          "title": "4. Managing cookies",
+          "paragraphs": [
+            "You can inspect and delete cookies in your browser’s privacy settings and sign out to remove access cookies. Blocking necessary cookies may prevent login; deleting the language cookie requires a new selection.",
+            "External Instagram, research and video links are not embedded players: opening another website brings its own policies into play. Actual hosting and final-domain behaviour must also be checked before finalising this policy."
+          ]
+        }
+      ]
+    }
+  }
+}

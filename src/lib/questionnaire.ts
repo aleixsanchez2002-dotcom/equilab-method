@@ -1,7 +1,7 @@
 export type Respuestas = Record<string, string | string[]>;
 export type PreguntaCuestionario = {
   id: string;
-  tipo: "select" | "multiselect" | "texto" | "numero";
+  tipo: "select" | "multiselect" | "texto" | "numero" | "telefono";
   texto: string;
   seccion?: string;
   opciones?: string[];
@@ -14,7 +14,7 @@ export type PreguntaCuestionario = {
   exclusivas?: string[];
   mostrarSi?: { id: string; valores: string[] };
 };
-export const QUESTIONNAIRE_VERSION = 2;
+export const QUESTIONNAIRE_VERSION = 3;
 export const QUESTIONNAIRE_TITLE = "Perfil inicial del jinete — Equilab";
 export const QUESTIONNAIRE_SECTIONS = [
   { id: "perfil", titulo: "Tu perfil como jinete", descripcion: "Empezamos por tu experiencia y tu día a día a caballo." },
@@ -100,13 +100,6 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     ]
   },
   {
-    "id": "fortalezas",
-    "seccion": "tecnica",
-    "tipo": "texto",
-    "texto": "¿Qué se te da mejor encima del caballo?",
-    "ayuda": "Queremos conocer también tus puntos fuertes."
-  },
-  {
     "id": "defecto_postural",
     "seccion": "tecnica",
     "tipo": "multiselect",
@@ -119,6 +112,9 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
       "Hombros adelantados",
       "Cadera bloqueada",
       "Pierna inestable",
+      "Puntas de los pies demasiado hacia fuera",
+      "Codos abiertos",
+      "Talones que suben",
       "Me cuesta mantener el asiento en la reunión",
       "Otra dificultad",
       "Ninguna en particular"
@@ -130,9 +126,9 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     "tipo": "select",
     "texto": "¿Cómo sientes tu equilibrio y estabilidad en la silla?",
     "opciones": [
+      "No tengo problemas de equilibrio ni estabilidad",
       "Me cuesta mantenerlos",
       "Depende del ejercicio o del aire",
-      "Me siento estable casi siempre",
       "No sabría valorarlo"
     ]
   },
@@ -142,9 +138,10 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     "tipo": "select",
     "texto": "¿Te cuesta mantener la postura a medida que avanza la sesión?",
     "opciones": [
-      "Casi nunca",
+      "No, mantengo la postura sin problemas",
       "Al final de sesiones largas",
-      "A menudo, incluso en sesiones cortas"
+      "A menudo, incluso en sesiones cortas",
+      "No sabría valorarlo"
     ]
   },
   {
@@ -153,9 +150,10 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     "tipo": "select",
     "texto": "¿Te cuesta coordinar piernas, manos y tronco sin tensarte?",
     "opciones": [
-      "Casi nunca",
+      "No, coordino las ayudas sin problemas",
       "En ejercicios concretos",
-      "Con bastante frecuencia"
+      "Con bastante frecuencia",
+      "No sabría valorarlo"
     ]
   },
   {
@@ -164,18 +162,19 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     "tipo": "select",
     "texto": "¿Notas diferencias entre tu lado derecho e izquierdo?",
     "opciones": [
-      "No noto diferencias",
-      "Me cuesta más hacia la derecha",
-      "Me cuesta más hacia la izquierda",
-      "Noto diferencias, pero no sé describirlas"
-    ]
+      "Me noto más desequilibrado/a en el lado derecho",
+      "Me noto más desequilibrado/a en el lado izquierdo",
+      "No noto desequilibrios entre ambos lados",
+      "No sabría identificar el lado"
+    ],
+    "ayuda": "Piensa en tu cuerpo y tu apoyo en la silla, no en la mano a la que trabaja el caballo."
   },
   {
     "id": "indicaciones_entrenador",
     "seccion": "tecnica",
     "tipo": "texto",
     "texto": "¿Qué indicaciones concretas te ha dado tu entrenador?",
-    "ayuda": "Incluye aquí otras dificultades técnicas que quieras trabajar."
+    "ayuda": "Por ejemplo: corregir unas puntas de los pies demasiado hacia fuera, acercar los codos al cuerpo, mantener los talones abajo o evitar adelantar los hombros. Describe lo que te pide tu entrenador. Si no te ha dado indicaciones concretas, puedes escribir «Ninguna» o dejarlo en blanco."
   },
   {
     "id": "experiencia_gym",
@@ -209,7 +208,7 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     "opciones": [
       "Me cuesta estabilizarlo",
       "Intermedio",
-      "Me siento fuerte y con control",
+      "No tengo dificultades para controlar el tronco",
       "No sabría valorarlo"
     ]
   },
@@ -403,6 +402,14 @@ export const QUESTIONNAIRE_QUESTIONS: PreguntaCuestionario[] = [
     "seccion": "objetivos",
     "tipo": "texto",
     "texto": "¿Qué esperas del equipo y qué más te gustaría contarnos?"
+  },
+  {
+    "id": "telefono_contacto",
+    "seccion": "objetivos",
+    "tipo": "telefono",
+    "texto": "¿En qué número de teléfono podemos contactar contigo?",
+    "requerida": true,
+    "ayuda": "Incluye el prefijo de tu país si estás fuera de España. Solo lo usará el equipo para coordinar tu entrenamiento y resolver dudas sobre tu valoración."
   }
 ];
 
@@ -435,9 +442,14 @@ export function validarCuestionario(preguntas: PreguntaCuestionario[], entrada: 
     } else if (p.tipo === "numero" && valor) {
       const n = Number(valor.replace(",", "."));
       if (!Number.isFinite(n) || (p.min !== undefined && n < p.min) || (p.max !== undefined && n > p.max) || (p.paso !== "0.1" && !Number.isInteger(n))) errores[p.id] = "Revisa el número introducido.";
+    } else if (p.tipo === "telefono" && valor && (!/^\+?[0-9\s().-]+$/.test(valor) || valor.replace(/\D/g, "").length < 8 || valor.replace(/\D/g, "").length > 15 || valor.length > 32)) {
+      errores[p.id] = "Introduce un teléfono válido de 8 a 15 dígitos, con prefijo de país si corresponde.";
     } else if (valor.length > 2000) {
       errores[p.id] = "Resume tu respuesta en un máximo de 2000 caracteres.";
     }
   }
   return { respuestas, errores };
 }
+
+export const CONTACTO_BASICO = "Nos pondremos en contacto contigo si necesitamos más información para preparar tu rutina.";
+export const CONTACTO_PREMIUM = "Con el plan Premium nos pondremos en contacto contigo para completar tu valoración y pedirte un vídeo compitiendo. Si no compites, acordaremos contigo un vídeo entrenando. No tienes que subirlo en este cuestionario.";

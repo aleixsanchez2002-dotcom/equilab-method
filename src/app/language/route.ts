@@ -10,7 +10,7 @@ export function GET(request: NextRequest) {
   let path = "/";
   if (next.startsWith("/") && !next.startsWith("//") && !next.includes("\\")) {
     const destination = new URL(next, request.url);
-    const allowed = /^\/(?:en\/?|acceso(?:\/[^?#]*)?|app(?:\/[^?#]*)?|admin(?:\/[^?#]*)?)?$/.test(destination.pathname);
+    const allowed = /^\/(?:en\/?|acceso(?:\/[^?#]*)?|app(?:\/[^?#]*)?|admin(?:\/[^?#]*)?|legal(?:\/(?:aviso-legal|privacidad|condiciones|cookies)\/?)?)?$/.test(destination.pathname);
     if (destination.origin === request.nextUrl.origin && allowed) {
       path = `${destination.pathname}${destination.search}`;
     }

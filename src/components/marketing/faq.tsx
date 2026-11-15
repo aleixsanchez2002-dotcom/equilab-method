@@ -24,7 +24,7 @@ const faqs = [
     },
     {
         question: "¿Puedo cancelar cuando quiera?",
-        answer: "Sí. No hay permanencia: cancelas desde tu portal de cliente en un clic y mantienes el acceso hasta el final del periodo que ya has pagado.",
+        answer: "Los planes se plantean por meses y sin permanencia. Antes de contratar confirmaremos por escrito cómo solicitar la baja. Los cobros y las renovaciones automáticas todavía no están activados.",
     },
 ];
 function FaqItem({ question, answer, index, }: {

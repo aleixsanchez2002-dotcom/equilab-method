@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { validarRegistro, type SesionEnviada } from "@/lib/workout-submission";
 import { lunesDeLaSemana } from "@/lib/semana";
 import { createSupabaseServer } from "@/lib/supabase/server";
 
@@ -52,85 +53,23 @@ export async function registrarPeso(
 
 /* ————— Registro de una sesión de entrenamiento ————— */
 
-export type RegistroEstado = {
-  error?: string;
-  success?: string;
-  /** Marca del guardado: al cambiar, el formulario se vacía. */
-  token?: number;
-};
+export type { SerieHecha, RegistroInput } from "@/lib/workout-submission";
+export type RegistroEstado = { error?: string; success?: string; registro?: SesionEnviada };
 
-/** `rir` = repeticiones en reserva que le quedaban al terminar la serie. */
-export type SerieHecha = {
-  kg: string;
-  reps: string;
-  rir: string;
-  descanso: string;
-};
-export type EntradaEjercicio = {
-  routine_exercise_id: string;
-  exercise_id: string;
-  series: SerieHecha[];
-};
-export type RegistroInput = {
-  routine_day_id: string;
-  entradas: EntradaEjercicio[];
-};
-
-/** Guarda lo que el jinete ha hecho hoy: kg, reps y descanso por serie. */
-export async function registrarSesion(
-  _prev: RegistroEstado,
-  formData: FormData,
-): Promise<RegistroEstado> {
-  let datos: RegistroInput;
-  try {
-    datos = JSON.parse(String(formData.get("payload") ?? "")) as RegistroInput;
-  } catch {
-    return { error: "No se pudo leer el registro. Recarga la página." };
-  }
-
-  // Solo cuentan las series con algo apuntado; los ejercicios sin nada, fuera.
-  const entradas = datos.entradas
-    .map((e) => ({
-      ...e,
-      series: e.series.filter(
-        (s) => (s.kg + s.reps + s.rir + s.descanso).trim() !== "",
-      ),
-    }))
-    .filter((e) => e.series.length > 0);
-
-  if (entradas.length === 0) {
-    return { error: "Apunta al menos una serie antes de guardar." };
-  }
-
+export async function registrarSesion(_prev: RegistroEstado, formData: FormData): Promise<RegistroEstado> {
+  const raw = String(formData.get("payload") ?? "");
+  if (raw.length > 100000) return { error: "Revisa el registro: apunta al menos una serie y utiliza valores válidos." };
+  let parsed: unknown;
+  try { parsed = JSON.parse(raw); } catch { return {error:"No se pudo leer el registro. Recarga la página."}; }
+  const datos = validarRegistro(parsed);
+  if (!datos) return {error:"Revisa el registro: apunta al menos una serie y utiliza valores válidos."};
   const supabase = await createSupabaseServer();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return { error: "Tu sesión ha caducado: vuelve a entrar." };
-
-  const { data: sesion, error: errorSesion } = await supabase
-    .from("workout_sessions")
-    .insert({ user_id: user.id, routine_day_id: datos.routine_day_id })
-    .select("id")
-    .single<{ id: string }>();
-
-  if (errorSesion || !sesion) {
-    return { error: "No se pudo guardar. ¿Sigue vigente tu suscripción?" };
-  }
-
-  const filas = entradas.map((e) => ({
-    session_id: sesion.id,
-    user_id: user.id,
-    exercise_id: e.exercise_id,
-    routine_exercise_id: e.routine_exercise_id,
-    series: e.series,
-  }));
-
-  const { error: errorLogs } = await supabase.from("workout_logs").insert(filas);
-  if (errorLogs) {
-    return { error: "No se pudo guardar el detalle de las series. Inténtalo de nuevo." };
-  }
-
+  const {data:{user}} = await supabase.auth.getUser();
+  if (!user) return {error:"Tu sesión ha caducado: vuelve a entrar."};
+  const {data,error} = await supabase.rpc("enviar_dia_entrenamiento", {p_dia:datos.routine_day_id,p_entradas:datos.entradas,p_revision:datos.revision});
+  if (error) return {error: error.code === "40001" ? "Este día ya se ha enviado o modificado. Recarga la página para ver el registro guardado." : "No se pudo enviar el día. Comprueba tu acceso e inténtalo de nuevo; tus datos siguen en el formulario."};
+  const guardado = data as {id:string;completed_at:string;revision:number};
   revalidatePath("/app");
-  return { success: "Sesión guardada. ¡Buen trabajo!", token: Date.now() };
+  revalidatePath(`/admin/clientes/${user.id}`);
+  return {success:datos.revision === null ? "Día completado. Tu registro ya está disponible para el equipo." : "Corrección guardada. El día sigue completado.",registro:{...guardado,entradas:datos.entradas}};
 }
