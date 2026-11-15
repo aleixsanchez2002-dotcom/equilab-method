@@ -36,8 +36,8 @@ export async function Founders() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Overline accent>{t("El equipo")}</Overline>
-              <h2 className="section-heading mt-6 font-display text-sand-50">{t("TRES MIRADAS.")}<em className="block text-cognac-300">{t("UN MISMO OBJETIVO.")}</em>
+              <Overline>{t("El equipo")}</Overline>
+              <h2 className="section-heading mt-6 font-display text-sand-50">{t("QUIÉN ESTÁ DETRÁS")}<em className="block text-cognac-300">{t("DEL MÉTODO.")}</em>
               </h2>
             </div>
             <p className="max-w-sm text-base leading-relaxed text-sand-500">{t("Equitación, preparación física y tecnología. Tres formas de aportar a un entrenamiento que puedes llevar contigo.")}</p>
@@ -57,10 +57,10 @@ export async function Founders() {
                 <div className="min-w-0 flex-1">
                   <div className="lg:mt-6 lg:border-t lg:border-edge lg:pt-5 lg:transition-colors lg:duration-250 lg:group-hover:border-cognac-500/40">
                     <h3 className="font-display text-xl text-sand-50">{t(name)}</h3>
-                    <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-cognac-400">{t(role)}</p>
+                    <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-sand-500">{t(role)}</p>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-sand-500 lg:mt-4">{t(bio)}</p>
-                  <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-cognac-400 underline-offset-4 transition-colors hover:text-cognac-300 hover:underline lg:mt-4">
+                  <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-sand-300 underline-offset-4 transition-colors hover:text-cognac-300 hover:underline lg:mt-4">
                     @{instagram}<span aria-hidden="true">↗</span>
                   </a>
                 </div>

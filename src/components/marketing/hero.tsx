@@ -11,7 +11,7 @@ export async function Hero() {
         <div className="grid items-center gap-8 pb-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
           <div className="animate-rise lg:py-2">
             <div aria-hidden="true" className="hero-rule mb-7 hidden sm:block"/>
-            <Overline accent>{t("Preparaci\u00F3n f\u00EDsica para jinetes")}</Overline>
+            <Overline>{t("Preparaci\u00F3n f\u00EDsica para jinetes")}</Overline>
             <h1 className="mt-5 font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.98] text-sand-50 sm:mt-6">{t("ENTRENA")}<br />{t("FUERA.")}<br />
               <span className="text-cognac-400">{t("MONTA")}<br className="hidden lg:block"/>{t(" MEJOR.")}</span>
             </h1>
@@ -21,7 +21,7 @@ export async function Hero() {
               {/* En móvil la sección del método es justo la siguiente: basta el scroll. */}
               <a href="#metodo" className="hidden sm:block"><Button variant="outline" size="lg" as="span">{t("El m\u00E9todo")}</Button></a>
             </div>
-            <p className="mt-5 text-sm text-sand-500 sm:mt-6">{t("Desde {0} €/mes ", { "0": PLAN_PRICES.basico / 100 })}<span aria-hidden="true" className="mx-2 text-cognac-400">/</span>{t(" Sin permanencia")}</p>
+            <p className="mt-5 text-sm text-sand-500 sm:mt-6">{t("Desde {0} €/mes ", { "0": PLAN_PRICES.basico / 100 })}<span aria-hidden="true" className="mx-2 text-sand-600">/</span>{t(" Sin permanencia")}</p>
           </div>
           {/* Foto completa en móvil y tableta (3:2, sin recortar al caballo);
               cuadrada en la columna de escritorio. Sin texto encima: el
@@ -31,7 +31,7 @@ export async function Hero() {
           </figure>
         </div>
         <div className="grid grid-cols-1 gap-3 border-t border-edge py-6 sm:grid-cols-3 sm:gap-8 sm:py-7">
-          {[t("Fuerza espec\u00EDfica"), t("Control y movilidad"), t("Progreso a tu ritmo")].map((label) => (<div key={label} className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.08em]"><span aria-hidden="true" className="text-cognac-400">/</span><span className="text-sand-300">{label}</span></div>))}
+          {[t("Fuerza espec\u00EDfica"), t("Control y movilidad"), t("Progreso a tu ritmo")].map((label) => (<div key={label} className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.08em]"><span aria-hidden="true" className="text-sand-600">/</span><span className="text-sand-300">{label}</span></div>))}
         </div>
       </div>
     </section>);

@@ -12,7 +12,7 @@ function EnlacesIdioma() {
     const params = useSearchParams();
     const destination = `${pathname}${params.size ? `?${params.toString()}` : ""}`;
     return (<>
-      {IDIOMAS.map((language) => (<a key={language} href={`/language?locale=${language}&next=${encodeURIComponent(destination)}`} lang={language} hrefLang={language} aria-label={language === "en" ? "English" : "Español"} aria-current={locale === language ? "true" : undefined} className={`inline-flex min-h-10 min-w-11 items-center justify-center rounded-full text-xs font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400 ${locale === language ? "bg-cognac-500 text-ink-950" : "text-sand-300 hover:bg-ink-800"}`}>{language.toUpperCase()}</a>))}
+      {IDIOMAS.map((language) => (<a key={language} href={`/language?locale=${language}&next=${encodeURIComponent(destination)}`} lang={language} hrefLang={language} aria-label={language === "en" ? "English" : "Español"} aria-current={locale === language ? "true" : undefined} className={`inline-flex min-h-10 min-w-11 items-center justify-center rounded-full text-xs font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cognac-400 ${locale === language ? "bg-sand-100 text-ink-950" : "text-sand-500 hover:text-sand-100"}`}>{language.toUpperCase()}</a>))}
     </>);
 }
 

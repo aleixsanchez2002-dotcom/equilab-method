@@ -185,5 +185,25 @@
   color: var(--color-sand-100);
   color-scheme: light;
 }
+
+/* Tarjeta oscura dentro de una sección clara (el plan Premium): recupera los
+   colores grafito/lima de :root para todo lo que contiene. */
+.marketing .light-section .dark-surface {
+  --color-ink-950: #141719;
+  --color-ink-900: #1b1f22;
+  --color-ink-800: #252b2e;
+  --color-sand-50: #f4f5ef;
+  --color-sand-100: #e8ebe5;
+  --color-sand-300: #c8cfca;
+  --color-sand-500: #a6b0aa;
+  --color-sand-600: #929d96;
+  --color-cognac-300: #d9f89a;
+  --color-cognac-400: #c9ef75;
+  --color-cognac-500: #b9e85b;
+  --color-edge: rgba(232, 235, 229, 0.12);
+  --color-edge-strong: rgba(232, 235, 229, 0.25);
+  --color-edge-control: #687074;
+  color: var(--color-sand-100);
+}
 .marketing .section-heading { font-size: clamp(2.1rem, 5.2vw, 4.75rem); line-height: 1.02; }
 .hero-rule { width: 68px; height: 5px; background: var(--color-cognac-500); transform: skewX(-25deg); }

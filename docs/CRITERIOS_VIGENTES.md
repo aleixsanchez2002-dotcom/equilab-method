@@ -49,6 +49,17 @@ Ajustes de composición acordados con Aleix. La portada conserva las mismas secc
 - Compartir y buscadores: la imagen de vista previa es `public/media/compartir.jpg` (1200 × 630) y la URL pública sale de `src/lib/site.ts` (`NEXT_PUBLIC_SITE_URL` cuando haya dominio propio). `robots.txt` deja fuera `/app`, `/admin`, `/auth` y `/language`.
 - Ortografía: «semipersonalizada» y «exculturista» van sin guion ni espacio.
 
+### Uso del color y titulares (13 de noviembre de 2026)
+
+Decisiones de marca delegadas por Aleix. La identidad sigue siendo grafito/lima.
+
+- El lima se reserva para la acción principal y un único destacado por sección (normalmente la segunda línea del titular). Rótulos, cargos, numeraciones, enlaces secundarios y el idioma activo van en neutro.
+- Ritmo de fondos de la portada: hero oscuro, método y pasos claros, equipo oscuro, planes claros, preguntas oscuras, cierre en lima.
+- En planes, el Premium es la única tarjeta oscura (`dark-surface`) y la única con lima; el Básico va en claro.
+- La cabecera es transparente sobre el hero y se vuelve sólida al bajar o al abrir el menú.
+- Titulares: el patrón de dos frases cortas se guarda para el hero, el método y el cierre. El resto son informativos («Tres pasos para empezar», «Quién está detrás del método», «Elige cómo quieres entrenar», «Qué incluye cada plan»).
+- Numeración solo en secuencias reales: los pasos de «Cómo funciona» y las tres fases del método.
+
 ## Idiomas y contenidos
 
 La portada existe en español (`/`) e inglés (`/en`). El idioma también se aplica a acceso y zona privada mediante la cookie de idioma y `src/lib/i18n/`. Todo texto nuevo de interfaz debe incluir su traducción.
