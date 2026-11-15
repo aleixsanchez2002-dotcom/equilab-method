@@ -31,7 +31,7 @@ Para preparar una base de datos nueva, sigue [la guía de Supabase](supabase/REA
 - Área del cliente: Inicio, Mi rutina, Progreso y Cuenta.
 - Panel de equipo, filtros de clientes y editor de rutinas por semanas, días y series.
 - Cuestionario inicial v2 por pasos, revisión final y respuestas agrupadas para el equipo.
-- Plan Básico 40 €/mes y Premium 80 €/mes; contactos privados para Premium vigente.
+- Plan Básico 30 €/mes y Premium 60 €/mes; contactos privados para Premium vigente.
 
 Los pagos automáticos y la agenda de videollamadas siguen pendientes. No se necesita conectar Stripe para probar los recorridos actuales.
 

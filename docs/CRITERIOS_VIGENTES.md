@@ -70,7 +70,7 @@ La portada conserva método, equipo de tres personas, planes y comparación, pre
 
 ## Planes
 
-Tarifas mensuales públicas: **Básico 40 €** y **Premium 80 €**. Fuente del código: `src/lib/plans.ts`. Mantener sincronizada la tabla `plans` mediante las migraciones de Supabase; no duplicar tarifas en los componentes.
+Tarifas mensuales públicas: **Básico 30 €** y **Premium 60 €**. Fuente del código: `src/lib/plans.ts`. Mantener sincronizada la tabla `plans` mediante las migraciones de Supabase; no duplicar tarifas en los componentes.
 
 Básico: cuestionario, propuesta semi-personalizada revisada por el equipo, biblioteca de ejercicios y registro/progreso. Premium: valoración individual, rutina personalizada, seguimiento y contacto directo.
 

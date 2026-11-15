@@ -24,8 +24,9 @@ cada archivo de `migrations/`, pégalo y pulsa **Run**, en orden:
 | `0006_peso_cuenta_explicacion.sql` | Peso corporal semanal e información del bloque |
 | `0007_mesociclos.sql` | Semanas dentro de la rutina |
 | `0008_actividad_cliente.sql` | Resumen de actividad de los clientes |
-| `0009_precios_planes.sql` | Tarifas mensuales: Básico 40 €, Premium 80 € |
+| `0009_precios_planes.sql` | Tarifas mensuales anteriores: Básico 40 €, Premium 80 € (sustituidas por la 0014) |
 | `0010_cuestionario_jinete_v2.sql` | Cuestionario por pasos de perfil, técnica, físico, salud y objetivos |
+| `0014_precios_planes_30_60.sql` | Tarifas mensuales vigentes: Básico 30 €, Premium 60 € |
 
 **De la 0003 en adelante se pueden repetir sin miedo**: si ya estaban
 aplicadas, no dan error ni duplican nada. Las dos primeras solo se ejecutan
