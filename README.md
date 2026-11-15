@@ -9,7 +9,7 @@ Web de preparación física para jinetes. Esta es la versión vigente aprobada p
 Requisitos: Node.js 20.9 o posterior y npm.
 
 ```bash
-git clone https://github.com/aleixsanchez2002-dotcom/equilab-method.git
+git clone --branch giovanni/cambios-locales https://github.com/aleixsanchez2002-dotcom/equilab-method.git
 cd equilab-method
 npm ci
 cp .env.example .env.local
@@ -72,6 +72,6 @@ npm run start
 
 ## Copias anteriores al reinicio del historial
 
-Esta entrega sustituye las ramas y la base anteriores. Si tienes una copia vieja, guarda tus cambios aparte y clona el repositorio de nuevo en otra carpeta. No mezcles el historial anterior con el nuevo `main` ni uses `git pull --allow-unrelated-histories`.
+Esta entrega está en `giovanni/cambios-locales` del repositorio de Aleix. Su rama `main` se conserva sin cambios. Si tienes una copia vieja, guarda tus cambios aparte y clona esta rama en otra carpeta con el comando anterior. No mezcles historiales con `git pull --allow-unrelated-histories`.
 
 Giovanni lleva redes y marca; Alex Ricarte, rutinas y preparación física; Aleix Sánchez, web y experiencia digital.

@@ -191,6 +191,24 @@ export async function guardarRutina(
 
   const supabase = await createSupabaseServer();
   const coachId = (await supabase.auth.getUser()).data.user?.id ?? null;
+  if (!coachId) return { error: "Tu sesión ha caducado: vuelve a entrar." };
+  const { data: perfil, error: perfilError } = await supabase.from("profiles")
+    .select("role").eq("id", coachId).single<{ role: string }>();
+  if (perfilError || !perfil || !["coach", "admin"].includes(perfil.role)) {
+    return { error: "Solo el equipo puede organizar rutinas." };
+  }
+  let destinatario = datos.user_id;
+  if (datos.rutina_id) {
+    const { data: existente, error } = await supabase.from("routines")
+      .select("user_id").eq("id", datos.rutina_id).single<{ user_id: string }>();
+    if (error || !existente) return { error: ERROR_PERMISOS };
+    destinatario = existente.user_id;
+    const {data: enviados,error: errorEnviados} = await supabase.from("workout_sessions")
+      .select("id, routine_days!inner(routine_id)").eq("routine_days.routine_id",datos.rutina_id)
+      .not("completed_at","is",null).limit(1);
+    if (errorEnviados) return {error: ERROR_PERMISOS};
+    if (enviados?.length) return {error:"Este bloque ya tiene días completados. Crea una nueva rutina para conservar los registros enviados."};
+  }
 
   let rutinaId: string;
   if (datos.rutina_id) {
@@ -270,5 +288,8 @@ export async function guardarRutina(
   if (publicar) await marcarArranque(supabase, rutinaId);
 
   revalidatePath("/admin");
+  revalidatePath("/admin/mi-rutina");
+  revalidatePath("/app");
+  if (destinatario === coachId) redirect(`/admin/mi-rutina?guardada=${publicar ? "publicada" : "borrador"}`);
   redirect(`/admin?creada=${publicar ? "publicada" : "borrador"}`);
 }

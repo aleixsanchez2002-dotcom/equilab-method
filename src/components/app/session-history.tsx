@@ -68,6 +68,6 @@ export function SessionHistory({ sesiones }: {
         return null;
     return (<Card className="mt-4 overflow-hidden p-0">
       {sesiones.map((sesion) => (<Sesion key={sesion.id} sesion={sesion}/>))}
-      <p className="border-t border-edge px-6 py-3 text-xs text-sand-600">{t("El historial no se puede modificar: es el registro fiel de tu trabajo.")}</p>
+      <p className="border-t border-edge px-6 py-3 text-xs text-sand-600">{t("Para corregir un envío, abre el día correspondiente en Mi rutina y pulsa Modificar registro.")}</p>
     </Card>);
 }
