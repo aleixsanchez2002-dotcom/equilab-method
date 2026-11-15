@@ -88,7 +88,7 @@ No versionar `.env.local`, claves, credenciales, sesiones, datos reales de clien
 
 ## Cómo cambiar esta base
 
-El repositorio principal del equipo es `https://github.com/JonyQuin/equilab-method`, bajo la cuenta de Giovanni. Las copias anteriores no reciben automáticamente sus cambios.
+El repositorio compartido del equipo es `https://github.com/aleixsanchez2002-dotcom/equilab-method`, bajo la cuenta de Aleix. Por indicación de Giovanni, los cambios locales se entregan en la rama `giovanni/cambios-locales`, sin modificar `main` ni hacer `pull`. El repositorio de `JonyQuin` es una copia distinta: subir cambios allí no los incorpora al repositorio de Aleix.
 
 1. Partir de `main` vigente y leer este documento y `AGENTS.md`.
 2. Hacer un cambio concreto, conservando las funciones aprobadas y los datos existentes.
