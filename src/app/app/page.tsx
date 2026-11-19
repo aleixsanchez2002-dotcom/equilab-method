@@ -42,6 +42,7 @@ type EjercicioDia = {
     series: Serie[];
     exercises: {
         name: string;
+        display_name_en: string | null;
         category: string;
         video_url: string | null;
     } | null;
@@ -149,7 +150,7 @@ export default async function AppPage({ searchParams, }: {
         type DiaLeido = Omit<DiaRutina, "routine_exercises"> & { routine_exercises?: DiaRutina["routine_exercises"] };
         const { data: d, error: diasError } = await supabase.from("routine_days")
             .select(seccion === "rutina"
-                ? "id, week, position, focus, duration_note, routine_exercises(id, position, exercise_id, technique_note, series, exercises(name, category, video_url))"
+                ? "id, week, position, focus, duration_note, routine_exercises(id, position, exercise_id, technique_note, series, exercises(name, display_name_en, category, video_url))"
                 : "id, week, position, focus, duration_note")
             .eq("routine_id", r.id).returns<DiaLeido[]>();
         if (diasError) throw new Error("No se pudieron cargar los días de entrenamiento.");
@@ -190,7 +191,7 @@ export default async function AppPage({ searchParams, }: {
             .map((ej) => ({
             id: ej.id,
             exercise_id: ej.exercise_id,
-            nombre: ej.exercises?.name ?? "Ejercicio",
+            nombre: ej.exercises?.display_name_en ?? ej.exercises?.name ?? "Ejercicio",
             nota: ej.technique_note,
             foto: fotoDeEjercicio(ej.exercises?.name ?? ""),
             video: ej.exercises?.video_url ?? null,

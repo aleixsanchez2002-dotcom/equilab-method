@@ -81,6 +81,7 @@ export async function responderCuestionario(
     const { data: catalogo } = await supabase
       .from("exercises")
       .select("id, name, category, equipment")
+      .eq("manual_only", false)
       .returns<EjercicioCatalogo[]>();
 
     const propuesta = generarRutinaSemi(respuestas, catalogo ?? []);

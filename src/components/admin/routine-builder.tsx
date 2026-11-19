@@ -3,22 +3,18 @@ import { useI18n } from "@/components/i18n/provider";
 import { useActionState, useState } from "react";
 import { guardarRutina, type AccionEstado, type DiaInput, type EjercicioInput, type RutinaInput, type SemanaInput, type SerieInput, } from "@/app/admin/actions";
 import { Button } from "@/components/ui/button";
+import { ExercisePicker, type CatalogExercise } from "./exercise-picker";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 import { EXPLICACION_BASE, explicacionInicial } from "@/lib/routine-explanation";
 /* Letras de pista de doma para los días — la firma de la marca. */
 const LETRAS_PISTA = ["A", "E", "C", "B", "F", "K", "H", "M"];
-type EjercicioCatalogo = {
-    id: string;
-    name: string;
-    category: string;
-};
 type Props = {
     cliente: {
         id: string;
         full_name: string;
     };
-    catalogo: EjercicioCatalogo[];
+    catalogo: CatalogExercise[];
     /** Presentes al abrir una rutina existente para revisarla/editarla. */
     rutinaId?: string;
     inicial?: {
@@ -173,14 +169,10 @@ export function RoutineBuilder({ cliente, catalogo, rutinaId, inicial }: Props) 
                     </span>
                     <div className="flex flex-col gap-2">
                       <label htmlFor={`rb-ej-${s}-${i}-${j}`} className={etiqueta}>{t("Ejercicio")}</label>
-                      <select id={`rb-ej-${s}-${i}-${j}`} value={ej.exercise_id} onChange={(e) => editar((d) => {
-                        d[s].dias[i].ejercicios[j].exercise_id = e.target.value;
-                    })} className={selectCls}>
-                        <option value="">{t("\u2014 Elegir de la biblioteca \u2014")}</option>
-                        {catalogo.map((c) => (<option key={c.id} value={c.id}>
-                            {c.name} · {c.category}
-                          </option>))}
-                      </select>
+                      <ExercisePicker key={`${s}-${i}-${j}`} id={`rb-ej-${s}-${i}-${j}`}
+                        catalog={catalogo} value={ej.exercise_id} onChange={(id) => editar((d) => {
+                          d[s].dias[i].ejercicios[j].exercise_id = id;
+                        })} />
                     </div>
                     <div className="flex flex-col gap-2">
                       <label htmlFor={`rb-nota-${s}-${i}-${j}`} className={etiqueta}>{t("Nota de t\u00E9cnica (opcional)")}</label>
