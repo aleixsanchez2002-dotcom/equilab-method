@@ -94,6 +94,8 @@ Cada miembro del equipo puede crear y organizar sus propias rutinas en `/admin/m
 
 El editor permite organizar semanas y días, copiar días y ejercicios, reordenar ejercicios y aplicar la primera serie a las demás. Guardar borrador y publicar son acciones distintas: el cliente solo ve rutinas publicadas. No sustituir una edición existente por datos de ejemplo.
 
+La biblioteca del editor muestra los ejercicios en inglés, con búsqueda por nombre y alias en castellano o catalán y filtro por grupo muscular. Los movimientos nuevos de selección manual quedan fuera de las propuestas automáticas hasta que el equipo revise sus reglas.
+
 Las rutinas nuevas incluyen una explicación base editable con pautas de fuerza y referencias PubMed verificadas. Es una guía general, no un óptimo universal ni evidencia específica de mejora de la equitación. La sobrecarga progresiva se explica con un ejemplo de repeticiones y carga: aumentar kilos al completar el rango con el RIR y la técnica indicados, sin imponer una subida semanal ni garantizar hipertrofia. La prescripción concreta de cada ejercicio prevalece; el equipo debe ajustar el texto antes de publicar. No modifica series ni descansos automáticamente ni sobrescribe explicaciones de rutinas existentes, aunque estén vacías. La base sin editar dispone de versión inglesa; los textos personalizados se conservan tal como se escriben.
 
 ## Cuestionario inicial

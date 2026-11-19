@@ -25,11 +25,11 @@ export async function seriesDeProgreso(
     exercise_id: string;
     series: SerieRegistrada[];
     performed_on: string;
-    exercises: { name: string } | null;
+    exercises: { name: string; display_name_en: string | null } | null;
   };
   const { data: logs } = await supabase
     .from("workout_logs")
-    .select("exercise_id, series, performed_on, exercises(name)")
+    .select("exercise_id, series, performed_on, exercises(name, display_name_en)")
     .eq("user_id", userId)
     .order("performed_on", { ascending: true })
     .returns<LogRow[]>();
@@ -48,7 +48,7 @@ export async function seriesDeProgreso(
       let entrada = porEjercicio.get(log.exercise_id);
       if (!entrada) {
         entrada = {
-          nombre: log.exercises?.name ?? "Ejercicio",
+          nombre: log.exercises?.display_name_en ?? log.exercises?.name ?? "Ejercicio",
           porFecha: new Map(),
         };
         porEjercicio.set(log.exercise_id, entrada);
@@ -79,7 +79,7 @@ export async function historialDeSesiones(
   type LogRow = {
     session_id: string;
     series: SerieRegistrada[];
-    exercises: { name: string } | null;
+    exercises: { name: string; display_name_en: string | null } | null;
   };
 
   const { data: sesiones } = await supabase
@@ -94,7 +94,7 @@ export async function historialDeSesiones(
 
   const { data: logs } = await supabase
     .from("workout_logs")
-    .select("session_id, series, exercises(name)")
+    .select("session_id, series, exercises(name, display_name_en)")
     .in("session_id", sesiones.map((s) => s.id))
     .returns<LogRow[]>();
 
@@ -128,7 +128,7 @@ export async function historialDeSesiones(
       fecha: s.performed_on,
       titulo: (s.routine_day_id && titulos.get(s.routine_day_id)) || "Sesión",
       logs: (logsPorSesion.get(s.id) ?? []).map((log) => ({
-        ejercicio: log.exercises?.name ?? "Ejercicio",
+        ejercicio: log.exercises?.display_name_en ?? log.exercises?.name ?? "Ejercicio",
         series: log.series,
       })),
     }))

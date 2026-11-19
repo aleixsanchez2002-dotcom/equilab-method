@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { CatalogExercise } from "@/components/admin/exercise-picker";
 import { RoutineBuilder } from "@/components/admin/routine-builder";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   title: "Nueva rutina — Equilab Method",
 };
 
-type EjercicioCatalogo = { id: string; name: string; category: string };
+
 
 export default async function NuevaRutinaPage({
   searchParams,
@@ -46,10 +47,10 @@ export default async function NuevaRutinaPage({
       .single<{ id: string; full_name: string }>(),
     supabase
       .from("exercises")
-      .select("id, name, category")
+      .select("id, name, display_name_en, muscle_group, search_aliases")
       .order("category")
       .order("name")
-      .returns<EjercicioCatalogo[]>(),
+      .returns<CatalogExercise[]>(),
   ]);
 
   if (!cliente) redirect("/admin");
